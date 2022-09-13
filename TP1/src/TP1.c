@@ -18,15 +18,45 @@ int main ()
 	float costoComida =0;
 	float costoTransporte =0;
 
+	//variables de jugadores.
+	int arqueros =0;
+	int defensores =0;
+	int medioCampo =0;
+	int delanteros =0;
+
+	//confederaciones.
+	int AFC =0;
+	int CAF =0;
+	int CONCACAF =0;
+	int CONMEBOL =0;
+	int UEFA =0;
+	int OFC =0;
+
 	do{
 		system("CLS");
-		printf(" ***OPCIONES***\n1)Ingresar costos de mantenimiento.\n2)Carga de jugadores.\n"
-				"3)Realizar los calculos.\n4)Informar resultados.\n5)Salir.\n\n");
+		printf(" ***OPCIONES***\n1.Ingresar costos de mantenimiento."
+				"\n  |Costo de hospedaje -> $%.2f"
+				"\n  |Costo de comida -> $%.2f"
+				"\n  |Costo de transporte -> $%.2f"
+				"\n\n2.Carga de jugadores."
+				"\n  |Arqueros -> %d"
+				"\n  |Defensores -> %d"
+				"\n  |Mediocampistas -> %d"
+				"\n  |Delanteros -> %d"
+				"\n\n3.Realizar los calculos."
+				"\n4.Informar resultados."
+				"\n5.Salir.\n\n",
+				costoHospedaje,costoComida,costoTransporte,
+				arqueros,defensores,medioCampo,delanteros);
 
 		if(utn_pedirInt(&opcion,"Ingrese una opcion: ","error!",1,5,3)==0){
 			switch(opcion){
 			case 1:
 				costosMantenimiento(&costoHospedaje,&costoComida,&costoTransporte);
+				break;
+			case 2:
+				cargaJugadores(&arqueros,&defensores,&medioCampo,&delanteros,
+						&AFC,&CAF,&CONCACAF,&CONMEBOL,&UEFA,&OFC);
 				break;
 
 			case 5:

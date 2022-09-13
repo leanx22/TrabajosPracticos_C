@@ -1,0 +1,22 @@
+//Guia Leandro 1A.
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "utn.h"
+
+
+int main ()
+{
+	setbuf(stdout,NULL);
+
+	int continuar = 1;
+
+	do{
+
+
+
+	}while(continuar == 1);
+
+
+	return 0;
+}

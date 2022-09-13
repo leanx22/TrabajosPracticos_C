@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <conio.h>
 #include "utn.h"
 
 static int myGets(char* cadena, int longitud);
