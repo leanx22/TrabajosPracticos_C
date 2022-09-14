@@ -105,14 +105,8 @@ int cargaJugadores(int* cArqueros,int* cDefensores,int* cMedioc,int* cDelanteros
 
 				switch(opcion){
 					case 1:
-						if(datosJugador(AFC,CAF,CONCACAF,CONMEBOL,UEFA,OFC)==0){
-							cArqueros+=1;
-							printf("\nJugador agregado con exito!");
-							pausa();
-						}else{
-							printf("\nOcurrio un error durante la carga del jugador!.");
-							pausa();
-						}
+						datosJugador();
+						cArqueros+=1;
 						break;//caso1
 					case 5:
 						continuar = 0;
@@ -182,5 +176,5 @@ int datosJugador(int* AFC, int* CAF, int* CONCACAF, int* CONMEBOL, int* UEFA, in
 
 	}
 
-	return retorno;
+	return 0;
 }

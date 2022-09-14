@@ -47,13 +47,13 @@ int* AFC, int* CAF, int* CONCACAF, int* CONMEBOL, int* UEFA, int* OFC);
 /// @return retorna 0 si OK o -1 en caso de algun NULL.
 int sumaConfederacion(int opcion, int* AFC, int* CAF, int* CONCACAF, int* CONMEBOL, int* UEFA, int* OFC);
 
-/// @brief Esta funcion pide los del jugador al usuario para realizar un alta.
+/// @brief Esta funcion pide los del jugador al usuario y realiza el alta.
 ///
-/// @param AFC puntero a contador
-/// @param CAF puntero a contador
-/// @param CONCACAF puntero a contador
-/// @param CONMEBOL puntero a contador
-/// @param UEFA puntero a contador
-/// @param OFC puntero a contador
-/// @return 0 si toda la entrada de datos OK, -1 si null o algun error.
+/// @param AFC
+/// @param CAF
+/// @param CONCACAF
+/// @param CONMEBOL
+/// @param UEFA
+/// @param OFC
+/// @return
 int datosJugador(int* AFC, int* CAF, int* CONCACAF, int* CONMEBOL, int* UEFA, int* OFC);

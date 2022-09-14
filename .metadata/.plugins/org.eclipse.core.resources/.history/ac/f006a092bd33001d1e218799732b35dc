@@ -105,12 +105,16 @@ int cargaJugadores(int* cArqueros,int* cDefensores,int* cMedioc,int* cDelanteros
 
 				switch(opcion){
 					case 1:
-						if(datosJugador(AFC,CAF,CONCACAF,CONMEBOL,UEFA,OFC)==0){
-							cArqueros+=1;
-							printf("\nJugador agregado con exito!");
+						printf("\nIngrese el numero de la camiseta: ");
+						getch(); //utilizo un getch para emular que tomo el dato, no lo guardo ya que no se le da uso en ninguna consigna.
+								//Si fuera necesario el dato, entonces utilizaria mi funcion pedirInt() para validar que se ingrese un int valido.
+
+						if(sumaConfederacion(AFC,CAF,CONCACAF,CONMEBOL,UEFA,OFC)!=-1){
+							*cArqueros+=1;
+							printf("\nEl jugador se agrego correctamente!.");
 							pausa();
 						}else{
-							printf("\nOcurrio un error durante la carga del jugador!.");
+							printf("\nOcurrio un error al intentar agregar al jugador, reintente.");
 							pausa();
 						}
 						break;//caso1
@@ -182,5 +186,5 @@ int datosJugador(int* AFC, int* CAF, int* CONCACAF, int* CONMEBOL, int* UEFA, in
 
 	}
 
-	return retorno;
+	return 0;
 }

@@ -105,12 +105,16 @@ int cargaJugadores(int* cArqueros,int* cDefensores,int* cMedioc,int* cDelanteros
 
 				switch(opcion){
 					case 1:
-						if(datosJugador(AFC,CAF,CONCACAF,CONMEBOL,UEFA,OFC)==0){
-							cArqueros+=1;
-							printf("\nJugador agregado con exito!");
+						printf("\nIngrese el numero de la camiseta: ");
+						getch(); //utilizo un getch para emular que tomo el dato, no lo guardo ya que no se le da uso en ninguna consigna.
+								//Si fuera necesario el dato, entonces utilizaria mi funcion pedirInt() para validar que se ingrese un int valido.
+
+						if(cargaConfederacion(AFC,CAF,CONCACAF,CONMEBOL,UEFA,OFC)!=-1){
+							*cArqueros+=1;
+							printf("\nEl jugador se agrego correctamente!.");
 							pausa();
 						}else{
-							printf("\nOcurrio un error durante la carga del jugador!.");
+							printf("\nOcurrio un error al intentar agregar al jugador, reintente.");
 							pausa();
 						}
 						break;//caso1
@@ -131,14 +135,16 @@ int cargaJugadores(int* cArqueros,int* cDefensores,int* cMedioc,int* cDelanteros
 }
 
 
-int sumaConfederacion(int opcion, int* AFC, int* CAF, int* CONCACAF, int* CONMEBOL, int* UEFA, int* OFC)
+int cargaConfederacion(int* AFC, int* CAF, int* CONCACAF, int* CONMEBOL, int* UEFA, int* OFC)
 {
 	int retorno = -1;
-
+	int confederacion;
 
 	if(AFC!=NULL && CAF!=NULL && CONCACAF!=NULL && CONMEBOL!=NULL && UEFA!=NULL && OFC!=NULL){
+		if(utn_pedirInt(&confederacion,"\nCONFEDERACION?: \n1.AFC\n2.CAF\n3.CONCACAF\n4.CONMEBOL\n5.UEFA\n6.OFC\nIngrese una opcion: ",
+				"ERROR! Reintente",1,6,3)==0){
 
-			switch(opcion){
+			switch(confederacion){
 				case 1:
 					*AFC +=1;
 					break;
@@ -157,30 +163,18 @@ int sumaConfederacion(int opcion, int* AFC, int* CAF, int* CONCACAF, int* CONMEB
 				case 6:
 					*OFC +=1;
 					break;
-
-					retorno =0;
 			}
-
-
+			retorno =0;
+		}
 	}
 
 	return retorno;
 }
 
-int datosJugador(int* AFC, int* CAF, int* CONCACAF, int* CONMEBOL, int* UEFA, int* OFC){
+int datosJugador(){
 	int retorno=-1;
 
-	int confederacion;
-	int camiseta;
+	printf("\nIngrese el numero de la camiseta: ");
 
-	if(utn_pedirInt(&camiseta,"\nIngrese el numero de camiseta: ","\nerror, reintente!",1,99,10)==0 &&
-		utn_pedirInt(&confederacion, "\nCONFEDERACION: \n1.AFC\n2.CAF\n3.CONCACAF\n4.CONMEBOL\n5.UEFA\n6.OFC\nIngrese una opcion: ",
-									"ERROR! Reintente",1,6,3)==0 &&
-		sumaConfederacion(confederacion,AFC,CAF,CONCACAF,CONMEBOL,UEFA,OFC)==0){
-
-		retorno = 0;
-
-	}
-
-	return retorno;
+	return 0;
 }
