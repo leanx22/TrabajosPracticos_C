@@ -78,7 +78,7 @@ int costosMantenimiento(float* hospedaje,float* comida,float* transporte)
 }
 
 int cargaJugadores(int* cArqueros,int* cDefensores,int* cMedioc,int* cDelanteros,
-		int* AFC, int* CAF, int* CONCACAF, int* CONMEBOL, int* UEFA, int* OFC)
+		int* AFC, int* CAF, int* CONCACAF, int* CONMEBOL, int* UEFA, int* OFC,int camisetas[])
 {
 
 	int retorno = -1;
@@ -86,40 +86,87 @@ int cargaJugadores(int* cArqueros,int* cDefensores,int* cMedioc,int* cDelanteros
 	//Vars del submenu.
 	int continuar = 1;
 	int opcion;
+	int totalJugadores;
 
+	int confederacion;
+
+	int camiseta;
 
 	if(cArqueros != NULL && cDefensores != NULL && cMedioc != NULL && cDelanteros != NULL &&
 		AFC != NULL && CAF != NULL && CONCACAF != NULL && CONMEBOL != NULL && UEFA != NULL && OFC != NULL)
 	{
 		do{
+
+			totalJugadores = *cArqueros+*cDefensores+*cMedioc+*cDelanteros;
+
 			system("CLS");
-			printf("*** CARGA DE JUGADORES ***"
+			printf("*** CARGA DE JUGADORES || JUGADORES ACTUALES: %d ***"
 					"\n1.Agregar Arquero. -> %d"
 					"\n2.Agregar Defensor. -> %d"
 					"\n3.Agregar Mediocampista. -> %d"
 					"\n4.Agregar Delantero. -> %d"
 					"\n5.Volver al menu.",
-					*cArqueros,*cDefensores,*cMedioc,*cDelanteros);
+					totalJugadores,*cArqueros,*cDefensores,*cMedioc,*cDelanteros);
 
-			if(utn_pedirInt(&opcion,"\nIngrese una opcion: ", "\nERROR! Reintente.",1,5,3)==0){
+			if(utn_pedirInt(&opcion,"\nIngrese su opcion: ","\nerror, reintente!",1,5,3)==0){//agregar al if si son mas de 22 jugadores
 
 				switch(opcion){
 					case 1:
-						if(datosJugador(AFC,CAF,CONCACAF,CONMEBOL,UEFA,OFC)==0){
-							cArqueros+=1;
-							printf("\nJugador agregado con exito!");
+						if(datosJugador(&camiseta,&confederacion)==0 &&
+								sumarConfederacion(AFC,CAF,CONCACAF,CONMEBOL,UEFA,OFC,confederacion)==0){
+
+							*cArqueros+=1;
+							printf("\nJugador agregado correctamente!");
 							pausa();
 						}else{
-							printf("\nOcurrio un error durante la carga del jugador!.");
+							printf("\nOcurrio un problema al aniadir el jugador!");
 							pausa();
 						}
-						break;//caso1
+						break;
+					case 2:
+						if(datosJugador(&camiseta,&confederacion)==0 &&
+								sumarConfederacion(AFC,CAF,CONCACAF,CONMEBOL,UEFA,OFC,confederacion)==0){
+
+							*cDefensores+=1;
+							printf("\nJugador agregado correctamente!");
+							pausa();
+						}else{
+							printf("\nOcurrio un problema al aniadir el jugador!");
+							pausa();
+						}
+						break;
+
+					case 3:
+						if(datosJugador(&camiseta,&confederacion)==0 &&
+								sumarConfederacion(AFC,CAF,CONCACAF,CONMEBOL,UEFA,OFC,confederacion)==0){
+
+							*cMedioc+=1;
+							printf("\nJugador agregado correctamente!");
+							pausa();
+						}else{
+							printf("\nOcurrio un problema al aniadir el jugador!");
+							pausa();
+						}
+						break;
+
+					case 4:
+						if(datosJugador(&camiseta,&confederacion)==0 &&
+								sumarConfederacion(AFC,CAF,CONCACAF,CONMEBOL,UEFA,OFC,confederacion)==0){
+
+							*cDelanteros+=1;
+							printf("\nJugador agregado correctamente!");
+							pausa();
+						}else{
+							printf("\nOcurrio un problema al aniadir el jugador!");
+							pausa();									}
+						break;
+
 					case 5:
 						continuar = 0;
-						break;//caso5
-				}//switch
+						break;
+				}
 
-			}//if1
+			}//un else que diga que ya se alcanzo el maximo de jugadores.
 
 		}while(continuar == 1);
 
@@ -131,56 +178,58 @@ int cargaJugadores(int* cArqueros,int* cDefensores,int* cMedioc,int* cDelanteros
 }
 
 
-int sumaConfederacion(int opcion, int* AFC, int* CAF, int* CONCACAF, int* CONMEBOL, int* UEFA, int* OFC)
-{
+int datosJugador(int* camisetas, int* confederacion){
+
+	int retorno =-1;
+	//int camiseta;
+
+	if(camisetas != NULL){
+		if(utn_pedirInt(camisetas,"\nIngrese el numero de la camiseta: ","\nError, fuera de rango.",1,99,3)==0 &&
+				utn_pedirInt(confederacion,"\nCONFEDERACION?\n1.AFC\n2.CAF\n3.CONCACAF\n4.CONMEBOL\n5.UEFA"
+						"\n6.OFC\nIngrese una opcion: ","\nError, reintente.",1,6,3)==0){
+			retorno = 0;
+		}
+
+	}
+
+
+	return retorno;
+}
+
+
+int sumarConfederacion(int* AFC, int* CAF, int* CONCACAF, int* CONMEBOL, int* UEFA, int* OFC,int confederacion){
+
 	int retorno = -1;
 
+	if(AFC != NULL && CAF != NULL && CONCACAF != NULL && CONMEBOL != NULL && UEFA != NULL && OFC != NULL &&
+		confederacion>0 && confederacion<7){
 
-	if(AFC!=NULL && CAF!=NULL && CONCACAF!=NULL && CONMEBOL!=NULL && UEFA!=NULL && OFC!=NULL){
-
-			switch(opcion){
-				case 1:
-					*AFC +=1;
-					break;
-				case 2:
-					*CAF +=1;
-					break;
-				case 3:
-					*CONCACAF +=1;
-					break;
-				case 4:
-					*CONMEBOL +=1;
-					break;
-				case 5:
-					*UEFA +=1;
-					break;
-				case 6:
-					*OFC +=1;
-					break;
-
-					retorno =0;
-			}
-
-
+		switch(confederacion){
+			case 1:
+				*AFC+=1;
+				break;
+			case 2:
+				*CAF+=1;
+				break;
+			case 3:
+				*CONCACAF+=1;
+				break;
+			case 4:
+				*CONMEBOL+=1;
+				break;
+			case 5:
+				*UEFA+=1;
+				break;
+			case 6:
+				*OFC+=1;
+		}
+		retorno =0;
 	}
 
 	return retorno;
 }
 
-int datosJugador(int* AFC, int* CAF, int* CONCACAF, int* CONMEBOL, int* UEFA, int* OFC){
-	int retorno=-1;
 
-	int confederacion;
-	int camiseta;
 
-	if(utn_pedirInt(&camiseta,"\nIngrese el numero de camiseta: ","\nerror, reintente!",1,99,10)==0 &&
-		utn_pedirInt(&confederacion, "\nCONFEDERACION: \n1.AFC\n2.CAF\n3.CONCACAF\n4.CONMEBOL\n5.UEFA\n6.OFC\nIngrese una opcion: ",
-									"ERROR! Reintente",1,6,3)==0 &&
-		sumaConfederacion(confederacion,AFC,CAF,CONCACAF,CONMEBOL,UEFA,OFC)==0){
 
-		retorno = 0;
 
-	}
-
-	return retorno;
-}

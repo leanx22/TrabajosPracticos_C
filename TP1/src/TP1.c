@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include "utn.h"
 #include "cargaDatos.h"
+#include "calculos.h"
+
 
 int main ()
 {
@@ -23,6 +25,7 @@ int main ()
 	int defensores =0;
 	int medioCampo =0;
 	int delanteros =0;
+	int camisetas = 0; //OJO
 
 	//confederaciones.
 	int AFC =0;
@@ -32,17 +35,25 @@ int main ()
 	int UEFA =0;
 	int OFC =0;
 
+	//promedio confederaciones.
+	float promAFC=0;
+	float promCAF=0;
+	float promCONCACAF=0;
+	float promCONMEBOL=0;
+	float promUEFA=0;
+	float promOFC=0;
+
 	do{
 		system("CLS");
 		printf(" ***OPCIONES***\n1.Ingresar costos de mantenimiento."
 				"\n  |Costo de hospedaje -> $%.2f"
 				"\n  |Costo de comida -> $%.2f"
-				"\n  |Costo de transporte -> $%.2f"
+				"\n  `Costo de transporte -> $%.2f"
 				"\n\n2.Carga de jugadores."
 				"\n  |Arqueros -> %d"
 				"\n  |Defensores -> %d"
 				"\n  |Mediocampistas -> %d"
-				"\n  |Delanteros -> %d"
+				"\n  `Delanteros -> %d"
 				"\n\n3.Realizar los calculos."
 				"\n4.Informar resultados."
 				"\n5.Salir.\n\n",
@@ -56,7 +67,7 @@ int main ()
 				break;
 			case 2:
 				cargaJugadores(&arqueros,&defensores,&medioCampo,&delanteros,
-						&AFC,&CAF,&CONCACAF,&CONMEBOL,&UEFA,&OFC);
+						&AFC,&CAF,&CONCACAF,&CONMEBOL,&UEFA,&OFC,&camisetas);
 				break;
 
 			case 5:

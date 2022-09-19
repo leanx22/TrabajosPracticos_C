@@ -33,27 +33,23 @@ int costosMantenimiento(float* hospedaje,float* comida,float* transporte);
 /// @param OFC IDEM
 /// @return retorno -1 si error o null o (0) si OK.
 int cargaJugadores(int* cArqueros,int* cDefensores,int* cMedioc,int* cDelanteros,
-int* AFC, int* CAF, int* CONCACAF, int* CONMEBOL, int* UEFA, int* OFC);
+int* AFC, int* CAF, int* CONCACAF, int* CONMEBOL, int* UEFA, int* OFC,int camisetas[]);
 
-/// @brief Esta funcion suma +1 al contador de la confederacion correspodiente. /es utilizada dentro de datos jugador.
+/// @brief Esta funcion pide los datos de los jugadores.
 ///
-/// @param opcion Se le pasa por este parametro la confederacion a la cual se le quiere sumar +1.
-/// @param AFC puntero a la variable contador de dicha confederacion.
-/// @param CAF IDEM
-/// @param CONCACAF IDEM
-/// @param CONMEBOL IDEM
-/// @param UEFA IDEM
-/// @param OFC IDEM
-/// @return retorna 0 si OK o -1 en caso de algun NULL.
-int sumaConfederacion(int opcion, int* AFC, int* CAF, int* CONCACAF, int* CONMEBOL, int* UEFA, int* OFC);
+/// @param camisetas puntero donde se guardara la camiseta ingresada.
+/// @param confederacion puntero a variable donde se guardara la ultima confederacion ingresada.
+/// @return 0 ok -1 en caso de error.
+int datosJugador(int* camisetas, int* confederacion);
 
-/// @brief Esta funcion pide los del jugador al usuario para realizar un alta.
+/// @brief Esta funcion es la encargada de sumar +1 a la confederacion seleccionada a la hora de la carga.
 ///
-/// @param AFC puntero a contador
-/// @param CAF puntero a contador
-/// @param CONCACAF puntero a contador
-/// @param CONMEBOL puntero a contador
-/// @param UEFA puntero a contador
-/// @param OFC puntero a contador
-/// @return 0 si toda la entrada de datos OK, -1 si null o algun error.
-int datosJugador(int* AFC, int* CAF, int* CONCACAF, int* CONMEBOL, int* UEFA, int* OFC);
+/// @param AFC	Punteros a contadores de las confederaciones.
+/// @param CAF
+/// @param CONCACAF
+/// @param CONMEBOL
+/// @param UEFA
+/// @param OFC
+/// @param confederacion
+/// @return	0 ok -1 en caso de error.
+int sumarConfederacion(int* AFC, int* CAF, int* CONCACAF, int* CONMEBOL, int* UEFA, int* OFC,int confederacion);
