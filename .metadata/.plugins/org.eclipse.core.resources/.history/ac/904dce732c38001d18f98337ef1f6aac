@@ -1,0 +1,10 @@
+/*
+ * calculos.c
+ *
+ *  Created on: 19 sep. 2022
+ *      Author: Leandro
+ */
+#include "calculos.h"
+#include <stdio.h>
+#include <stdlib.h>
+

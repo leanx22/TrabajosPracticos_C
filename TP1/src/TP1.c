@@ -69,7 +69,19 @@ int main ()
 				cargaJugadores(&arqueros,&defensores,&medioCampo,&delanteros,
 						&AFC,&CAF,&CONCACAF,&CONMEBOL,&UEFA,&OFC,&camisetas);
 				break;
-
+			case 3:
+				if(calcularPromedio(UEFA,CONMEBOL,CONCACAF,AFC,OFC,CAF,
+						&promUEFA,&promCONMEBOL,&promCONCACAF,&promAFC,&promOFC,&promCAF)!=-1){
+					printf("\nCALCULOS OK!");
+					pausa();
+				}else{
+					printf("\nOcurrio un problema al realizar los calculos!"
+							"\n--POSIBLES CAUSAS--"
+							"\n-Debe haber POR LO MENOS 1 jugador en cada CONFEDERACION, ya que para calcular promedios no se puede dividir por 0!."
+							"\n-Se pudo haber recibido un puntero nulo.");
+					pausa();
+				}
+				break;
 			case 5:
 				continuar = 0;
 				break;
