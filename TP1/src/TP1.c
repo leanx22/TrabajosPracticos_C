@@ -6,6 +6,7 @@
 #include "cargaDatos.h"
 #include "calculos.h"
 
+#define TAM 22
 
 int main ()
 {
@@ -25,7 +26,7 @@ int main ()
 	int defensores =0;
 	int medioCampo =0;
 	int delanteros =0;
-	int camisetas = 0; //OJO
+	int camisetas[TAM];
 
 	//confederaciones.
 	int AFC =0;
@@ -42,6 +43,8 @@ int main ()
 	float promCONMEBOL=0;
 	float promUEFA=0;
 	float promOFC=0;
+
+	inicializarCamisetas(camisetas,TAM);
 
 	do{
 		system("CLS");
@@ -67,7 +70,7 @@ int main ()
 				break;
 			case 2:
 				cargaJugadores(&arqueros,&defensores,&medioCampo,&delanteros,
-						&AFC,&CAF,&CONCACAF,&CONMEBOL,&UEFA,&OFC,&camisetas);
+						&AFC,&CAF,&CONCACAF,&CONMEBOL,&UEFA,&OFC,camisetas,TAM);
 				break;
 			case 3:
 				if(calcularPromedio(UEFA,CONMEBOL,CONCACAF,AFC,OFC,CAF,

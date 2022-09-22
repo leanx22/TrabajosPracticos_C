@@ -78,7 +78,7 @@ int costosMantenimiento(float* hospedaje,float* comida,float* transporte)
 }
 
 int cargaJugadores(int* cArqueros,int* cDefensores,int* cMedioc,int* cDelanteros,
-		int* AFC, int* CAF, int* CONCACAF, int* CONMEBOL, int* UEFA, int* OFC,int camisetas[])
+		int* AFC, int* CAF, int* CONCACAF, int* CONMEBOL, int* UEFA, int* OFC,int camisetas[],int tam)
 {
 
 	int retorno = -1;
@@ -89,8 +89,6 @@ int cargaJugadores(int* cArqueros,int* cDefensores,int* cMedioc,int* cDelanteros
 	int totalJugadores;
 
 	int confederacion;
-
-	int camiseta;
 
 	if(cArqueros != NULL && cDefensores != NULL && cMedioc != NULL && cDelanteros != NULL &&
 		AFC != NULL && CAF != NULL && CONCACAF != NULL && CONMEBOL != NULL && UEFA != NULL && OFC != NULL)
@@ -112,7 +110,7 @@ int cargaJugadores(int* cArqueros,int* cDefensores,int* cMedioc,int* cDelanteros
 
 				switch(opcion){
 					case 1:
-						if(datosJugador(&camiseta,&confederacion)==0 &&
+						if(datosJugador(&confederacion,camisetas,tam)==0 &&
 								sumarConfederacion(AFC,CAF,CONCACAF,CONMEBOL,UEFA,OFC,confederacion)==0){
 
 							*cArqueros+=1;
@@ -124,7 +122,7 @@ int cargaJugadores(int* cArqueros,int* cDefensores,int* cMedioc,int* cDelanteros
 						}
 						break;
 					case 2:
-						if(datosJugador(&camiseta,&confederacion)==0 &&
+						if(datosJugador(&confederacion,camisetas,tam)==0 &&
 								sumarConfederacion(AFC,CAF,CONCACAF,CONMEBOL,UEFA,OFC,confederacion)==0){
 
 							*cDefensores+=1;
@@ -137,7 +135,7 @@ int cargaJugadores(int* cArqueros,int* cDefensores,int* cMedioc,int* cDelanteros
 						break;
 
 					case 3:
-						if(datosJugador(&camiseta,&confederacion)==0 &&
+						if(datosJugador(&confederacion,camisetas,tam)==0 &&
 								sumarConfederacion(AFC,CAF,CONCACAF,CONMEBOL,UEFA,OFC,confederacion)==0){
 
 							*cMedioc+=1;
@@ -150,7 +148,7 @@ int cargaJugadores(int* cArqueros,int* cDefensores,int* cMedioc,int* cDelanteros
 						break;
 
 					case 4:
-						if(datosJugador(&camiseta,&confederacion)==0 &&
+						if(datosJugador(&confederacion,camisetas,tam)==0 &&
 								sumarConfederacion(AFC,CAF,CONCACAF,CONMEBOL,UEFA,OFC,confederacion)==0){
 
 							*cDelanteros+=1;
@@ -177,21 +175,43 @@ int cargaJugadores(int* cArqueros,int* cDefensores,int* cMedioc,int* cDelanteros
 	return retorno;
 }
 
-
-int datosJugador(int* camisetas, int* confederacion){
+//habia 2 vars camisetas arreglar
+int datosJugador(int* confederacion,int camisetas[],int tam){
 
 	int retorno =-1;
-	//int camiseta;
+	int camiseta;
+	int repetido = 0;
 
-	if(camisetas != NULL){
-		if(utn_pedirInt(camisetas,"\nIngrese el numero de la camiseta: ","\nError, fuera de rango.",1,99,3)==0 &&
+	if(camisetas != NULL && confederacion!=NULL && tam>0)
+	{
+
+		if(utn_pedirInt(&camiseta,"\nIngrese el numero de la camiseta: ","\nError, fuera de rango.",1,99,3)==0)
+		{
+			for(int i=0;i<tam;i++)
+			{
+				if(camisetas[i]==camiseta)
+				{
+					repetido = 1;
+					break;
+				}
+			}
+
+			if(repetido==1)
+			{
+				printf("\nHubo un error, NO SE PUEDEN REPETIR CAMISETAS!");
+				pausa();
+			}
+			else
+			{
 				utn_pedirInt(confederacion,"\nCONFEDERACION?\n1.AFC\n2.CAF\n3.CONCACAF\n4.CONMEBOL\n5.UEFA"
-						"\n6.OFC\nIngrese una opcion: ","\nError, reintente.",1,6,3)==0){
-			retorno = 0;
+				"\n6.OFC\nIngrese una opcion: ","\nError, reintente.",1,6,99);
+
+				retorno = 0;
+			}
+
 		}
 
 	}
-
 
 	return retorno;
 }
@@ -229,7 +249,56 @@ int sumarConfederacion(int* AFC, int* CAF, int* CONCACAF, int* CONMEBOL, int* UE
 	return retorno;
 }
 
+int inicializarCamisetas(int camisetas[],int tam)
+{
+	int retorno = -1;
+	if(camisetas != NULL && tam>0)
+	{
+		for(int i=0;i<tam;i++)
+		{
+			camisetas[i] = -1;
+		}
+		retorno = 0;
+	}
 
 
+	return retorno;
+}
 
+int comprobarCamiseta(int camisetas[],int tam, int busqueda)
+{
+	int retorno = -1;
 
+		if(camisetas!=NULL && tam>0 && busqueda>0 && busqueda<100)
+		{
+			for(int i=0;i<tam;i++)
+			{
+				if(camisetas[i]==busqueda)
+				{
+					retorno = 0;
+					break;
+				}
+			}
+		}
+	return retorno;
+}
+
+int cargarCamiseta(int camisetas[],int tam,int agregar)
+{
+	int retorno = -1;
+
+	if(camisetas!=NULL && tam>0 && agregar>0 && agregar < 100)
+	{
+		for(int i=0;i<tam;i++)
+		{
+			if(camisetas[i]==-1)
+			{
+				camisetas[i]=agregar;
+				retorno = 0;
+				break;
+			}
+		}
+	}
+
+	return retorno;
+}
