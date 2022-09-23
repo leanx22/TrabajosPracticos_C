@@ -6,7 +6,7 @@
 #include "cargaDatos.h"
 #include "calculos.h"
 
-#define TAM 22
+#define TAM 22 //cantidad maxima de jugadores en el equipo.
 
 int main ()
 {
@@ -43,6 +43,7 @@ int main ()
 	float promCONMEBOL=0;
 	float promUEFA=0;
 	float promOFC=0;
+
 
 	inicializarCamisetas(camisetas,TAM);
 

@@ -1,0 +1,18 @@
+/*
+ * calculos.h
+ *
+ *  Created on: 19 sep. 2022
+ *      Author: Leandro
+ */
+
+#ifndef CALCULOS_H_
+#define CALCULOS_H_
+#endif /* CALCULOS_H_ */
+
+
+
+int mostrarResultado();
+
+
+int calcularPromedio(int cUEFA, int cCONMEBOL,int cCONCACAF,int cAFC,int cOFC,int cCAF,
+		float* promUEFA,float* promCONMEBOL,float* promCONCACAF,float* promAFC, float* promOFC,float* promCAF);
