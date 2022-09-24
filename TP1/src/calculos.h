@@ -10,11 +10,23 @@
 #endif /* CALCULOS_H_ */
 
 
-
+/// @brief Esta funcion es la encargada de mostrar los resultados pedidos y realizados por la opcion 3.
+///
+/// @param pUEFA puntero a variable donde se guarda el promedio de la confederacion.
+/// @param pCONMEBOL ""
+/// @param pCONCACAF ""
+/// @param pAFC ""
+/// @param pOFC ""
+/// @param pCAF ""
+/// @param costoMantenimiento Costo de mantenimiento original.
+/// @param costoActualizado Costo de mantenimiento+el aumento.
+/// @param comision SOLO EL AUMENTO que se le aplico al costo de mantenimiento.
+/// @return retorna 0 si OK o -1 si hay error o null.
 int mostrarResultados(float* pUEFA,float* pCONMEBOL,float* pCONCACAF,float* pAFC,float* pOFC,float* pCAF,
 		float costoMantenimiento,float costoActualizado,float comision);
 
-/// @brief Funcion encargada de realizar los calclos correspondientes a los promedios de las confederaciones.
+/// @brief Funcion encargada de realizar los calculos correspondientes a los promedios de las confederaciones y
+/// guardarlas en los punteros.
 ///
 /// @param cUEFA variable contador de jugadores de la confederacion UEFA.
 /// @param cCONMEBOL variable contador de jugadores de la confederacion CONMEBOL.
@@ -52,7 +64,11 @@ int Promedios(int cUEFA, int cCONMEBOL,int cCONCACAF,int cAFC,int cOFC,int cCAF,
 int calcMantenimiento(float* pUEFA,float* pCONMEBOL,float* pCONCACAF,float* pAFC,float* pOFC,float* pCAF,
 		float hospedaje,float comida,float transporte,float* costoOriginal,float* costoActualizado,float* comision);
 
-//BORRAR
+/// @brief Funcion encargada de sacar porcentaje entre una cantidad de jugadores de una confederacion y los totales.
+///
+/// @param cConfederacion cantidad de jugadores en X confederacion.
+/// @param totalJugadores TOTAL de jugadores sin importar su confederacion,
+/// @return retorna el promedio calculado o 0 en caso de que se quiera dividir por 0.
 float calcularPromedio(int cConfederacion,int totalJugadores);
 
 

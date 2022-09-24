@@ -77,33 +77,56 @@ int main ()
 			switch(opcion)
 			{
 				case 1:
-					costosMantenimiento(&costoHospedaje,&costoComida,&costoTransporte);
+					if(costosMantenimiento(&costoHospedaje,&costoComida,&costoTransporte)==0)
+					{
+						flagPrimera = 1;
+					}
 					break;
 
 				case 2:
-					cargaJugadores(&arqueros,&defensores,&medioCampo,&delanteros,
-						&AFC,&CAF,&CONCACAF,&CONMEBOL,&UEFA,&OFC,camisetas,TAM);
+					if(cargaJugadores(&arqueros,&defensores,&medioCampo,&delanteros,
+							&AFC,&CAF,&CONCACAF,&CONMEBOL,&UEFA,&OFC,camisetas,TAM)==0)
+					{
+						flagSegunda = 1;
+					}
 					break;
 
 				case 3:
-					if(Promedios(UEFA,CONMEBOL,CONCACAF,AFC,OFC,CAF,
-									&promUEFA,&promCONMEBOL,&promCONCACAF,&promAFC,&promOFC,&promCAF)==0 &&
-						calcMantenimiento(&promUEFA,&promCONMEBOL,&promCONCACAF,&promAFC,&promOFC,&promCAF,
-									costoHospedaje,costoComida,costoTransporte,&costoTotal,&costoActualizado,&costoExtra)==0)
+					if(flagPrimera==1 && flagSegunda==1)
 					{
-						printf("\nCALCULOS OK!");
-						pausa();
+
+						if(Promedios(UEFA,CONMEBOL,CONCACAF,AFC,OFC,CAF,
+								&promUEFA,&promCONMEBOL,&promCONCACAF,&promAFC,&promOFC,&promCAF)==0 &&
+							calcMantenimiento(&promUEFA,&promCONMEBOL,&promCONCACAF,&promAFC,&promOFC,&promCAF,
+								costoHospedaje,costoComida,costoTransporte,&costoTotal,&costoActualizado,&costoExtra)==0)
+						{
+							printf("\nCALCULOS OK!");
+							flagTercera = 1;
+							pausa();
+						}
+						else
+						{
+							printf("\nOcurrio un problema al intentar realizar los calculos!");
+							pausa();
+						}
 					}
 					else
 					{
-						printf("\nOcurrio un problema al intentar realizar los calculos!");
+						printf("\nPrimero se deben completar los costos de mantenimiento y el equipo debe tener por lo menos un jugador!");
 						pausa();
 					}
 					break;
 
 				case 4:
-					mostrarResultados(&promUEFA,&promCONMEBOL,&promCONCACAF,&promAFC,&promOFC,&promCAF,
+					if(flagPrimera==1 && flagSegunda==1 && flagTercera==1)
+					{
+						mostrarResultados(&promUEFA,&promCONMEBOL,&promCONCACAF,&promAFC,&promOFC,&promCAF,
 							costoTotal,costoActualizado,costoExtra);
+					}else
+					{
+						printf("\nNO SE PUEDE UTILIZAR ESTA FUNCION SIN ANTES COMPLETAR TODAS LAS ANTERIORES!");
+						pausa();
+					}
 					break;
 
 				case 5:

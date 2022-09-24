@@ -59,7 +59,14 @@ int costosMantenimiento(float* hospedaje,float* comida,float* transporte)
 						break;
 
 					case 4:
-						continuar = 0;
+						if(*hospedaje!=0 && *transporte!=0 && *comida!=0)
+						{
+							continuar = 0;
+						}else
+						{
+							printf("\nES OBLIGATORIO COMPLETAR TODOS LOS COSTOS!");
+							pausa();
+						}
 						break;
 					default:
 						printf("\nNo corresponde a una opcion.");
@@ -112,71 +119,109 @@ int cargaJugadores(int* cArqueros,int* cDefensores,int* cMedioc,int* cDelanteros
 				switch(opcion)
 				{
 					case 1:
-						if(datosJugador(&confederacion,camisetas,tam)==0 &&
-								sumarConfederacion(AFC,CAF,CONCACAF,CONMEBOL,UEFA,OFC,confederacion)==0)
+						if(*cArqueros<2)
 						{
+							if(datosJugador(&confederacion,camisetas,tam)==0 &&
+								sumarConfederacion(AFC,CAF,CONCACAF,CONMEBOL,UEFA,OFC,confederacion)==0)
+							{
 
-							*cArqueros+=1;
-							printf("\nJugador agregado correctamente!");
-							pausa();
+								*cArqueros+=1;
+								printf("\nJugador agregado correctamente!");
+								pausa();
+							}else
+							{
+								printf("\nOcurrio un problema al aniadir el jugador!");
+								pausa();
+							}
 						}else
 						{
-							printf("\nOcurrio un problema al aniadir el jugador!");
+							printf("\nMaxima cantidad de arqueros alcanzada!");
 							pausa();
 						}
 						break;
 					case 2:
-						if(datosJugador(&confederacion,camisetas,tam)==0 &&
+						if(*cDefensores<8)
+						{
+							if(datosJugador(&confederacion,camisetas,tam)==0 &&
 								sumarConfederacion(AFC,CAF,CONCACAF,CONMEBOL,UEFA,OFC,confederacion)==0)
-						{
+							{
 
-							*cDefensores+=1;
-							printf("\nJugador agregado correctamente!");
-							pausa();
-						}else
+								*cDefensores+=1;
+								printf("\nJugador agregado correctamente!");
+								pausa();
+							}
+							else
+							{
+								printf("\nOcurrio un problema al aniadir el jugador!");
+								pausa();
+							}
+						}
+						else
 						{
-							printf("\nOcurrio un problema al aniadir el jugador!");
+							printf("\nMaxima cantidad de defensores alcanzada!");
 							pausa();
 						}
 						break;
 
 					case 3:
-						if(datosJugador(&confederacion,camisetas,tam)==0 &&
+						if(*cMedioc<8)
+						{
+							if(datosJugador(&confederacion,camisetas,tam)==0 &&
 								sumarConfederacion(AFC,CAF,CONCACAF,CONMEBOL,UEFA,OFC,confederacion)==0)
-						{
+							{
 
-							*cMedioc+=1;
-							printf("\nJugador agregado correctamente!");
-							pausa();
-						}else
+								*cMedioc+=1;
+								printf("\nJugador agregado correctamente!");
+								pausa();
+							}
+							else
+							{
+								printf("\nOcurrio un problema al aniadir el jugador!");
+								pausa();
+							}
+						}
+						else
 						{
-							printf("\nOcurrio un problema al aniadir el jugador!");
+							printf("\nMaxima cantidad de mediocampistas alcanzada!");
 							pausa();
 						}
 						break;
 
 					case 4:
-						if(datosJugador(&confederacion,camisetas,tam)==0 &&
+						if(*cDelanteros<4)
+						{
+							if(datosJugador(&confederacion,camisetas,tam)==0 &&
 								sumarConfederacion(AFC,CAF,CONCACAF,CONMEBOL,UEFA,OFC,confederacion)==0)
-						{
+							{
 
-							*cDelanteros+=1;
-							printf("\nJugador agregado correctamente!");
-							pausa();
-						}else
-						{
-							printf("\nOcurrio un problema al aniadir el jugador!");
-							pausa();
+								*cDelanteros+=1;
+								printf("\nJugador agregado correctamente!");
+								pausa();
+							}
+							else
+							{
+								printf("\nOcurrio un problema al aniadir el jugador!");
+								pausa();
+							}
 						}
 						break;
 
 					case 5:
-						continuar = 0;
+						if(*cDelanteros!=0 || *cMedioc!=0 || *cDefensores!=0 || *cArqueros!=0)
+						{
+							continuar = 0;
+						}
+						else
+						{
+							printf("\nSe debe agregar por lo menos un jugador antes de salir!");
+							pausa();
+						}
 						break;
 				}
 
 			}
-			else{
+			else
+			{
 				printf("\nDemasiados intentos o ya se alcanzo la maxima cantidad de jugadores (22)!");
 				pausa();
 			}
@@ -190,7 +235,7 @@ int cargaJugadores(int* cArqueros,int* cDefensores,int* cMedioc,int* cDelanteros
 	return retorno;
 }
 
-//habia 2 vars camisetas arreglar
+
 int datosJugador(int* confederacion,int camisetas[],int tam){
 
 	int retorno =-1;
@@ -216,7 +261,6 @@ int datosJugador(int* confederacion,int camisetas[],int tam){
 
 	return retorno;
 }
-
 
 int sumarConfederacion(int* AFC, int* CAF, int* CONCACAF, int* CONMEBOL, int* UEFA, int* OFC,int confederacion){
 
