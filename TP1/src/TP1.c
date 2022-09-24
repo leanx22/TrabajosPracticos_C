@@ -21,6 +21,10 @@ int main ()
 	float costoComida =0;
 	float costoTransporte =0;
 
+	float costoTotal = 0;
+	float costoActualizado = 0;
+	float costoExtra=0;
+
 	//variables de jugadores.
 	int arqueros =0;
 	int defensores =0;
@@ -44,6 +48,10 @@ int main ()
 	float promUEFA=0;
 	float promOFC=0;
 
+	//Flags
+	int flagPrimera = 0;
+	int flagSegunda = 0;
+	int flagTercera = 0;
 
 	inicializarCamisetas(camisetas,TAM);
 
@@ -64,34 +72,49 @@ int main ()
 				costoHospedaje,costoComida,costoTransporte,
 				arqueros,defensores,medioCampo,delanteros);
 
-		if(utn_pedirInt(&opcion,"Ingrese una opcion: ","error!",1,5,3)==0){
-			switch(opcion){
-			case 1:
-				costosMantenimiento(&costoHospedaje,&costoComida,&costoTransporte);
-				break;
-			case 2:
-				cargaJugadores(&arqueros,&defensores,&medioCampo,&delanteros,
+		if(utn_pedirInt(&opcion,"Ingrese una opcion: ","error!",1,5,3)==0)
+		{
+			switch(opcion)
+			{
+				case 1:
+					costosMantenimiento(&costoHospedaje,&costoComida,&costoTransporte);
+					break;
+
+				case 2:
+					cargaJugadores(&arqueros,&defensores,&medioCampo,&delanteros,
 						&AFC,&CAF,&CONCACAF,&CONMEBOL,&UEFA,&OFC,camisetas,TAM);
-				break;
-			case 3:
-				if(calcularPromedio(UEFA,CONMEBOL,CONCACAF,AFC,OFC,CAF,
-						&promUEFA,&promCONMEBOL,&promCONCACAF,&promAFC,&promOFC,&promCAF)!=-1){
-					printf("\nCALCULOS OK!");
-					pausa();
-				}else{
-					printf("\nOcurrio un problema al realizar los calculos!"
-							"\n--POSIBLES CAUSAS--"
-							"\n-Debe haber POR LO MENOS 1 jugador en cada CONFEDERACION, ya que para calcular promedios no se puede dividir por 0!."
-							"\n-Se pudo haber recibido un puntero nulo.");
-					pausa();
-				}
-				break;
-			case 5:
-				continuar = 0;
-				break;
+					break;
+
+				case 3:
+					if(Promedios(UEFA,CONMEBOL,CONCACAF,AFC,OFC,CAF,
+									&promUEFA,&promCONMEBOL,&promCONCACAF,&promAFC,&promOFC,&promCAF)==0 &&
+						calcMantenimiento(&promUEFA,&promCONMEBOL,&promCONCACAF,&promAFC,&promOFC,&promCAF,
+									costoHospedaje,costoComida,costoTransporte,&costoTotal,&costoActualizado,&costoExtra)==0)
+					{
+						printf("\nCALCULOS OK!");
+						pausa();
+					}
+					else
+					{
+						printf("\nOcurrio un problema al intentar realizar los calculos!");
+						pausa();
+					}
+					break;
+
+				case 4:
+					mostrarResultados(&promUEFA,&promCONMEBOL,&promCONCACAF,&promAFC,&promOFC,&promCAF,
+							costoTotal,costoActualizado,costoExtra);
+					break;
+
+				case 5:
+					continuar = 0;
+					break;
 
 			}
-		}else{
+
+		}
+		else
+		{
 			printf("\nERROR, sin mas reintentos.");
 			system("PAUSE");
 		}
