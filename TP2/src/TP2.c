@@ -38,7 +38,8 @@ int main(void) {
 	inicializarArray(listaJugadores,MAX_JUGADORES);
 
 	do{
-		printf(">>Menu principal"
+		system("CLS");
+		printf("--|Menu principal|--"
 				"\n1)Nuevo jugador."
 				"\n2)Baja de jugador."
 				"\n3)Modificar jugador."
@@ -49,6 +50,11 @@ int main(void) {
 		switch(opcion)
 		{
 		case 1:
+			if(cargaJugador(listaJugadores,confederaciones,MAX_JUGADORES,CANT_CONFEDERACIONES,&idJugador)==0)
+			{
+				printf("\n[>]Jugador agregado correctamente!");
+				system("PAUSE");
+			}
 			break;
 
 		case 5:

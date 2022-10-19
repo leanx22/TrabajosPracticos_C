@@ -4,7 +4,7 @@
  *  Created on: 18 oct. 2022
  *      Author: leank
  */
-
+#include "confederaciones.h"
 #ifndef ARRAYJUGADORES_H_
 #define ARRAYJUGADORES_H_
 
@@ -29,6 +29,6 @@ int inicializarArray(eJugador lista[], int tam);
 int buscarLibre(eJugador lista[], int tam);
 
 
-int cargaJugador(eJugador lista[], int tam);
+int cargaJugador(eJugador lista[],eConfederacion listaConfe[],int tam,int tamConf,int*ids);
 
 
