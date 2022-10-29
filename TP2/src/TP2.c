@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include "arrayJugadores.h"
 #include "confederaciones.h"
+#include "informes.h"
 #include "utn.h"
 
 #define MAX_JUGADORES 3000

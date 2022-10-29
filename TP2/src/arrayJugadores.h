@@ -113,37 +113,6 @@ int bajaJugador(eJugador listaJugadores[],int tamJugadores,int*altas,float*salar
 /// @return
 int editarJugador(eJugador listaJugadores[],eConfederacion listaConfe[],int tamJugadores,int tamConfe);
 
-/// @brief
-///
-/// @param listaJugadores
-/// @param listaConfe
-/// @param tamJugadores
-/// @param tamConfe
-/// @return
-int ordenarxConfederacionYnombre(eJugador listaJugadores[],eConfederacion listaConfe[],int tamJugadores,int tamConfe);
-
-/// @brief
-///
-/// @param listaJugadores
-/// @param listaConfe
-/// @param tamJugadores
-/// @param tamConfe
-/// @param cls
-/// @return
-int listarConfederacionYjugadores(eJugador listaJugadores[],eConfederacion listaConfe[],int tamJugadores,int tamConfe,int cls);
-
-/// @brief
-///
-/// @param listaJugadores
-/// @param tamJugadores
-/// @param totalSalarios
-/// @param totalJugadores
-/// @return
-int infoSalarios(eJugador listaJugadores[],int tamJugadores,float totalSalarios,int totalJugadores);
-
-int informes(eJugador listaJugadores[],eConfederacion listaConfe[],int tamJugadores,int tamConfe,float totalsalario,int altas);
-
-
 
 
 

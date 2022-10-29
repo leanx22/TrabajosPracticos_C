@@ -13,7 +13,7 @@ typedef struct
 	char nombre[50];
 	char region[50];
 	int anioCreacion;
-
+	int isEmpty;
 }eConfederacion;
 
 #endif /* CONFEDERACIONES_H_ */
@@ -35,8 +35,11 @@ int imprimirConfederaciones(eConfederacion lista[], int tam, int limpiar);
 /// @return
 int obtenerConfederacion(eConfederacion listaConfederaciones[],int tamConfe,int id,char*respuesta);
 
+//ABM
+int inicializarConfederaciones(eConfederacion listaConfederaciones[],int tamConfe);
 
+int buscarConfederacionLibre(eConfederacion listaConfederaciones[],int tamConfe,int*indiceLibre);
 
-
+int altaConfederacion(eConfederacion listaConfederaciones,int tamConfe);
 
 

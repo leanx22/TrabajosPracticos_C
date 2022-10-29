@@ -59,6 +59,35 @@ int obtenerConfederacion(eConfederacion listaConfederaciones[],int tamConfe,int 
 	return retorno;
 }
 
+//ABM
 
+int inicializarConfederaciones(eConfederacion listaConfederaciones[],int tamConfe)
+{
+	int retorno = -1;
+	if(listaConfederaciones!=NULL && tamConfe>0)
+	{
+		for(int i=0;i<tamConfe;i++){
+			listaConfederaciones[i].isEmpty=1;
+		}
+		retorno = 0;
+	}
 
+	return retorno;
+}
 
+int buscarConfederacionLibre(eConfederacion listaConfederaciones[],int tamConfe,int*indiceLibre)
+{
+	int retorno = -1;
+	if(listaConfederaciones!=NULL && tamConfe>0 && indiceLibre!=NULL)
+	{
+		for(int i=0;i<tamConfe;i++){
+			if(listaConfederaciones[i].isEmpty==1)
+			{
+				*indiceLibre = i;
+				retorno = 0;
+				break;
+			}
+		}
+	}
+	return retorno;
+}
