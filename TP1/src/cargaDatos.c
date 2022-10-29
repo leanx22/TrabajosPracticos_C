@@ -23,7 +23,7 @@ int costosMantenimiento(float* hospedaje,float* comida,float* transporte)
 	{
 		do{
 			system("CLS");
-			printf("*** COSTOS DE MANTENIMIENTO ***");
+			printf("\n\n*** COSTOS DE MANTENIMIENTO ***");
 			printf("\n1)Costo de hospedaje: %.2f \n2)Costo de comida: %.2f \n3)Costo de transporte: %.2f \n4)Volver al menu.",
 					*hospedaje,*comida,*transporte);
 
@@ -37,7 +37,7 @@ int costosMantenimiento(float* hospedaje,float* comida,float* transporte)
 						}else{
 							printf("\nActualizado correctamente!");
 						}
-						pausa();
+					//pausa();
 						break;
 
 					case 2:
@@ -46,7 +46,7 @@ int costosMantenimiento(float* hospedaje,float* comida,float* transporte)
 						}else{
 							printf("\nActualizado correctamente!");
 						}
-						pausa();
+						//pausa();
 						break;
 
 					case 3:
@@ -55,7 +55,7 @@ int costosMantenimiento(float* hospedaje,float* comida,float* transporte)
 						}else{
 							printf("\nActualizado correctamente!");
 						}
-						pausa();
+						//pausa();
 						break;
 
 					case 4:
@@ -65,7 +65,7 @@ int costosMantenimiento(float* hospedaje,float* comida,float* transporte)
 						}else
 						{
 							printf("\nES OBLIGATORIO COMPLETAR TODOS LOS COSTOS!");
-							pausa();
+							//pausa();
 						}
 						break;
 					default:
