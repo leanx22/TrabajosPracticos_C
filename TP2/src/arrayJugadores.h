@@ -30,18 +30,6 @@ typedef struct
 /// @return Retorna 0 si tod OK o -1 en caso de error por puntero NULL o tam 0.
 int inicializarArray(eJugador listaJugadores[], int tam);
 
-/// @brief
-///
-/// @param listaJugadores
-/// @param indice
-/// @param id
-/// @param nombre
-/// @param posi
-/// @param camiseta
-/// @param idConfe
-/// @param salario
-/// @param aniosContrato
-/// @return
 int hardcodear(eJugador listaJugadores[],int indice,int*id,char*nombre,
 char*posi,short camiseta,int idConfe, float salario, short aniosContrato,int*altas,float*salarios);
 
@@ -88,29 +76,30 @@ int listarJugadores(eJugador listaJugadores[],eConfederacion listaConfederacion[
 /// @return retorna 0 si OK o -1 en caso de error con punteros o tamanio incorrecto.
 int ordenarxID(eJugador listaJugadores[],int tamJugadores);
 
-/// @brief
+/// @brief Funcion para obtener el indice en el que esta el ID
 ///
 /// @param listaJugadores
 /// @param tamJugadores
-/// @param idBusqueda
+/// @param idBusqueda id que se quiere buscar en el array.
 /// @return Retorna el indice donde se encuentra el ID deseado, -1 en caso de error o no existencia.
 int obtenerIndicexID(eJugador listaJugadores[], int tamJugadores,int idBusqueda);
 
-/// @brief
+/// @brief Funcion encargada de la baja logica de jugadores.
 ///
 /// @param listaJugadores
 /// @param tamJugadores
-/// @param altas
-/// @return
+/// @param altas puntero a variable contador de altas.
+/// @param salarios puntero a variable contador del total de salarios
+/// @return retorna 0 si OK O -1 Si hay error.
 int bajaJugador(eJugador listaJugadores[],int tamJugadores,int*altas,float*salarios);
 
-/// @brief
+/// @brief Funcion encargada de la edicio de los jugadores.
 ///
 /// @param listaJugadores
 /// @param listaConfe
 /// @param tamJugadores
 /// @param tamConfe
-/// @return
+/// @return retorna 0 si OK o -1 si hay error.
 int editarJugador(eJugador listaJugadores[],eConfederacion listaConfe[],int tamJugadores,int tamConfe);
 
 

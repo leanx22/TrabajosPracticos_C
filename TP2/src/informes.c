@@ -52,7 +52,9 @@ int informes(eJugador listaJugadores[],eConfederacion listaConfe[],int tamJugado
 					system("PAUSE");
 				}
 				break;
-
+			case 4:
+				confederacionConMasContratos(listaJugadores,tamJugadores);
+				break;
 			case 7:
 				retorno = 0;
 				continuar = 0;
@@ -174,7 +176,82 @@ int infoSalarios(eJugador listaJugadores[],int tamJugadores,float totalSalarios,
 	return retorno;
 }
 
+int confederacionConMasContratos(eJugador listaJugadores[],int tamJugadores)
+{
+	int retorno = -1;
 
+	int cAFC=0;
+	int cCAF=0;
+	int cCONCACAF=0;
+	int cCONMEBOL=0;
+	int cUEFA=0;
+	int cOFC=0;
+
+	char nombre[25];
+
+	if(listaJugadores!=NULL && tamJugadores>0)
+	{
+		for(int i=0;i<tamJugadores;i++)
+		{
+			if(listaJugadores[i].isEmpty==0)
+			{
+				switch(listaJugadores[i].idConfederacion)
+				{
+				case 1000:
+					cAFC+=listaJugadores[i].anioContrato;
+					break;
+				case 1001:
+					cCAF+=listaJugadores[i].anioContrato;
+					break;
+				case 1002:
+					cCONCACAF+=listaJugadores[i].anioContrato;
+					break;
+				case 1003:
+					cCONMEBOL+=listaJugadores[i].anioContrato;
+					break;
+				case 1004:
+					cUEFA+=listaJugadores[i].anioContrato;
+					break;
+				case 1005:
+					cOFC+=listaJugadores[i].anioContrato;
+					break;
+				}
+			}
+		}
+
+
+		if(cAFC>cCAF && cAFC>cCONCACAF && cAFC>cCONMEBOL && cAFC>cUEFA && cAFC>cOFC)
+		{
+			strcpy(nombre,"AFC");
+		}
+		else if(cCAF>cCONCACAF && cCAF>cCONMEBOL && cCAF>cUEFA && cCAF>cOFC)
+		{
+			strcpy(nombre,"CAF");
+		}
+		else if(cCONCACAF>cCONMEBOL && cCONCACAF>cUEFA && cCONCACAF>cOFC)
+		{
+			strcpy(nombre,"CONCACAF");
+		}
+		else if(cCONMEBOL>cUEFA && cCONMEBOL>cOFC)
+		{
+			strcpy(nombre,"CONMEBOL");
+		}
+		else if(cUEFA>cOFC)
+		{
+			strcpy(nombre,"UEFA");
+		}
+		else
+		{
+			strcpy(nombre,"OFC");
+		}
+		system("CLS");
+		printf("\nLa confederacion que cuenta con mas anios de contrato es: %s\n",nombre);
+		retorno=0;
+		system("PAUSE");
+	}
+
+	return retorno;
+}
 
 
 

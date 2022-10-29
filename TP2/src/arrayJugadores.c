@@ -86,7 +86,7 @@ int cargaJugador(eJugador listaJugadores[],eConfederacion listaConfe[],int tam,i
 	int idConfe;
 
 	int camiseta;
-	int aniosContrato;//short
+	int aniosContrato;
 	float salario;
 
 
