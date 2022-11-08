@@ -17,11 +17,11 @@ int main ()
 	int opcion;
 
 	//Variables de costos.
-	float costoHospedaje =0;
-	float costoComida =0;
-	float costoTransporte =0;
+	float gastoHospedaje =0;
+	float gastoComida =0;
+	float gastoTransporte =0;
 
-	float costoTotal = 0;
+	float gastoMantenimiento = 0;
 	float costoActualizado = 0;
 	float costoExtra=0;
 
@@ -32,7 +32,7 @@ int main ()
 	int delanteros =0;
 	int camisetas[TAM];
 
-	//confederaciones.
+	//contador de las confederaciones.
 	int AFC =0;
 	int CAF =0;
 	int CONCACAF =0;
@@ -40,7 +40,7 @@ int main ()
 	int UEFA =0;
 	int OFC =0;
 
-	//promedio confederaciones.
+	//"promedio" (en realidad porcentajes) de las confederaciones.
 	float promAFC=0;
 	float promCAF=0;
 	float promCONCACAF=0;
@@ -57,7 +57,8 @@ int main ()
 
 	do{
 		system("CLS");
-		printf(" ***OPCIONES***\n1.Ingresar costos de mantenimiento."
+		printf(" ***OPCIONES***"
+				"\n1.Ingresar costos de mantenimiento."
 				"\n  |Costo de hospedaje -> $%.2f"
 				"\n  |Costo de comida -> $%.2f"
 				"\n  `Costo de transporte -> $%.2f"
@@ -69,15 +70,15 @@ int main ()
 				"\n\n3.Realizar los calculos."
 				"\n4.Informar resultados."
 				"\n5.Salir.\n\n",
-				costoHospedaje,costoComida,costoTransporte,
+				gastoHospedaje,gastoComida,gastoTransporte,
 				arqueros,defensores,medioCampo,delanteros);
 
-		if(utn_pedirInt(&opcion,"Ingrese una opcion: ","error!",1,5,3)==0)
+		if(utn_pedirInt(&opcion,"Ingrese una opcion: ","\nError, reintente.",1,5,3)==0)
 		{
 			switch(opcion)
 			{
 				case 1:
-					if(costosMantenimiento(&costoHospedaje,&costoComida,&costoTransporte)==0)
+					if(costosMantenimiento(&gastoHospedaje,&gastoComida,&gastoTransporte)==0)
 					{
 						flagPrimera = 1;
 					}
@@ -95,37 +96,37 @@ int main ()
 					if(flagPrimera==1 && flagSegunda==1)
 					{
 
-						if(Promedios(UEFA,CONMEBOL,CONCACAF,AFC,OFC,CAF,
+						if(Porcentajes(UEFA,CONMEBOL,CONCACAF,AFC,OFC,CAF,
 								&promUEFA,&promCONMEBOL,&promCONCACAF,&promAFC,&promOFC,&promCAF)==0 &&
 							calcMantenimiento(&promUEFA,&promCONMEBOL,&promCONCACAF,&promAFC,&promOFC,&promCAF,
-								costoHospedaje,costoComida,costoTransporte,&costoTotal,&costoActualizado,&costoExtra)==0)
+								gastoHospedaje,gastoComida,gastoTransporte,&gastoMantenimiento,&costoActualizado,&costoExtra)==0)
 						{
-							printf("\nCALCULOS OK!");
+							printf("\nCALCULOS OK!\n");
 							flagTercera = 1;
-							pausa();
+							system("PAUSE");
 						}
 						else
 						{
-							printf("\nOcurrio un problema al intentar realizar los calculos!");
-							pausa();
+							printf("\nOcurrio un problema al intentar realizar los calculos!\n");
+							system("PAUSE");
 						}
 					}
 					else
 					{
-						printf("\nPrimero se deben completar los costos de mantenimiento y el equipo debe tener por lo menos un jugador!");
-						pausa();
+						printf("\nPrimero se deben completar los costos de mantenimiento y el equipo debe tener por lo menos un jugador!\n");
+						system("PAUSE");
 					}
 					break;
 
 				case 4:
-					if(flagPrimera==1 && flagSegunda==1 && flagTercera==1)
+					if(flagTercera==1)
 					{
 						mostrarResultados(&promUEFA,&promCONMEBOL,&promCONCACAF,&promAFC,&promOFC,&promCAF,
-							costoTotal,costoActualizado,costoExtra);
+							gastoMantenimiento,costoActualizado,costoExtra);
 					}else
 					{
-						printf("\nNO SE PUEDE UTILIZAR ESTA FUNCION SIN ANTES COMPLETAR TODAS LAS ANTERIORES!");
-						pausa();
+						printf("\nNO SE PUEDE UTILIZAR ESTA FUNCION SIN ANTES COMPLETAR TODAS LAS ANTERIORES!\n");
+						system("PAUSE");
 					}
 					break;
 
@@ -138,7 +139,7 @@ int main ()
 		}
 		else
 		{
-			printf("\nERROR, sin mas reintentos.");
+			printf("\nERROR, sin mas reintentos.\n");
 			system("PAUSE");
 		}
 

@@ -33,29 +33,32 @@ int costosMantenimiento(float* hospedaje,float* comida,float* transporte)
 				{
 					case 1:
 						if(utn_pedirFloat(hospedaje,"\nNuevo costo de hospedaje: ","\nError, reintente.",1,9999999,3)!=0){
-							printf("\nHubo un error durante la actualizacion del precio. (Muchos reintentos?)");
+							printf("\nHubo un error durante la actualizacion del precio. (Muchos reintentos?)\n");
+							system("PAUSE");
 						}else{
-							printf("\nActualizado correctamente!");
+							printf("\nActualizado correctamente!\n");
+							system("PAUSE");
 						}
-					//pausa();
 						break;
 
 					case 2:
 						if(utn_pedirFloat(comida,"\nNuevo costo de comida: ","\nError, reintente.",1,9999999,3)!=0){
-							printf("\nHubo un error durante la actualizacion del precio. (Muchos reintentos?)");
+							printf("\nHubo un error durante la actualizacion del precio. (Muchos reintentos?)\n");
+							system("PAUSE");
 						}else{
 							printf("\nActualizado correctamente!");
+							system("PAUSE");
 						}
-						//pausa();
 						break;
 
 					case 3:
 						if(utn_pedirFloat(transporte,"\nNuevo costo de transporte: ","\nError, reintente.",1,9999999,3)!=0){
-							printf("\nHubo un error durante la actualizacion del precio. (Muchos reintentos?)");
+							printf("\nHubo un error durante la actualizacion del precio. (Muchos reintentos?)\n");
+							system("PAUSE");
 						}else{
-							printf("\nActualizado correctamente!");
+							printf("\nActualizado correctamente!\n");
+							system("PAUSE");
 						}
-						//pausa();
 						break;
 
 					case 4:
@@ -64,17 +67,15 @@ int costosMantenimiento(float* hospedaje,float* comida,float* transporte)
 							continuar = 0;
 						}else
 						{
-							printf("\nES OBLIGATORIO COMPLETAR TODOS LOS COSTOS!");
-							//pausa();
+							printf("\nES OBLIGATORIO COMPLETAR TODOS LOS COSTOS\n");
+							system("PAUSE");
 						}
 						break;
-					default:
-						printf("\nNo corresponde a una opcion.");
 				}
 
 			}else{
-				printf("\nError al seleccionar la opcion. (demasiados reintentos?).");
-				pausa();
+				printf("\nError al seleccionar la opcion. (demasiados reintentos?).\n");
+				system("PAUSE");
 			}
 
 			}while(continuar==1);
@@ -126,17 +127,17 @@ int cargaJugadores(int* cArqueros,int* cDefensores,int* cMedioc,int* cDelanteros
 							{
 
 								*cArqueros+=1;
-								printf("\nJugador agregado correctamente!");
-								pausa();
+								printf("\nJugador agregado correctamente!\n");
+								system("PAUSE");
 							}else
 							{
-								printf("\nOcurrio un problema al aniadir el jugador!");
-								pausa();
+								printf("\nOcurrio un problema al aniadir el jugador!\n");
+								system("PAUSE");
 							}
 						}else
 						{
-							printf("\nMaxima cantidad de arqueros alcanzada!");
-							pausa();
+							printf("\nMaxima cantidad de arqueros alcanzada!\n");
+							system("PAUSE");
 						}
 						break;
 					case 2:
@@ -147,19 +148,19 @@ int cargaJugadores(int* cArqueros,int* cDefensores,int* cMedioc,int* cDelanteros
 							{
 
 								*cDefensores+=1;
-								printf("\nJugador agregado correctamente!");
-								pausa();
+								printf("\nJugador agregado correctamente!\n");
+								system("PAUSE");
 							}
 							else
 							{
-								printf("\nOcurrio un problema al aniadir el jugador!");
-								pausa();
+								printf("\nOcurrio un problema al aniadir el jugador!\n");
+								system("PAUSE");
 							}
 						}
 						else
 						{
-							printf("\nMaxima cantidad de defensores alcanzada!");
-							pausa();
+							printf("\nMaxima cantidad de defensores alcanzada!\n");
+							system("PAUSE");
 						}
 						break;
 
@@ -171,19 +172,19 @@ int cargaJugadores(int* cArqueros,int* cDefensores,int* cMedioc,int* cDelanteros
 							{
 
 								*cMedioc+=1;
-								printf("\nJugador agregado correctamente!");
-								pausa();
+								printf("\nJugador agregado correctamente\n");
+								system("PAUSE");
 							}
 							else
 							{
-								printf("\nOcurrio un problema al aniadir el jugador!");
-								pausa();
+								printf("\nOcurrio un problema al aniadir el jugador!\n");
+								system("PAUSE");
 							}
 						}
 						else
 						{
-							printf("\nMaxima cantidad de mediocampistas alcanzada!");
-							pausa();
+							printf("\nMaxima cantidad de mediocampistas alcanzada!\n");
+							system("PAUSE");
 						}
 						break;
 
@@ -195,13 +196,13 @@ int cargaJugadores(int* cArqueros,int* cDefensores,int* cMedioc,int* cDelanteros
 							{
 
 								*cDelanteros+=1;
-								printf("\nJugador agregado correctamente!");
-								pausa();
+								printf("\nJugador agregado correctamente!\n");
+								system("PAUSE");
 							}
 							else
 							{
-								printf("\nOcurrio un problema al aniadir el jugador!");
-								pausa();
+								printf("\nOcurrio un problema al aniadir el jugador!\n");
+								system("PAUSE");
 							}
 						}
 						break;
@@ -213,8 +214,8 @@ int cargaJugadores(int* cArqueros,int* cDefensores,int* cMedioc,int* cDelanteros
 						}
 						else
 						{
-							printf("\nSe debe agregar por lo menos un jugador antes de salir!");
-							pausa();
+							printf("\nSe debe agregar por lo menos un jugador antes de salir!\n");
+							system("PAUSE");
 						}
 						break;
 				}
@@ -222,8 +223,8 @@ int cargaJugadores(int* cArqueros,int* cDefensores,int* cMedioc,int* cDelanteros
 			}
 			else
 			{
-				printf("\nDemasiados intentos o ya se alcanzo la maxima cantidad de jugadores (22)!");
-				pausa();
+				printf("\nDemasiados intentos o ya se alcanzo la maxima cantidad de jugadores (22)!\n");
+				system("PAUSE");
 			}
 
 		}while(continuar == 1);
@@ -244,7 +245,7 @@ int datosJugador(int* confederacion,int camisetas[],int tam){
 	if(camisetas != NULL && confederacion!=NULL && tam>0)
 	{
 
-		if(utn_pedirInt(&camiseta,"\nIngrese el numero de la camiseta: ","\nError, fuera de rango.",1,99,3)==0 &&
+		if(utn_pedirInt(&camiseta,"\nIngrese el numero de la camiseta: ","\nError, fuera de rango(1-99).",1,99,3)==0 &&
 			comprobarCamiseta(camisetas,tam, camiseta)!=0)
 		{
 
