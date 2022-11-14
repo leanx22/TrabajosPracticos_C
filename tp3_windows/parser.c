@@ -29,6 +29,7 @@ int parser_JugadorFromText(FILE* pFile , LinkedList* pArrayListJugador)
 		do{
 			if(fscanf(pFile,"%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n",bufId,bufNombre,bufEdad,bufPos,nacionalidad,idSeleccion)==6)
 			{
+
 				aux = jug_newParametros(bufId,bufNombre,bufEdad,bufPos,nacionalidad,idSeleccion);
 				retorno = ll_add(pArrayListJugador,aux);
 			}
@@ -66,6 +67,37 @@ int parser_JugadorFromBinary(FILE* pFile , LinkedList* pArrayListJugador)
  */
 int parser_SeleccionFromText(FILE* pFile , LinkedList* pArrayListSeleccion)
 {
-    return 1;
+	int retorno = -1;
+	Seleccion* aux=NULL;
+
+	char id[4];
+	char pais[20];
+	char confederacion[20];
+	char convocados[4];
+
+	if(pArrayListSeleccion!=NULL && pFile!=NULL)
+	{
+		fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n",id,pais,confederacion,convocados);
+		do{
+			if(fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n",id,pais,confederacion,convocados)==4)
+			{
+				aux=selec_newParametros(id,pais,confederacion,convocados);
+				retorno = ll_add(pArrayListSeleccion,aux);//
+			}
+
+		}while(!feof(pFile));
+		if(fclose(pFile)!=0)
+		{
+			printf("\nEl archivo no se pudo cerrar!\n");
+			retorno = -1;
+			system("PAUSE");
+		}
+	}
+
+    return retorno;
 }
+
+
+
+
 

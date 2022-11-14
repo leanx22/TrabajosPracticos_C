@@ -5,6 +5,7 @@
 #include "Seleccion.h"
 #include "LinkedList.h"
 #include "parser.h"
+#include "utn.h"
 
 /** \brief Carga los datos de los jugadores desde el archivo jugadores.csv (modo texto).
  *
@@ -23,15 +24,10 @@ int controller_cargarJugadoresDesdeTexto(char* path , LinkedList* pArrayListJuga
 		pArchivo = fopen(path,"r");
 		if(pArchivo!=NULL && parser_JugadorFromText(pArchivo,pArrayListJugador)==0)
 		{
-			printf("\nArchivo cargado satisfactoriamente!");
 			retorno = 0;
+		}else{
+			printf("\nError en: [JUGADORES]\n");
 		}
-		else
-		{
-			printf("\nNo se encontro el archivo!");
-		}
-		printf("\n");
-		system("PAUSE");
 	}
 
     return retorno;
@@ -56,9 +52,33 @@ int controller_cargarJugadoresDesdeBinario(char* path , LinkedList* pArrayListJu
  * \return int
  *
  */
-int controller_agregarJugador(LinkedList* pArrayListJugador)
+int controller_agregarJugador(LinkedList* pArrayListJugador,eNacionalidades listaNacionalidades[],int tamNacionalidades)
 {
-    return 1;
+   int retorno = -1;
+
+   char nombre[50];
+   int edad;
+   int posicion;
+   int idNacionalidad;
+   int idSeleccion;
+
+   if(pArrayListJugador!=NULL)
+   {
+	   if(utn_getStr(nombre,"\n>Ingrese el nombre del Jugador: ","\n[!]Error, reintente.",50,3)==0 &&
+			utn_pedirInt(&edad,"\n>Ingrese la edad del Jugador: ","\n[!]Error, reintente.",17,100,3)==0 &&
+			utn_pedirInt(&posicion,"\n>Ingrese la posicion: \n1.Arquero.\n2.Defensa.\n3.MedioCampo.\n4.Delantero.\n",
+				"\n[!]Error, reingrese.",1,4,3)==0 &&
+			imprimirNacionalidades(listaNacionalidades,tamNacionalidades)==0 &&
+			utn_pedirInt(&idNacionalidad,"\n>Ingrese ID de nacionalidad: ","\n[!]Error, reintente.",1,32,3)==0 &&
+			//IMPRIMIR SELECCIONES.
+			utn_pedirInt(&idSeleccion,"\n>Ingrese ID de la seleccion: ","\n[!]Error, reintente.",1,31,3)==0)
+	   {
+
+	   }
+
+   }
+
+	return retorno;
 }
 
 /** \brief Modificar datos del jugador
@@ -144,7 +164,24 @@ int controller_guardarJugadoresModoBinario(char* path , LinkedList* pArrayListJu
  */
 int controller_cargarSeleccionesDesdeTexto(char* path , LinkedList* pArrayListSeleccion)
 {
-    return 1;
+	int retorno = -1;
+
+	FILE* pArchivo = NULL;
+
+
+	if(pArrayListSeleccion!=NULL)
+	{
+		pArchivo=fopen(path,"r");
+		if(pArchivo!=NULL && parser_SeleccionFromText(pArchivo,pArrayListSeleccion)==0)
+		{
+			retorno = 0;
+		}
+		else{
+			printf("\nError en: [SELECCIONES]\n");
+		}
+	}
+
+    return retorno;
 }
 
 /** \brief Modificar datos de empleado

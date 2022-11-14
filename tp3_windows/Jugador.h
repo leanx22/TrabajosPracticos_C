@@ -14,6 +14,12 @@ typedef struct
 	//int isEmpty;
 }Jugador;
 
+typedef struct{
+	int id;
+	char descripcion[20];
+
+}eNacionalidades;
+
 Jugador* jug_new();
 Jugador* jug_newParametros(char* idStr,char* nombreCompletoStr,char* edadStr, char* posicionStr, char* nacionalidadStr, char* idSelccionStr);
 
@@ -42,3 +48,6 @@ int jug_getIsEmpty(Jugador* this,int* isEmpty);
 
 
 #endif // jug_H_INCLUDED
+int hardcodearNacionalidades(eNacionalidades lista[],int tam);
+int imprimirNacionalidades(eNacionalidades lista[],int tam);
+

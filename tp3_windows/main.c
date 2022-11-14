@@ -5,14 +5,22 @@
 #include "Jugador.h"
 #include "utn.h"
 
+#define CANT_NACIONALIDADES 31
+
+
 int main(void)
 {
 	setbuf(stdout,NULL);
 
+    eNacionalidades listaNacionalidad[CANT_NACIONALIDADES];
+    hardcodearNacionalidades(listaNacionalidad,CANT_NACIONALIDADES);
+
     LinkedList* listaJugadores = ll_newLinkedList();
+    LinkedList* listaSelecciones = ll_newLinkedList();
 
     int opcion = 0;
     int idAux=370; //EL PRIMERO DEBE SER 371!
+
 
     do{
     	system("CLS");
@@ -23,8 +31,20 @@ int main(void)
     		switch(opcion)
     		{
     		  case 1:
-    			  controller_cargarJugadoresDesdeTexto("jugadores.csv",listaJugadores);
+    			  if(controller_cargarJugadoresDesdeTexto("jugadores.csv",listaJugadores) ==0 &&
+    			  controller_cargarSeleccionesDesdeTexto("selecciones.csv",listaSelecciones)==0)
+    			  {
+    				  printf("\nLos archivos se cargaron satisfactoriamente!.\n");
+    			  }else{
+    				  printf("\nOcurrio un error al intentar abrir los archivos!.\n");
+    			  }
+    			  system("PAUSE");
     		  break;
+    		  case 2:
+    			  imprimirNacionalidades(listaNacionalidad,CANT_NACIONALIDADES);
+    			  printf("\n");
+    			  system("PAUSE");
+    			  break;
 
     		}
 
