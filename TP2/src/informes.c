@@ -157,7 +157,7 @@ int infoSalarios(eJugador listaJugadores[],int tamJugadores,float totalSalarios,
 	if(listaJugadores!=NULL && tamJugadores>0 && totalSalarios>0 && totalJugadores>0)
 	{
 		system("CLS");
-		printf("\nTotal de todos los sueldo: %f",totalSalarios);
+		printf("\nTotal de todos los sueldo: %.2f",totalSalarios);
 		promedio = totalSalarios/totalJugadores;
 		printf("\nEl promedio de los sueldos es de %.2f",promedio);
 
@@ -188,6 +188,7 @@ int confederacionConMasContratos(eJugador listaJugadores[],int tamJugadores)
 	int cOFC=0;
 
 	char nombre[25];
+	int anios;
 
 	if(listaJugadores!=NULL && tamJugadores>0)
 	{
@@ -197,57 +198,76 @@ int confederacionConMasContratos(eJugador listaJugadores[],int tamJugadores)
 			{
 				switch(listaJugadores[i].idConfederacion)
 				{
-				case 1000:
-					cAFC+=listaJugadores[i].anioContrato;
-					break;
-				case 1001:
-					cCAF+=listaJugadores[i].anioContrato;
-					break;
-				case 1002:
-					cCONCACAF+=listaJugadores[i].anioContrato;
-					break;
-				case 1003:
+				case 100:
 					cCONMEBOL+=listaJugadores[i].anioContrato;
 					break;
-				case 1004:
+				case 101:
 					cUEFA+=listaJugadores[i].anioContrato;
 					break;
-				case 1005:
+				case 102:
+					cAFC+=listaJugadores[i].anioContrato;
+					break;
+				case 103:
+					cCAF+=listaJugadores[i].anioContrato;
+					break;
+				case 104:
+					cCONCACAF+=listaJugadores[i].anioContrato;
+					break;
+				case 105:
 					cOFC+=listaJugadores[i].anioContrato;
 					break;
 				}
 			}
 		}
 
+		compararContadorConfederaciones(cAFC,cCAF,cCONCACAF,cCONMEBOL,cUEFA,cOFC,nombre,&anios);
 
+		system("CLS");
+		printf("\nLa confederacion que cuenta con mas anios de contrato es: %s con %d anios.\n",nombre,anios);
+		retorno=0;
+		system("PAUSE");
+	}
+
+	return retorno;
+}
+
+int compararContadorConfederaciones(int cAFC,int cCAF,int cCONCACAF,int cCONMEBOL,int cUEFA,int cOFC,char* respuesta,int* contadorFinal)
+{
+	int retorno = -1;
+
+	if(respuesta!=NULL)
+	{
 		if(cAFC>cCAF && cAFC>cCONCACAF && cAFC>cCONMEBOL && cAFC>cUEFA && cAFC>cOFC)
 		{
-			strcpy(nombre,"AFC");
+			strcpy(respuesta,"AFC");
+			*contadorFinal = cAFC;
 		}
 		else if(cCAF>cCONCACAF && cCAF>cCONMEBOL && cCAF>cUEFA && cCAF>cOFC)
 		{
-			strcpy(nombre,"CAF");
+			strcpy(respuesta,"CAF");
+			*contadorFinal = cCAF;
 		}
 		else if(cCONCACAF>cCONMEBOL && cCONCACAF>cUEFA && cCONCACAF>cOFC)
 		{
-			strcpy(nombre,"CONCACAF");
+			strcpy(respuesta,"CONCACAF");
+			*contadorFinal = cCONCACAF;
 		}
 		else if(cCONMEBOL>cUEFA && cCONMEBOL>cOFC)
 		{
-			strcpy(nombre,"CONMEBOL");
+			strcpy(respuesta,"CONMEBOL");
+			*contadorFinal = cCONMEBOL;
 		}
 		else if(cUEFA>cOFC)
 		{
-			strcpy(nombre,"UEFA");
+			strcpy(respuesta,"UEFA");
+			*contadorFinal = cUEFA;
 		}
 		else
 		{
-			strcpy(nombre,"OFC");
+			strcpy(respuesta,"OFC");
+			*contadorFinal = cOFC;
 		}
-		system("CLS");
-		printf("\nLa confederacion que cuenta con mas anios de contrato es: %s\n",nombre);
-		retorno=0;
-		system("PAUSE");
+		retorno = 0;
 	}
 
 	return retorno;

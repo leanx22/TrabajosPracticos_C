@@ -57,3 +57,15 @@ int listarConfederacionYjugadores(eJugador listaJugadores[],eConfederacion lista
 /// @return retorna 0 si oK o -1 en caso de error.
 int confederacionConMasContratos(eJugador listaJugadores[],int tamJugadores);
 
+/// @brief Funcion que compara los distintos contadores de las confederaciones e informa cual es la que
+/// mas anios de contrato tiene y cuantos anios en total.
+/// @param cAFC contador
+/// @param cCAF contador
+/// @param cCONCACAF contador
+/// @param cCONMEBOL contador
+/// @param cUEFA contador
+/// @param cOFC contador
+/// @param respuesta variable donde se guardara el nombre de la confederacion con mas anios de contrato.
+/// @param contadorFinal Variable donde se guarda la cantidad de anios de contrato totales de la confederacion con mas anios de contrato.
+/// @return retorna -1 enc aso de error o 0 si OK.
+int compararContadorConfederaciones(int cAFC,int cCAF,int cCONCACAF,int cCONMEBOL,int cUEFA,int cOFC,char* respuesta,int* contadorFinal);
