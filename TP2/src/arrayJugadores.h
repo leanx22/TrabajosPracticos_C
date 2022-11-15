@@ -48,6 +48,8 @@ int buscarLibre(eJugador listaJugadores[], int tam);
 /// @param tam tamanio del array de jugadores.
 /// @param tamConf tamanio del array de confederaciones.
 /// @param ids Puntero a variable que controla los ID.
+/// @param altas puntero a contador de altas.
+/// @param aSueldos puntero a variable acumuladora de sueldos. (para saber el total de todos los sueldos)
 /// @return Retorna 0 si el jugador se agrego de manera correcta, -1 en caso de error en
 /// las validaciones o NULL en punteros.
 int cargaJugador(eJugador listaJugadores[],eConfederacion listaConfe[],int tam,int tamConf,int*ids,int*altas,float* aSueldos);
@@ -69,7 +71,7 @@ int obtenerPosicion(char*respuesta, int id);
 /// @return Retorna 0 si OK o -1 en caso de error.
 int listarJugadores(eJugador listaJugadores[],eConfederacion listaConfederacion[], int tamJugadores, int tamConfe,int cls);
 
-/// @brief Esta funcion realiza un ordenamiento de la lista jugadores por medio de sus ID.
+/// @brief Esta funcion realiza un ordenamiento de la lista de jugadores por medio de sus ID.
 ///
 /// @param listaJugadores Array de jugadores.
 /// @param tamJugadores tamanio del array.
@@ -93,7 +95,7 @@ int obtenerIndicexID(eJugador listaJugadores[], int tamJugadores,int idBusqueda)
 /// @return retorna 0 si OK O -1 Si hay error.
 int bajaJugador(eJugador listaJugadores[],int tamJugadores,int*altas,float*salarios);
 
-/// @brief Funcion encargada de la edicio de los jugadores.
+/// @brief Funcion encargada de la edicion de los jugadores.
 ///
 /// @param listaJugadores
 /// @param listaConfe

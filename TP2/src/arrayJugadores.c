@@ -35,6 +35,7 @@ int hardcodear(eJugador listaJugadores[],int indice,int*id,char*nombre,
 	int retorno = -1;
 	if(listaJugadores!=NULL)
 	{
+		*id +=1;
 		listaJugadores[indice].id = *id;
 		strcpy(listaJugadores[indice].nombre,nombre);
 		strcpy(listaJugadores[indice].posicion,posi);
@@ -44,7 +45,6 @@ int hardcodear(eJugador listaJugadores[],int indice,int*id,char*nombre,
 		listaJugadores[indice].anioContrato = aniosContrato;
 
 		listaJugadores[indice].isEmpty = 0;
-		*id +=1;
 		*altas+=1;
 		*salarios+=salario;
 
@@ -81,10 +81,8 @@ int cargaJugador(eJugador listaJugadores[],eConfederacion listaConfe[],int tam,i
 
 	char nombre[50];
 	char posi[50];
-
 	int idPosi;
 	int idConfe;
-
 	int camiseta;
 	int aniosContrato;
 	float salario;
@@ -104,7 +102,7 @@ int cargaJugador(eJugador listaJugadores[],eConfederacion listaConfe[],int tam,i
 			utn_pedirFloat(&salario,"\n>Ingrese el salario: ","\n[!]Error!, reintente.",1,9999999,3)==0 &&
 			utn_pedirInt(&aniosContrato,"\n>Ingrese anios de contrato: ","\n[!]Error, fuera de rango(1-99).",1,99,3)==0 &&
 			imprimirConfederaciones(listaConfe,tamConf,0)==0 &&
-			utn_pedirInt(&idConfe,"\n>Ingrese Id de la confederacion:","\n[!]Error, reintente",1000,1005,3)==0)
+			utn_pedirInt(&idConfe,"\n>Ingrese Id de la confederacion:","\n[!]Error, reintente",100,105,3)==0)
 		{
 
 			strcpy(listaJugadores[indiceLibre].nombre,nombre);
@@ -113,11 +111,11 @@ int cargaJugador(eJugador listaJugadores[],eConfederacion listaConfe[],int tam,i
 			listaJugadores[indiceLibre].salario = salario;
 			listaJugadores[indiceLibre].anioContrato = (short)aniosContrato;
 			listaJugadores[indiceLibre].idConfederacion=idConfe;
+			*ids += 1;
 			listaJugadores[indiceLibre].id = *ids;
 			listaJugadores[indiceLibre].isEmpty = 0;
 			*aSueldos+=salario;
 			*altas+=1;
-			*ids += 1;
 			retorno = 0;
 		}
 		else
@@ -196,7 +194,7 @@ int ordenarxID(eJugador listaJugadores[],int tamJugadores)
 
 	if(listaJugadores!=NULL && tamJugadores>0)
 	{
-		printf("\nEstoy ordenando! [por ID]\n");
+		printf("\nEstoy ordenando! [CRITERIO->ID]\n");
 		for(int i=0;i<tamJugadores-1;i++)
 		{
 			for(int j=i+1;j<tamJugadores;j++)
@@ -218,7 +216,7 @@ int ordenarxID(eJugador listaJugadores[],int tamJugadores)
 int obtenerIndicexID(eJugador listaJugadores[], int tamJugadores,int idBusqueda)
 {
 	int retorno = -1;
-	if(listaJugadores!=NULL && tamJugadores>0 && idBusqueda>=100)
+	if(listaJugadores!=NULL && tamJugadores>0 && idBusqueda>=1)
 	{
 		for(int i=0;i<tamJugadores;i++)
 		{
@@ -240,8 +238,8 @@ int bajaJugador(eJugador listaJugadores[],int tamJugadores,int*altas,float*salar
 	int indiceAeliminar;
 	int confirmar = -1;
 
-	if(listaJugadores!=NULL && tamJugadores>0 &&
-		utn_pedirInt(&idAbuscar,"\n>Ingrese el ID del jugador que desea ELIMINAR: ","\n[!]Error!, reintente.",100,9999,3)==0)
+	if(listaJugadores!=NULL && tamJugadores>0 && altas!=NULL && salarios!=NULL &&
+		utn_pedirInt(&idAbuscar,"\n>Ingrese el ID del jugador que desea ELIMINAR: ","\n[!]Error!, reintente.",1,9999,3)==0)
 	{
 		indiceAeliminar = obtenerIndicexID(listaJugadores,tamJugadores,idAbuscar);
 		if(indiceAeliminar!=-1)
@@ -266,18 +264,20 @@ int bajaJugador(eJugador listaJugadores[],int tamJugadores,int*altas,float*salar
 int editarJugador(eJugador listaJugadores[],eConfederacion listaConfe[],int tamJugadores,int tamConfe)
 {
 	int retorno = -1;
+
 	int continuar = 1;
+	int opcion;
+
 	int idAbuscar;
 	int indiceAeditar;
-	int opcion;
 
 	char nombreConfederacion[50];
 	int buffCamiseta;
 	int buffIdConfe;
 	int idPosi;
 
-	if(listaJugadores!=NULL && tamJugadores>0 &&
-		utn_pedirInt(&idAbuscar,"\n>Ingrese el id del jugador a EDITAR: ","\n[!]Error, reintente!",100,9999,3)==0)
+	if(listaJugadores!=NULL && tamJugadores>0 && listaConfe!=NULL && tamConfe>0 &&
+		utn_pedirInt(&idAbuscar,"\n>Ingrese el id del jugador a EDITAR: ","\n[!]Error, reintente!",1,9999,3)==0)
 	{
 		indiceAeditar = obtenerIndicexID(listaJugadores,tamJugadores,idAbuscar);
 		if(indiceAeditar!=-1)
@@ -342,7 +342,7 @@ int editarJugador(eJugador listaJugadores[],eConfederacion listaConfe[],int tamJ
 						break;
 					case 4:
 						imprimirConfederaciones(listaConfe, tamConfe, 0);
-						if(utn_pedirInt(&buffIdConfe,"Ingrese el nuevo ID de confederacion: ","\n[!]Error, reintente.",1000,1005,3)==0)
+						if(utn_pedirInt(&buffIdConfe,"Ingrese el nuevo ID de confederacion: ","\n[!]Error, reintente.",100,105,3)==0)
 						{
 							listaJugadores[indiceAeditar].idConfederacion = buffIdConfe;
 							printf("\n[>]La confederacion se actualizo correctamente!\n");

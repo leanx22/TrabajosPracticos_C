@@ -21,7 +21,8 @@
 int main(void) {
 	setbuf(stdout, NULL);
 
-	int idJugador = 100;
+	int idJugador = 0;
+
 	int altas = 0;
 
 	float totalSalarios=0;
@@ -34,14 +35,14 @@ int main(void) {
 	inicializarArray(listaJugadores,MAX_JUGADORES);
 
 	eConfederacion confederaciones[CANT_CONFEDERACIONES]=
-	{{1000,"AFC","Asia",1954}, {1001,"CAF","Africa",1957}, {1002,"CONCACAF","Zona Norte",1961},
-	{1003,"CONMEBOL","Sudamerica",1916}, {1004,"UEFA","Europa",1954}, {1005,"OFC","Oceania",1966}};
+	{{100,"CONMEBOL","Sudamerica",1916},{101,"UEFA","Europa",1954},{102,"AFC","Asia",1954},
+	 {103,"CAF","Africa",1957},{104,"CONCACAF","Norte y centro america",1961},{105,"OFC","Oceania",1966}};
 
 	//HARDCODE//
-	hardcodear(listaJugadores,0,&idJugador,"Esteban","Delantero",9,1004,120345,5,&altas,&totalSalarios);
-	hardcodear(listaJugadores,1,&idJugador,"Agustin","Delantero",8,1002,120346,3,&altas,&totalSalarios);
-	hardcodear(listaJugadores,2,&idJugador,"zaza","Defensor",4,1001,32000,6,&altas,&totalSalarios);
-	hardcodear(listaJugadores,3,&idJugador,"Abigail","Arquero",1,1002,183675,8,&altas,&totalSalarios);
+	hardcodear(listaJugadores,2,&idJugador,"Esteban","Delantero",9,104,120345,5,&altas,&totalSalarios);
+	hardcodear(listaJugadores,1,&idJugador,"Agustin","Delantero",8,102,120346,3,&altas,&totalSalarios);
+	hardcodear(listaJugadores,0,&idJugador,"zaza","Defensor",4,101,32000,6,&altas,&totalSalarios);
+	hardcodear(listaJugadores,3,&idJugador,"Abigail","Arquero",1,102,183675,8,&altas,&totalSalarios);
 	//HARDCODE//
 
 	do{
@@ -81,7 +82,7 @@ int main(void) {
 			break;
 		case 3:
 			if(altas>0 && ordenarxID(listaJugadores,MAX_JUGADORES)==0 &&
-				ordenarxID(listaJugadores,MAX_JUGADORES)==0 &&
+				//ordenarxID(listaJugadores,MAX_JUGADORES)==0 &&
 				listarJugadores(listaJugadores,confederaciones,MAX_JUGADORES,CANT_CONFEDERACIONES,1)==0)
 			{
 				editarJugador(listaJugadores,confederaciones,MAX_JUGADORES,CANT_CONFEDERACIONES);
