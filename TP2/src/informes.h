@@ -69,3 +69,12 @@ int confederacionConMasContratos(eJugador listaJugadores[],int tamJugadores);
 /// @param contadorFinal Variable donde se guarda la cantidad de anios de contrato totales de la confederacion con mas anios de contrato.
 /// @return retorna -1 enc aso de error o 0 si OK.
 int compararContadorConfederaciones(int cAFC,int cCAF,int cCONCACAF,int cCONMEBOL,int cUEFA,int cOFC,char* respuesta,int* contadorFinal);
+
+/// @brief Funcion que informa el porcentaje de jugadores por cada confederacion.
+///
+/// @param listaJugadores array de jugadores.
+/// @param tamJugadores tamanio del array.
+/// @param altas contador de altas totales.
+/// @return Retorna 0 si OK o -1 si hay error.
+int obtenerPorcentajesConfederaciones(eJugador listaJugadores[],int tamJugadores, int altas);
+

@@ -39,10 +39,6 @@ int main(void) {
 	 {103,"CAF","Africa",1957},{104,"CONCACAF","Norte y centro america",1961},{105,"OFC","Oceania",1966}};
 
 	//HARDCODE//
-	//hardcodear(listaJugadores,2,&idJugador,"Esteban","Delantero",9,104,120345,5,&altas,&totalSalarios);
-	//hardcodear(listaJugadores,1,&idJugador,"Agustin","Delantero",8,102,120346,3,&altas,&totalSalarios);
-	//hardcodear(listaJugadores,0,&idJugador,"zaza","Defensor",4,101,32000,6,&altas,&totalSalarios);
-	//hardcodear(listaJugadores,3,&idJugador,"Abigail","Arquero",1,102,183675,8,&altas,&totalSalarios);
 	hardcodear(listaJugadores,0,&idJugador,"Emiliano Martinez","ARQUERO",1,100,100000,4,&altas,&totalSalarios);
 	hardcodear(listaJugadores,1,&idJugador,"Juan Musso","ARQUERO",12,100,80000,2,&altas,&totalSalarios);
 	hardcodear(listaJugadores,2,&idJugador,"Leo Messi","DELANTERO",10,100,80000,4,&altas,&totalSalarios);
@@ -58,7 +54,6 @@ int main(void) {
 	hardcodear(listaJugadores,12,&idJugador,"Bamba Dieng","DELANTERO",9,103,100000,2,&altas,&totalSalarios);
 	hardcodear(listaJugadores,13,&idJugador,"Demba Seck","DELANTERO",11,103,6000,2,&altas,&totalSalarios);
 	hardcodear(listaJugadores,14,&idJugador,"Tarek Salman","DEFENSOR",6,102,78000,5,&altas,&totalSalarios);
-
 	//HARDCODE//
 
 	do{

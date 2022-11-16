@@ -55,6 +55,11 @@ int informes(eJugador listaJugadores[],eConfederacion listaConfe[],int tamJugado
 			case 4:
 				confederacionConMasContratos(listaJugadores,tamJugadores);
 				break;
+			case 5:
+				obtenerPorcentajesConfederaciones(listaJugadores,tamJugadores,altas);
+				break;
+			case 6:
+				break;
 			case 7:
 				retorno = 0;
 				continuar = 0;
@@ -157,7 +162,7 @@ int infoSalarios(eJugador listaJugadores[],int tamJugadores,float totalSalarios,
 	if(listaJugadores!=NULL && tamJugadores>0 && totalSalarios>0 && totalJugadores>0)
 	{
 		system("CLS");
-		printf("\nTotal de todos los sueldo: %.2f",totalSalarios);
+		printf("\nTotal de todos los sueldos: %.2f",totalSalarios);
 		promedio = totalSalarios/totalJugadores;
 		printf("\nEl promedio de los sueldos es de %.2f",promedio);
 
@@ -273,7 +278,75 @@ int compararContadorConfederaciones(int cAFC,int cCAF,int cCONCACAF,int cCONMEBO
 	return retorno;
 }
 
+int obtenerPorcentajesConfederaciones(eJugador listaJugadores[],int tamJugadores, int altas)
+{
+	int retorno = -1;
 
+	int cAFC=0;
+	int cCAF=0;
+	int cCONCACAF=0;
+	int cCONMEBOL=0;
+	int cUEFA=0;
+	int cOFC=0;
+
+	float pAFC=0;
+	float pCAF=0;
+	float pCONCACAF=0;
+	float pCONMEBOL=0;
+	float pUEFA=0;
+	float pOFC=0;
+
+	if(listaJugadores!=NULL && tamJugadores>0)
+	{
+		for(int i=0;i<tamJugadores;i++)
+		{
+			if(listaJugadores[i].isEmpty==0)
+			{
+				switch(listaJugadores[i].idConfederacion)
+				{
+				case 100:
+					cCONMEBOL+=1;
+					break;
+				case 101:
+					cUEFA+=1;
+					break;
+				case 102:
+					cAFC+=1;
+					break;
+				case 103:
+					cCAF+=1;
+					break;
+				case 104:
+					cCONCACAF+=1;
+					break;
+				case 105:
+					cOFC+=1;
+					break;
+				}
+			}
+		}
+
+		pAFC = ((float)cAFC/altas)*100;
+		pCAF = ((float)cCAF)/altas*100;
+		pCONCACAF = ((float)cCONCACAF/altas)*100;
+		pCONMEBOL = ((float)cCONMEBOL/altas)*100;
+		pUEFA = ((float)cUEFA/altas)*100;
+		pOFC = ((float)cOFC/altas)*100;
+
+		system("CLS");
+		printf("====PORCENTAJES DE JUGADORES POR CADA CONFEDERACION====\n"
+				"Porcentaje de AFC: %.2f\n"
+				"Porcentaje de CAF: %.2f\n"
+				"Porcentaje de CONCACAF: %.2f\n"
+				"Porcentaje de CONMEBOL: %.2f\n"
+				"Porcentaje de UEFA: %.2f\n"
+				"Porcentaje de OFC: %.2f\n",pAFC,pCAF,pCONCACAF,pCONMEBOL,pUEFA,pOFC);
+		retorno = 0;
+		system("PAUSE");
+	}
+
+	return retorno;
+}
 
 
 
