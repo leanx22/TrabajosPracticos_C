@@ -60,6 +60,7 @@ int obtenerConfederacion(eConfederacion listaConfederaciones[],int tamConfe,int 
 	return retorno;
 }
 
+
 //ABM
 
 int inicializarConfederaciones(eConfederacion listaConfederaciones[],int tamConfe)

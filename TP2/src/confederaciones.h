@@ -36,6 +36,7 @@ int imprimirConfederaciones(eConfederacion lista[], int tam, int limpiar);
 /// @return retorna 0 si tod OK o -1 si hay error o el ID no existe
 int obtenerConfederacion(eConfederacion listaConfederaciones[],int tamConfe,int id,char*respuesta);
 
+
 //>>ABM DE CONFEDERACIONES<<
 /// @brief Funcion encargada de inicializar el campo isEmpty en el array en 1.
 ///

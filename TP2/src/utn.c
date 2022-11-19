@@ -136,7 +136,7 @@ int utn_getStr(char array[], char*mensaje,char*mensajeError,int tamanio,int rein
 			{
 				if(buffer[i] != '\0')
 				{
-					if(isalpha(buffer[i]) == 0)
+					if(isalpha(buffer[i]) == 0 && buffer[i]!=' ')
 					{
 					reintentos--;
 					printf(mensajeError);

@@ -78,3 +78,20 @@ int compararContadorConfederaciones(int cAFC,int cCAF,int cCONCACAF,int cCONMEBO
 /// @return Retorna 0 si OK o -1 si hay error.
 int obtenerPorcentajesConfederaciones(eJugador listaJugadores[],int tamJugadores, int altas);
 
+/// @brief funcion que se encarga de contar la cantidad de jugadores que perteneces a x confederacion.
+///
+/// @param listaJugadores array de jugadores.
+/// @param tamJugadores tamanio del array.
+/// @param id ID de la confederacion de la cual quiero saber la cantidad de jugadores.
+/// @return retorna la cantidad de jugadores encontrados con esa ID de confederacion.
+int contarConfederacion(eJugador listaJugadores[],int tamJugadores,int id);
+
+/// @brief Funcion que informa la region con mas cantidad de jugadores. Luego, los imprime junto con sus datos
+/// en formato de lista.
+///
+/// @param listaJugadores Array de Jugadores.
+/// @param tamJugadores Tamanio del array de jugadores.
+/// @param listaConfe Array de confederaciones.
+/// @param tamConfe Tamanio del array de confederaciones.
+/// @return Retorna -1 en caso de error o 0 si OK.
+int informarMayorRegion(eJugador listaJugadores[],int tamJugadores,eConfederacion listaConfe[],int tamConfe);

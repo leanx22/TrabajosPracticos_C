@@ -19,7 +19,6 @@ int informes(eJugador listaJugadores[],eConfederacion listaConfe[],int tamJugado
 	int opcion;
 	int continuar=1;
 
-
 	do{
 		system("CLS");
 		printf("<==========INFORMES==========>"
@@ -59,17 +58,14 @@ int informes(eJugador listaJugadores[],eConfederacion listaConfe[],int tamJugado
 				obtenerPorcentajesConfederaciones(listaJugadores,tamJugadores,altas);
 				break;
 			case 6:
+				informarMayorRegion(listaJugadores,tamJugadores,listaConfe,tamConfe);
 				break;
 			case 7:
 				retorno = 0;
 				continuar = 0;
 				break;
-
 			}
-
-
 		}
-
 
 	}while(continuar==1);
 
@@ -335,12 +331,12 @@ int obtenerPorcentajesConfederaciones(eJugador listaJugadores[],int tamJugadores
 
 		system("CLS");
 		printf("====PORCENTAJES DE JUGADORES POR CADA CONFEDERACION====\n"
-				"Porcentaje de AFC: %.2f\n"
+				"Porcentaje de UEFA: %.2f\n"
+				"Porcentaje de CONMEBOL: %.2f\n"
 				"Porcentaje de CAF: %.2f\n"
 				"Porcentaje de CONCACAF: %.2f\n"
-				"Porcentaje de CONMEBOL: %.2f\n"
-				"Porcentaje de UEFA: %.2f\n"
-				"Porcentaje de OFC: %.2f\n",pAFC,pCAF,pCONCACAF,pCONMEBOL,pUEFA,pOFC);
+				"Porcentaje de AFC: %.2f\n"
+				"Porcentaje de OFC: %.2f\n",pUEFA,pCONMEBOL,pCAF,pCONCACAF,pAFC,pOFC);
 		retorno = 0;
 		system("PAUSE");
 	}
@@ -348,9 +344,102 @@ int obtenerPorcentajesConfederaciones(eJugador listaJugadores[],int tamJugadores
 	return retorno;
 }
 
+int informarMayorRegion(eJugador listaJugadores[],int tamJugadores,eConfederacion listaConfe[],int tamConfe)
+{
+	int retorno = -1;
 
+	int cCONMEBOL=0;
+	int cUEFA=0;
+	int cAFC=0;
+	int cCAF=0;
+	int cCONCACAF=0;
+	int cOFC=0;
 
+	char region[50];
+	char confederacion[50];
+	int id;
 
+	if(listaJugadores!=NULL && tamJugadores>0)
+	{
+		cCONMEBOL=contarConfederacion(listaJugadores,tamJugadores,100);
+		cUEFA=contarConfederacion(listaJugadores,tamJugadores,101);
+		cAFC=contarConfederacion(listaJugadores,tamJugadores,102);
+		cCAF=contarConfederacion(listaJugadores,tamJugadores,103);
+		cCONCACAF=contarConfederacion(listaJugadores,tamJugadores,104);
+		cOFC=contarConfederacion(listaJugadores,tamJugadores,105);
+
+		if(cAFC>cCAF && cAFC>cCONCACAF && cAFC>cCONMEBOL && cAFC>cUEFA && cAFC>cOFC)
+		{
+			strcpy(region,"Asia");
+			id = 102;
+		}
+		else if(cCAF>cCONCACAF && cCAF>cCONMEBOL && cCAF>cUEFA && cCAF>cOFC)
+		{
+			strcpy(region,"Africa");
+			id = 103;
+		}
+		else if(cCONCACAF>cCONMEBOL && cCONCACAF>cUEFA && cCONCACAF>cOFC)
+		{
+			strcpy(region,"Norte y centro america");
+			id = 104;
+		}
+		else if(cCONMEBOL>cUEFA && cCONMEBOL>cOFC)
+		{
+			strcpy(region,"Sudamerica");
+			id = 100;
+		}
+		else if(cUEFA>cOFC)
+		{
+			strcpy(region,"Europa");
+			id = 101;
+		}
+		else
+		{
+			strcpy(region,"Oceania");
+			id = 105;
+		}
+
+		system("CLS");
+
+		printf("\nLa region con mas jugadores es: %s",region);
+		printf("\n---------------Listados de jugadores re la region >%s<--------------------",region);
+						printf("\n|ID|       NOMBRE       |CAMISETA|  SALARIO  |ANIOS DE CONTRATO|CONFEDERACION|");
+		for(int i=0;i<tamJugadores;i++)
+		{
+			if(listaJugadores[i].isEmpty==0 && listaJugadores[i].idConfederacion==id)
+			{
+				obtenerConfederacion(listaConfe,tamConfe,listaJugadores[i].idConfederacion,confederacion);
+				printf("\n|%2d|%20s|%8d|%11.2f|%17d|%13s|",
+						listaJugadores[i].id,listaJugadores[i].nombre,listaJugadores[i].numCamiseta,
+						listaJugadores[i].salario,listaJugadores[i].anioContrato,confederacion);
+			}
+
+		}
+		printf("\n");
+		retorno = 0;
+		system("PAUSE");
+
+	}
+
+	return retorno;
+}
+
+int contarConfederacion(eJugador listaJugadores[],int tamJugadores,int id)
+{
+	int retorno=0;
+	if(listaJugadores!=NULL && tamJugadores>0)
+	{
+		for(int i=0;i<tamJugadores;i++)
+		{
+			if(listaJugadores[i].isEmpty==0 &&
+					listaJugadores[i].idConfederacion==id)
+			{
+				retorno+=1;
+			}
+		}
+	}
+	return retorno;
+}
 
 
 
