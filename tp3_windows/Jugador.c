@@ -10,19 +10,26 @@ Jugador* jug_new()
 	return (Jugador*)malloc(sizeof(Jugador));
 }
 
-Jugador* jug_newParametros(char* idStr,char* nombreCompletoStr,char* edadStr, char* posicionStr, char* nacionalidadStr, char* idSeleccionStr)
+Jugador* jug_newParametros(int id,char* nombreCompletoStr,char* edadStr, char* posicionStr, char* nacionalidadStr, char* idSeleccionStr)
 {
 	Jugador* aux = NULL;
 	aux = jug_new();
 	if(aux!=NULL)
 	{
-		aux->id = atoi(idStr);
-		strncpy(aux->nombreCompleto,nombreCompletoStr,100);
-		aux->edad = atoi(edadStr);
-		strncpy(aux->posicion,posicionStr,30);
-		strncpy(aux->nacionalidad,nacionalidadStr,30);
-		aux->idSeleccion = atoi(idSeleccionStr);
+		jug_setId(aux,id);
+		jug_setNombreCompleto(aux,nombreCompletoStr);
+		jug_setEdad(aux,atoi(edadStr));
+		jug_setPosicion(aux,posicionStr);
+		jug_setNacionalidad(aux,nacionalidadStr);
+		jug_setIdSeleccion(aux,atoi(idSeleccionStr));
 
+		/*(aux->id = atoi(idStr); //OK
+		strncpy(aux->nombreCompleto,nombreCompletoStr,100); //OK
+		aux->edad = atoi(edadStr); //OK
+		strncpy(aux->posicion,posicionStr,30); //OK
+		strncpy(aux->nacionalidad,nacionalidadStr,30); //OK
+		aux->idSeleccion = atoi(idSeleccionStr); //OK
+		*/
 		//todo Programar setters!
 
 	}
@@ -136,14 +143,16 @@ int hardcodearNacionalidades(eNacionalidades lista[],int tam)
 	return retorno;
 }
 
-int imprimirNacionalidades(eNacionalidades lista[],int tam)
+int imprimirNacionalidades(eNacionalidades lista[],int tam,int cls)
 {
 	int retorno = -1;
 
 	if(lista!=NULL && tam>0)
 	{
+		if(cls==1){
+			system("CLS");
+		}
 
-		system("CLS");
 		printf("\n|ID|   NACIONALIDADES   |");
 		for(int i=0;i<tam;i++)
 		{
@@ -156,6 +165,237 @@ int imprimirNacionalidades(eNacionalidades lista[],int tam)
 	return retorno;
 }
 
+int imprimirPosiciones(ePosicion listaPos[],int tamPos,int cls)
+{
+	int retorno = -1;
+
+	if(listaPos!=NULL && tamPos>0)
+	{
+		if(cls == 1){
+			printf("\n");
+			system("CLS");
+		}
+
+		printf("-----POSICIONES DISPONIBLES-----");
+		printf("\n|ID|      POSICION      |");
+		for(int i=0;i<tamPos;i++)
+		{
+			printf("\n|%-2d|%-20s|",listaPos[i].id,listaPos[i].descripcion);
+		}
+		retorno = 0;
+	}
+
+	return retorno;
+}
+
+int obtenerPosicionxID(ePosicion lista[],int tam,int id, char* respuesta)
+{
+	int retorno = -1;
+
+	if(respuesta!=NULL && lista!=NULL && tam>0)
+	{
+		for(int i=0;i<tam;i++)
+		{
+			if(lista[i].id==id)
+			{
+				strcpy(respuesta,lista[i].descripcion);
+				retorno = 0;
+				break;
+			}
+		}
+	}
+	return retorno;
+}
+
+int obtenerNacionalidad(eNacionalidades listaN[],int tam,int id, char* respuesta)
+{
+	int retorno = -1;
+	if(listaN!=NULL && tam>0 && respuesta!=NULL)
+	{
+		for(int i=0;i<tam;i++)
+		{
+			if(listaN[i].id==id)
+			{
+				strcpy(respuesta,listaN[i].descripcion);
+				retorno = 0;
+				break;
+			}
+		}
+	}
+
+	return retorno;
+}
+
+//-------------------------------------Setters y getters----------------------------------------------------||
+
+int jug_setId(Jugador* this,int id)
+{
+	int retorno = -1;
+
+	if(this!=NULL && id>0)
+	{
+		this->id=id;
+		retorno = 0;
+	}
+	else
+	{
+		printf("\nNo se pudo setear el ID!\n");
+		system("PAUSE");
+	}
+
+	return retorno;
+}
+int jug_getId(Jugador* this,int* id)
+
+{
+	int retorno = -1;
+
+	if(this!=NULL && id!=NULL)
+	{
+		*id = this->id;
+		retorno = 0;
+	}
+	else
+	{
+		printf("\nNo se pudo obtener el ID!\n");
+		system("PAUSE");
+	}
+
+	return retorno;
+}
+
+int jug_setNombreCompleto(Jugador* this,char* nombreCompleto)
+{
+	int retorno = -1;
+
+	if(this!=NULL && nombreCompleto!=NULL && utn_esNombre(nombreCompleto,100)==0)
+	{
+		strcpy(this->nombreCompleto,nombreCompleto);
+		retorno = 0;
+	}
+	else{
+		printf("\nHubo un error al intentar setear el nombre!\n");
+		system("PAUSE");
+	}
+
+	return retorno;
+}
+int jug_getNombreCompleto(Jugador* this,char* nombreCompleto)
+{
+	int retorno = -1;
+	if(this!=NULL && nombreCompleto!=NULL)
+	{
+		strcpy(nombreCompleto,this->nombreCompleto);
+		retorno = 0;
+	}
+	else
+	{
+		printf("\nNo se pudo obtener el nombre!\n");
+		system("PAUSE");
+	}
+
+	return retorno;
+}
+
+int jug_setPosicion(Jugador* this,char* posicion)//todo posiciones!
+{
+	int retorno = -1;
+	if(this!=NULL && posicion!=NULL)
+	{
+		strcpy(this->posicion,posicion);
+		retorno = 0;
+	}
+
+
+	return retorno;
+}
+int jug_getPosicion(Jugador* this,char* posicion)
+{
+	int retorno = -1;
+
+	if(this != NULL && posicion!=NULL)
+	{
+		strcpy(posicion,this->posicion);
+		retorno = 0;
+	}
+
+	return retorno;
+}
+
+int jug_setNacionalidad(Jugador* this,char* nacionalidad)
+{
+	int retorno = -1;
+
+	if(this!=NULL && nacionalidad!=NULL)
+	{
+		strcpy(this->nacionalidad,nacionalidad);
+		retorno = 0;
+	}
+
+	return retorno;
+}
+int jug_getNacionalidad(Jugador* this,char* nacionalidad)
+{
+	int retorno = -1;
+
+	if(this!=NULL && nacionalidad!=NULL)
+	{
+		strcpy(nacionalidad,this->nacionalidad);
+		retorno = 0;
+	}
+
+	return retorno;
+}
+
+int jug_setEdad(Jugador* this,int edad)
+{
+	int retorno = -1;
+	if(this!=NULL && edad>16)
+	{
+		this->edad = edad;
+		retorno = 0;
+	}else{
+		printf("\nHubo un error en set_edad! (menor de edad?)\n");
+		system("PAUSA");
+	}
+
+	return retorno;
+}
+int jug_getEdad(Jugador* this,int* edad)
+{
+	int retorno = -1;
+
+	if(this!=NULL && edad!=NULL)
+	{
+		*edad = this->edad;
+		retorno = 0;
+	}
+
+	return retorno;
+}
+
+int jug_setIdSeleccion(Jugador* this,int idSeleccion)
+{
+	int retorno = -1;
+
+	if(this!=NULL) //todo validar tambien el idSeleccion
+	{
+		this->idSeleccion = idSeleccion;
+	}
+
+	return retorno;
+}
+int jug_getSIdSeleccion(Jugador* this,int* idSeleccion)
+{
+	int retorno = -1;
+	if(this!=NULL && idSeleccion!=NULL)
+	{
+		*idSeleccion = this->idSeleccion;
+		retorno = 0;
+	}
+
+	return retorno;
+}
 
 
 

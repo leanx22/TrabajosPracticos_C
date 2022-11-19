@@ -30,7 +30,7 @@ int parser_JugadorFromText(FILE* pFile , LinkedList* pArrayListJugador)
 			if(fscanf(pFile,"%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n",bufId,bufNombre,bufEdad,bufPos,nacionalidad,idSeleccion)==6)
 			{
 
-				aux = jug_newParametros(bufId,bufNombre,bufEdad,bufPos,nacionalidad,idSeleccion);
+				aux = jug_newParametros(atoi(bufId),bufNombre,bufEdad,bufPos,nacionalidad,idSeleccion);
 				retorno = ll_add(pArrayListJugador,aux);
 			}
 

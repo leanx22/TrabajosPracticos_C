@@ -6,21 +6,29 @@
 #include "utn.h"
 
 #define CANT_NACIONALIDADES 31
-
+#define CANT_POS 14
+#define ARCHIVO_ID "valor_id.utn"
 
 int main(void)
 {
 	setbuf(stdout,NULL);
+
+	int continuar = 1;
+	int opcion = 0;
+	int idAux; //EL PRIMERO DEBE SER 371!
 
     eNacionalidades listaNacionalidad[CANT_NACIONALIDADES];
     hardcodearNacionalidades(listaNacionalidad,CANT_NACIONALIDADES);
 
     LinkedList* listaJugadores = ll_newLinkedList();
     LinkedList* listaSelecciones = ll_newLinkedList();
+    ePosicion listaPosiciones[CANT_POS] =
+    {{1,"Portero"},{2,"Defensa"},{3,"Defensa central"},{4,"Lateral izquierdo"},
+     {5,"Lateral derecho"},{6,"Pivote"},{7,"Mediocentro"},{8,"Extremo izquierdo"},
+     {9,"Extremo derecho"},{10,"Mediapunta"},{11,"Delantero centro"},{12,"Mediocentro ofensivo"},
+     {13,"Interior derecho"},{14,"Interior izquierdo"}};
 
-    int opcion = 0;
-    int idAux=370; //EL PRIMERO DEBE SER 371!
-
+    idAux = iniciarID(ARCHIVO_ID);
 
     do{
     	system("CLS");
@@ -41,17 +49,25 @@ int main(void)
     			  system("PAUSE");
     		  break;
     		  case 2:
-    			  imprimirNacionalidades(listaNacionalidad,CANT_NACIONALIDADES);
-    			  printf("\n");
+    			  if(controller_agregarJugador(listaJugadores,listaNacionalidad,CANT_NACIONALIDADES,
+    					&idAux,listaPosiciones,CANT_POS)==0 && actualizarArchivoID(ARCHIVO_ID,idAux)==0)
+    			  {
+    				  printf("\n>Jugador agregado satisfactoriamente!\n");
+    			  }else{
+    				  printf("\nOcurrio un problema al aniadir al jugador.\n");
+    			  }
     			  system("PAUSE");
     			  break;
 
+    		  case 11:
+    			  continuar = 0;
+    			 break;
     		}
 
     	}
 
 
-    }while(opcion != 10);
+    }while(continuar == 1);
 
     return 0;
 }

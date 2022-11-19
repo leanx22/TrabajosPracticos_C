@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "Jugador.h"
 #include "Seleccion.h"
@@ -52,30 +53,38 @@ int controller_cargarJugadoresDesdeBinario(char* path , LinkedList* pArrayListJu
  * \return int
  *
  */
-int controller_agregarJugador(LinkedList* pArrayListJugador,eNacionalidades listaNacionalidades[],int tamNacionalidades)
+int controller_agregarJugador(LinkedList* pArrayListJugador,eNacionalidades listaNacionalidades[],
+	int tamNacionalidades,int* idJugadores,ePosicion listaPosi[],int tamPosi)
 {
    int retorno = -1;
 
    char nombre[50];
-   int edad;
-   int posicion;
+   char edad[3];
+   int idPosicion;
+   char posicion[50];
    int idNacionalidad;
-   int idSeleccion;
+   char nacionalidad[50];
 
    if(pArrayListJugador!=NULL)
    {
 	   if(utn_getStr(nombre,"\n>Ingrese el nombre del Jugador: ","\n[!]Error, reintente.",50,3)==0 &&
-			utn_pedirInt(&edad,"\n>Ingrese la edad del Jugador: ","\n[!]Error, reintente.",17,100,3)==0 &&
-			utn_pedirInt(&posicion,"\n>Ingrese la posicion: \n1.Arquero.\n2.Defensa.\n3.MedioCampo.\n4.Delantero.\n",
-				"\n[!]Error, reingrese.",1,4,3)==0 &&
-			imprimirNacionalidades(listaNacionalidades,tamNacionalidades)==0 &&
-			utn_pedirInt(&idNacionalidad,"\n>Ingrese ID de nacionalidad: ","\n[!]Error, reintente.",1,32,3)==0 &&
-			//IMPRIMIR SELECCIONES.
-			utn_pedirInt(&idSeleccion,"\n>Ingrese ID de la seleccion: ","\n[!]Error, reintente.",1,31,3)==0)
+			//utn_pedirInt(&edad,"\n>Ingrese la edad del Jugador: ","\n[!]Error, reintente.",17,99,3)==0 &&
+			getIntComoStr(edad,"\nIngrese la edad del jugador: ","\n[!]Error, reintente.",17,99,3)==0 &&
+			imprimirPosiciones(listaPosi,tamPosi,1)==0 &&
+			utn_pedirInt(&idPosicion,"\n>Ingrese id de la posicion: ","\n[!]Error, reingrese.",1,14,3)==0 &&
+			imprimirNacionalidades(listaNacionalidades,tamNacionalidades,1)==0 &&
+			utn_pedirInt(&idNacionalidad,"\n>Ingrese ID de nacionalidad: ","\n[!]Error, reintente.",1,32,3)==0)
 	   {
+		   obtenerNacionalidad(listaNacionalidades,tamNacionalidades,idNacionalidad,nacionalidad);
+		   obtenerPosicionxID(listaPosi,tamPosi,idPosicion,posicion);
+		   if(ll_add(pArrayListJugador,jug_newParametros(*idJugadores,nombre,edad,posicion,nacionalidad,"0"))==0)
+		   {
+			   *idJugadores+=1;
+			   system("PAUSE");
+			   retorno = 0;
+		   }
 
 	   }
-
    }
 
 	return retorno;
@@ -232,5 +241,70 @@ int controller_guardarSeleccionesModoTexto(char* path , LinkedList* pArrayListSe
 {
     return 1;
 }
+
+//-----------
+
+int iniciarID(char* path)
+{
+	int retorno = -1;
+	int idInicial = 371;
+
+	FILE* archivo = NULL;
+
+
+	archivo = fopen(path,"r");
+	if(archivo==NULL)
+	{
+		system("CLS");
+		printf("El archivo de ID no existe, se va a crear uno nuevo.\n");
+		system("PAUSE");
+		archivo = fopen(path,"w");
+		if(archivo!=NULL)
+		{
+			fprintf(archivo,"%d",idInicial);
+			retorno = idInicial;
+		}else{
+			printf("\nOcurrio un error al intentar crear el archivo de ID.\n");
+			system("PAUSE");
+		}
+	}else
+	{
+		fscanf(archivo,"%d",&retorno);
+	}
+
+	if(fclose(archivo)!=0)
+	{
+		printf("\nATENCION: el archivo de ID no se pudo cerrar de manera correcta, esto puede generar problemas!\n");
+		system("PAUSE");
+	}
+	return retorno;
+}
+
+int actualizarArchivoID(char* path,int newId)
+{
+	int retorno = -1;
+	FILE* archivo = NULL;
+
+	archivo = fopen(path,"w");
+	if(archivo!=NULL)
+	{
+		fprintf(archivo,"%d",newId);
+		retorno = 0;
+	}else{
+		printf("\nHubo un error al modificar el archivo de ID\n");
+		system("PAUSE");
+	}
+
+	if(fclose(archivo)!=0)
+	{
+		printf("\nATENCION: no se pudo cerrar el archivo de ID!\n");
+		system("PAUSE");
+	}
+
+	return retorno;
+}
+
+
+
 
 

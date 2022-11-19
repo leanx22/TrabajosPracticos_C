@@ -20,8 +20,14 @@ typedef struct{
 
 }eNacionalidades;
 
+typedef struct{
+	int id;
+	char descripcion[50];
+
+}ePosicion;
+
 Jugador* jug_new();
-Jugador* jug_newParametros(char* idStr,char* nombreCompletoStr,char* edadStr, char* posicionStr, char* nacionalidadStr, char* idSelccionStr);
+Jugador* jug_newParametros(int id,char* nombreCompletoStr,char* edadStr, char* posicionStr, char* nacionalidadStr, char* idSelccionStr);
 
 void jug_delete(Jugador* this);
 
@@ -49,5 +55,8 @@ int jug_getIsEmpty(Jugador* this,int* isEmpty);
 
 #endif // jug_H_INCLUDED
 int hardcodearNacionalidades(eNacionalidades lista[],int tam);
-int imprimirNacionalidades(eNacionalidades lista[],int tam);
+int imprimirNacionalidades(eNacionalidades lista[],int tam,int cls);
+int imprimirPosiciones(ePosicion listaPos[],int tamPos,int cls);
 
+int obtenerPosicionxID(ePosicion lista[],int tam,int id, char* respuesta);
+int obtenerNacionalidad(eNacionalidades listaN[],int tam,int id, char* respuesta);

@@ -54,15 +54,21 @@ int utn_pedirFloat(float* pResultado, char*mensaje,char*mensajeError, int minimo
 /// @return retorna 0(OK) o -1(NULL o longitud 0)
 int utn_myGets(char* cadena,char*mensaje, int longitud);
 
-
+/// @brief
+///
+/// @param str
+/// @return
 int utn_esAlfaNumerico(char*str);
 
-int utn_esNumerico(int numero);
+///////////////////////////////////////////////////////////////////
+
+/// @brief Funcion que recorre una cadena de caracteres y verifica que sea un nombre y que no exceda
+/// el tamanio maximo.
+///
+/// @param cadena Cadena a verificar
+/// @param tamMax tamanio maximo que puede tener el nombre.
+/// @return retorna 0 si valida OK o -1 en caso de error
+int utn_esNombre(char* cadena,int tamMax);
 
 
-int utn_esNombreOapellido(char str[]);
-
-/// @brief
-/// Funcion que emula a system(PAUSE) utilizando getch();
-/// @return retorna siempre 0(OK);
-int pausa();
+int getIntComoStr(char* pResultado,char* mensaje,char* mensajeError, int minimo, int maximo, int reintentos);

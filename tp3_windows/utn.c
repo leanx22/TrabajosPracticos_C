@@ -136,7 +136,7 @@ int utn_getStr(char array[], char*mensaje,char*mensajeError,int tamanio,int rein
 			{
 				if(buffer[i] != '\0')
 				{
-					if(isalpha(buffer[i]) == 0)
+					if(isalpha(buffer[i]) == 0 && buffer[i] != ' ')
 					{
 					reintentos--;
 					printf(mensajeError);
@@ -277,48 +277,66 @@ int utn_esAlfaNumerico(char str[])
 
 }
 
-int utn_esNombreOapellido(char str[])
+///////////////////////////////////////////////////////////////////////
+
+
+int utn_esNombre(char* cadena,int tamMax)
+{
+	int retorno = 0;
+	//int tamanio = 0;
+
+	int i=0;
+
+	if(cadena!=NULL && strlen(cadena)>tamMax)
+	{
+		if(cadena[strlen(cadena)-1]=='\n')
+		{
+			cadena[strlen(cadena)-1]='\0';
+		}
+
+		while(cadena[i]!='\0')
+		{
+			if(isalpha(cadena[i])==0 && cadena[i]!=' ')
+			{
+				retorno = -1;
+				break;
+			}
+		}
+
+	}
+
+	return retorno;
+}
+
+int getIntComoStr(char* pResultado,char* mensaje,char* mensajeError, int minimo, int maximo, int reintentos)
 {
 	int retorno = -1;
-	int tam;
+	char buffer[64];
+	fflush(stdin);
 
-	if(str!= NULL)
+	if(pResultado != NULL)
 	{
-		tam = strlen(str);
-		for(int i=0;i<tam;i++)
+		while(reintentos>0)
 		{
+			reintentos--;
+			printf("\n%s",mensaje);
 
-			if(isalpha(str[i])==0)
+			if(myGets(buffer,sizeof(buffer))==0 && esNumerica(buffer) &&
+					atoi(buffer)>=minimo && atoi(buffer)<=maximo)
 			{
-				if(strcmp(&str[i]," ")==0){
-				retorno =-1;
+				//*pResultado = buffer;
+				strcpy(pResultado,buffer);
+				retorno = 0;
 				break;
-				}
-			}else{
-				retorno = 1;
 			}
+			printf("\n%s",mensajeError);
+
 		}
 	}
 	return retorno;
 }
 
-int utn_esNumerico(int numero)
-{
-	int retorno = -1;
 
-	if(isdigit(numero)==0){
-		retorno = -1;
-	}else{
-		retorno = 1;
-	}
 
-	return retorno;
-}
 
-int pausa()
-{
-	printf("\nIngrese una tecla para continuar...");
-	fflush(stdin);
-	getch();
-	return 0;
-}
+
