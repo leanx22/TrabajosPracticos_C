@@ -47,7 +47,7 @@ int jug_setEdad(Jugador* this,int edad);
 int jug_getEdad(Jugador* this,int* edad);
 
 int jug_setIdSeleccion(Jugador* this,int idSeleccion);
-int jug_getSIdSeleccion(Jugador* this,int* idSeleccion);
+int jug_getIdSeleccion(Jugador* this,int* idSeleccion);
 
 int jug_setIsEmpty(Jugador* this,int isEmpty);
 int jug_getIsEmpty(Jugador* this,int* isEmpty);
@@ -60,3 +60,14 @@ int imprimirPosiciones(ePosicion listaPos[],int tamPos,int cls);
 
 int obtenerPosicionxID(ePosicion lista[],int tam,int id, char* respuesta);
 int obtenerNacionalidad(eNacionalidades listaN[],int tam,int id, char* respuesta);
+
+int editarJugador(Jugador* jugador,ePosicion listaPos[],eNacionalidades listaNacionalidades[],
+	int tamPos,int tamNacionalidades);
+
+int listarJugadores(LinkedList* lista,LinkedList* listaSelecciones,int cls);
+
+int listarJugadoresConvocados(LinkedList* lista,LinkedList* listaSelecciones,int cls);
+
+int bajaJugador(LinkedList* lista,int idAeliminar);
+
+Jugador* convocarJugador(LinkedList*listaJugadores);

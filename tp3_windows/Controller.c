@@ -80,7 +80,6 @@ int controller_agregarJugador(LinkedList* pArrayListJugador,eNacionalidades list
 		   if(ll_add(pArrayListJugador,jug_newParametros(*idJugadores,nombre,edad,posicion,nacionalidad,"0"))==0)
 		   {
 			   *idJugadores+=1;
-			   system("PAUSE");
 			   retorno = 0;
 		   }
 
@@ -97,9 +96,35 @@ int controller_agregarJugador(LinkedList* pArrayListJugador,eNacionalidades list
  * \return int
  *
  */
-int controller_editarJugador(LinkedList* pArrayListJugador)
+int controller_editarJugador(LinkedList* pArrayListJugador,ePosicion listaPos[],
+		eNacionalidades listaNacionalidades[],int tamPos, int tamNacionalidades)
 {
-    return 1;
+    int retorno = -1;
+    int idAmodificar;
+    int tam;
+    int idActual;
+
+    Jugador* aux = NULL;
+
+    if(pArrayListJugador!=NULL)
+    {
+    	tam = ll_len(pArrayListJugador);
+    	if(utn_pedirInt(&idAmodificar,"\n>Ingrese el id del jugador: ","\n[!]Error, reintente.",1,999,3)==0)
+    	{
+    		for(int i=0;i<tam;i++)
+    		{
+    			aux = ll_get(pArrayListJugador,i);
+    			jug_getId(aux,&idActual);
+    			if(idActual==idAmodificar)
+    			{
+    				retorno = editarJugador(aux,listaPos,listaNacionalidades,tamPos,tamNacionalidades);
+    				break;
+    			}
+    		}
+    	}
+    }
+
+	return retorno;
 }
 
 /** \brief Baja del jugador
@@ -109,9 +134,24 @@ int controller_editarJugador(LinkedList* pArrayListJugador)
  * \return int
  *
  */
-int controller_removerJugador(LinkedList* pArrayListJugador)
+int controller_removerJugador(LinkedList* pArrayListJugador,LinkedList* selecciones)
 {
-    return 1;
+	int retorno = -1;
+	int idAeliminar;
+
+	if(pArrayListJugador!=NULL)
+	{
+		listarJugadores(pArrayListJugador,selecciones,1);
+		if(utn_pedirInt(&idAeliminar,"\n>Ingrese el ID del jugador que desea eliminar: ",
+				"\n[!]Error, reintente.",1,999,3)==0 &&
+				bajaJugador(pArrayListJugador,idAeliminar)==0)
+		{
+			retorno = 0;
+		}
+
+	}
+
+    return retorno;
 }
 
 /** \brief Listar jugadores
@@ -121,9 +161,14 @@ int controller_removerJugador(LinkedList* pArrayListJugador)
  * \return int
  *
  */
-int controller_listarJugadores(LinkedList* pArrayListJugador)
+int controller_listarJugadores(LinkedList* pArrayListJugador,LinkedList* selecciones)
 {
-    return 1;
+	int retorno = -1;
+	if(pArrayListJugador!=NULL)
+	{
+		retorno = listarJugadores(pArrayListJugador,selecciones,1);
+	}
+	return retorno;
 }
 
 /** \brief Ordenar jugadores
@@ -215,7 +260,15 @@ int controller_editarSeleccion(LinkedList* pArrayListSeleccion)
  */
 int controller_listarSelecciones(LinkedList* pArrayListSeleccion)
 {
-    return 1;
+	int retorno = -1;
+	if(pArrayListSeleccion!=NULL)
+	{
+		listarSelecciones(pArrayListSeleccion,1);
+		printf("\n");
+		system("PAUSE");
+	}
+
+    return retorno;
 }
 
 /** \brief Ordenar selecciones
@@ -242,7 +295,7 @@ int controller_guardarSeleccionesModoTexto(char* path , LinkedList* pArrayListSe
     return 1;
 }
 
-//-----------
+//-------------------------PROPIAS-----------------------------------------------------
 
 int iniciarID(char* path)
 {
@@ -304,6 +357,76 @@ int actualizarArchivoID(char* path,int newId)
 	return retorno;
 }
 
+int menuListados(LinkedList* listaJugadores,LinkedList* listaSelecciones)
+{
+	int retorno = -1;
+	int opcion;
+	int continuar = 1;
+
+	do{
+		system("CLS");
+		printf("Que desea mostrar?:"
+				"\n1.Todos los jugadores."
+				"\n2.Todas las selecciones."
+				"\n3.Solo jugadores convocados."
+				"\n4.Salir.");
+		if(utn_pedirInt(&opcion,"\n>Ingrese opcion: ","\n[!]Error, reingrese.",1,4,3)==0)
+		{
+			switch(opcion)
+			{
+			case 1:
+				controller_listarJugadores(listaJugadores,listaSelecciones);
+				printf("\n");
+				system("PAUSE");
+				break;
+			case 2:
+				controller_listarSelecciones(listaSelecciones);
+				break;
+			case 3:
+				listarJugadoresConvocados(listaJugadores,listaSelecciones,1);
+				printf("\n");
+				system("PAUSE");
+				break;
+			case 4:
+				continuar = 0;
+				break;
+			}
+			retorno = 0;
+		}
+
+	}while(continuar == 1);
+
+
+	return retorno;
+}
+
+int convocarJugadores(LinkedList* listaJugadores,LinkedList* listaSelecciones)
+{
+	int retorno = -1;
+	Jugador* jugadorAux=NULL;
+
+
+	if(listaJugadores!=NULL && listaSelecciones!=NULL)
+	{
+		controller_listarJugadores(listaJugadores,listaSelecciones);
+		printf("\n");
+		jugadorAux=convocarJugador(listaJugadores);
+		if(jugadorAux!=NULL)
+		{
+			listarSelecciones(listaSelecciones,1);
+			if(convocarJugadorAseleccion(listaSelecciones,jugadorAux)==0)
+			{
+				printf("\nJugador convocado correctamente!\n");
+				retorno=0;
+			}else{
+				printf("\nOcurrio un error al intentar convocar!\n");
+			}system("PAUSE");
+		}
+
+	}
+
+	return retorno;
+}
 
 
 

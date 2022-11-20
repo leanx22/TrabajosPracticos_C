@@ -7,9 +7,10 @@ int controller_cargarJugadoresDesdeBinario(char* path , LinkedList* pArrayListJu
 int controller_agregarJugador(LinkedList* pArrayListJugador,eNacionalidades listaNacionalidades[],
 	int tamNacionalidades,int* idJugadores,ePosicion listaPosi[],int tamPosi);
 
-int controller_editarJugador(LinkedList* pArrayListJugador);
-int controller_removerJugador(LinkedList* pArrayListJugador);
-int controller_listarJugadores(LinkedList* pArrayListJugador);
+int controller_editarJugador(LinkedList* pArrayListJugador,ePosicion listaPos[],
+		eNacionalidades listaNacionalidades[],int tamPos, int tamNacionalidades);
+int controller_removerJugador(LinkedList* pArrayListJugador,LinkedList* selecciones);
+int controller_listarJugadores(LinkedList* pArrayListJugador,LinkedList* selecciones);
 int controller_ordenarJugadores(LinkedList* pArrayListJugador);
 int controller_guardarJugadoresModoTexto(char* path , LinkedList* pArrayListJugador);
 int controller_guardarJugadoresModoBinario(char* path , LinkedList* pArrayListJugador);
@@ -18,6 +19,8 @@ int controller_editarSeleccion(LinkedList* pArrayListSeleccion);
 int controller_listarSelecciones(LinkedList* pArrayListSeleccion);
 int controller_ordenarSelecciones(LinkedList* pArrayListSeleccion);
 int controller_guardarSeleccionesModoTexto(char* path , LinkedList* pArrayListSeleccion);
+
+//-------------------------------------------------------------------------------------------------------
 
 /// @brief Funcion encargada de crear o cargar el archivo que controla las ID de los jugadores.
 /// Basicamente guardo el valor de id en un archivo y lo leo al iniciar el programa.
@@ -32,5 +35,16 @@ int iniciarID(char* path);
 /// @return
 int actualizarArchivoID(char* path,int newId);
 
+/// @brief
+///
+/// @param listaJugadores
+/// @param listaSelecciones
+/// @return
+int menuListados(LinkedList* listaJugadores,LinkedList* listaSelecciones);
 
-
+/// @brief
+///
+/// @param listaJugadores
+/// @param listaSelecciones
+/// @return
+int convocarJugadores(LinkedList* listaJugadores,LinkedList* listaSelecciones);

@@ -1,4 +1,5 @@
 #include "LinkedList.h"
+#include "Jugador.h"
 
 #ifndef selec_H_INCLUDED
 #define selec_H_INCLUDED
@@ -19,11 +20,15 @@ void selec_delete();
 int selec_getId(Seleccion* this,int* id);
 int selec_getPais(Seleccion* this,char* pais);
 int selec_getConfederacion(Seleccion* this,char* confederacion);
-int selec_getIsEmpty(Seleccion* this,int* isEmpty);
+//int selec_getIsEmpty(Seleccion* this,int* isEmpty);
 
 int selec_setConvocados(Seleccion* this,int convocados);
 int selec_getConvocados(Seleccion* this,int* convocados);
 
+int listarSelecciones(LinkedList* this,int cls);
 
+int obtenerSeleccionxID(LinkedList* this,int idBusqueda,char* respuesta);
+
+int convocarJugadorAseleccion(LinkedList* listaSeleccion,Jugador* jugador);
 
 #endif // selec_H_INCLUDED

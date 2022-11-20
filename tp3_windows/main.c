@@ -5,7 +5,7 @@
 #include "Jugador.h"
 #include "utn.h"
 
-#define CANT_NACIONALIDADES 31
+#define CANT_NACIONALIDADES 31 //32 mepa
 #define CANT_POS 14
 #define ARCHIVO_ID "valor_id.utn"
 
@@ -16,6 +16,8 @@ int main(void)
 	int continuar = 1;
 	int opcion = 0;
 	int idAux; //EL PRIMERO DEBE SER 371!
+
+	//todo FLAGS!
 
     eNacionalidades listaNacionalidad[CANT_NACIONALIDADES];
     hardcodearNacionalidades(listaNacionalidad,CANT_NACIONALIDADES);
@@ -58,7 +60,29 @@ int main(void)
     			  }
     			  system("PAUSE");
     			  break;
-
+    		  case 3:
+    			  if(controller_listarJugadores(listaJugadores,listaSelecciones)==0 &&
+    				 controller_editarJugador(listaJugadores,listaPosiciones,listaNacionalidad,
+    					  CANT_POS,CANT_NACIONALIDADES)!=0)
+    			  {
+    				  printf("\nError en edicion.\n");
+    				  system("PAUSE");
+    			  }
+    			  break;
+    		  case 4: //todo modificar el contador de la seleccion.
+    			  if(controller_removerJugador(listaJugadores,listaSelecciones)==0)
+    			  {
+    				  printf("\nJugador eliminado correctamente!\n");
+    			  }else{
+    				  printf("\n[!]No se encontro o no se pudo eliminar al jugador!\n");
+    			  }system("PAUSE");
+    			  break;
+    		  case 5:
+    			  menuListados(listaJugadores,listaSelecciones);
+    			  break;
+    		  case 6:
+    			  convocarJugadores(listaJugadores,listaSelecciones);
+    			  break;
     		  case 11:
     			  continuar = 0;
     			 break;

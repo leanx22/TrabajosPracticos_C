@@ -4,6 +4,7 @@
 #include <string.h>
 #include "Jugador.h"
 #include "utn.h"
+#include "Seleccion.h"
 
 Jugador* jug_new()
 {
@@ -226,6 +227,249 @@ int obtenerNacionalidad(eNacionalidades listaN[],int tam,int id, char* respuesta
 	return retorno;
 }
 
+int editarJugador(Jugador* jugador,ePosicion listaPos[],eNacionalidades listaNacionalidades[],
+		int tamPos,int tamNacionalidades)
+{
+	int retorno = -1;
+	int opcion;
+	int continuar = 1;
+	char nombre[100];
+	int edad;
+	int idPosicion;
+	char posicion[30];
+	char nacionalidad[30];
+	int idNacionalidad;
+
+	if(jugador!=NULL)
+	{
+		do{
+			system("CLS");
+			jug_getNombreCompleto(jugador,nombre);
+			jug_getEdad(jugador,&edad);
+			jug_getPosicion(jugador,posicion);
+			jug_getNacionalidad(jugador,nacionalidad);
+			printf("EDICION DE %s.\n"
+					"\n1.Editar nombre [%s]"
+					"\n2.Editar edad [%d]"
+					"\n3.Editar posicion [%s]"
+					"\n4.Editar nacionalidad [%s]"
+					"\n5.Volver",nombre,nombre,edad,posicion,nacionalidad);
+			if(utn_pedirInt(&opcion,"\n>Ingrese una opcion: ","\n[!]Error, reingrese.",1,5,3)==0)
+			{
+				switch(opcion)
+				{
+				case 1:
+					if(utn_getStr(nombre,"\n>Ingrese el nuevo nombre: ","\n[!]Error, reintente.",100,3)==0 &&
+						jug_setNombreCompleto(jugador,nombre)==0)
+					{
+						printf("\nCambio realizado.\n");
+					}else{
+						printf("\nOcurrio un error al actuializar los datos :(\n");
+					}system("PAUSE");
+					break;
+				case 2:
+					if(utn_pedirInt(&edad,"\nIngrese la nueva edad[17-99]: ","\n[!]Error, reintente.",17,99,3)==0 &&
+						jug_setEdad(jugador,edad)==0)
+					{
+						printf("\nCambio realizado.\n");
+					}else{
+						printf("\nOcurrio un error al actualizar los datos :(\n");
+					}system("PAUSE");
+					break;
+				case 3:
+					imprimirPosiciones(listaPos,tamPos,1);
+					if(utn_pedirInt(&idPosicion,"\n>Ingrese el ID de posicion: ","\n[!]Error, reintente.",1,14,3)==0 &&
+						obtenerPosicionxID(listaPos,tamPos,idPosicion,posicion)==0 &&
+						jug_setPosicion(jugador,posicion)==0)
+					{
+						printf("\nCambio Realizado.\n");
+					}else{
+						printf("\nOcurrio un error al actualizar los datos :(\n");
+					}system("PAUSE");
+					break;
+				case 4:
+					imprimirNacionalidades(listaNacionalidades,tamNacionalidades,1);
+					if(utn_pedirInt(&idNacionalidad,"\n>Ingrese el ID de Nacionalidad: ","\n[!]Error, reintente.",1,31,3)==0 &&
+						obtenerNacionalidad(listaNacionalidades,tamNacionalidades,idNacionalidad,nacionalidad)==0 &&
+						jug_setNacionalidad(jugador,nacionalidad)==0)
+					{
+						printf("\nCambio Realizado.\n");
+					}else{
+						printf("\nOcurrio un error al actualizar los datos :(\n");
+					}system("PAUSE");
+					break;
+				case 5:
+					continuar = 0;
+					break;
+				}
+				retorno = 0;
+			}
+
+
+		}while(continuar == 1);
+
+	}
+
+	return retorno;
+}
+
+int listarJugadores(LinkedList* lista,LinkedList* listaSelecciones,int cls)
+{
+	int retorno = -1;
+	int tam;
+
+	int id;
+	char nombre[100];
+	int edad;
+	char posicion[30];
+	char nacionalidad[30];
+	int idSeleccion;
+	char seleccion[30];
+
+	Jugador* aux = NULL;
+
+	if(lista!=NULL)
+	{
+		if(cls==1){
+			system("CLS");
+		}
+		printf("\n| ID |     NOMBRE COMPLETO     | EDAD |       POSICION       |  NACIONALIDAD  | SELECCION  |");
+		printf("\n-------------------------------------------------------------------------------------------");
+		tam = ll_len(lista);
+		for(int i=0;i<tam;i++)
+		{
+			aux=ll_get(lista,i);
+			jug_getId(aux,&id);
+			jug_getNombreCompleto(aux,nombre);
+			jug_getEdad(aux,&edad);
+			jug_getPosicion(aux,posicion);
+			jug_getNacionalidad(aux,nacionalidad);
+			jug_getIdSeleccion(aux,&idSeleccion);
+			obtenerSeleccionxID(listaSelecciones,idSeleccion,seleccion);
+			printf("\n|%4d|%-25s|%6d|%-22s|%-16s|%-11s|",id,nombre,edad,posicion,nacionalidad,seleccion);
+		}
+		retorno = 0;
+	}
+
+	return retorno;
+}
+
+int listarJugadoresConvocados(LinkedList* lista,LinkedList* listaSelecciones,int cls)
+{
+	int retorno = -1;
+	int tam;
+
+	int id;
+	char nombre[100];
+	int edad;
+	char posicion[30];
+	char nacionalidad[30];
+	int idSeleccion;
+	char seleccion[30];
+
+	Jugador* aux = NULL;
+
+	if(lista!=NULL)
+	{
+		if(cls==1){
+			system("CLS");
+		}
+		printf("\n| ID |     NOMBRE COMPLETO     | EDAD |       POSICION       |  NACIONALIDAD  | SELECCION  |");
+		printf("\n-------------------------------------------------------------------------------------------");
+		tam = ll_len(lista);
+		for(int i=0;i<tam;i++)
+		{
+			aux=ll_get(lista,i);
+			jug_getIdSeleccion(aux,&idSeleccion);
+			if(idSeleccion!=0)
+			{
+
+				jug_getId(aux,&id);
+				jug_getNombreCompleto(aux,nombre);
+				jug_getEdad(aux,&edad);
+				jug_getPosicion(aux,posicion);
+				jug_getNacionalidad(aux,nacionalidad);
+				obtenerSeleccionxID(listaSelecciones,idSeleccion,seleccion);
+				printf("\n|%4d|%-25s|%6d|%-22s|%-16s|%-11s|",id,nombre,edad,posicion,nacionalidad,seleccion);
+			}
+		}
+		retorno = 0;
+	}
+
+	return retorno;
+}
+
+int bajaJugador(LinkedList* lista, int idAeliminar)
+{
+	int retorno = -1;
+	int tam;
+	Jugador* aux = NULL;
+	int bufId;
+	char nombre[100];
+	int confirmar;
+
+	if(lista!=NULL)
+	{
+		tam=ll_len(lista);
+		for(int i=0;i<tam;i++)
+		{
+			aux=ll_get(lista,i);
+			jug_getId(aux,&bufId);
+			if(bufId==idAeliminar)
+			{
+				jug_getNombreCompleto(aux,nombre);
+				printf("\nSe va a eliminar a %s",nombre);
+				if(utn_pedirInt(&confirmar,"Ingrese (1)Para CONFIRMAR o (2)Para CANCELAR: ",
+					"\n[!]No es una opcion valida, reintente.",1,2,3)==0 && confirmar == 1)
+				{
+					retorno = ll_remove(lista,i);
+				}
+				break;
+			}
+		}
+	}
+
+	return retorno;
+}
+
+
+Jugador* convocarJugador(LinkedList*listaJugadores)
+{
+	Jugador* retorno = NULL;
+	int idAconvocar;
+	int buffer;
+	int idSeleccion;
+
+	Jugador* aux = NULL;
+	int tam;
+
+	if(listaJugadores!=NULL &&
+		utn_pedirInt(&idAconvocar,"\nIngrese ID a convocar: ","[!]Error, reintente.",1,999,3)==0)
+	{
+		tam = ll_len(listaJugadores);
+		for(int i=0;i<tam;i++)
+		{
+			aux=ll_get(listaJugadores,i);
+			jug_getId(aux,&buffer);
+			jug_getIdSeleccion(aux,&idSeleccion);
+			if(buffer==idAconvocar)
+			{
+				if(idSeleccion==0)
+				{
+					retorno = aux;
+					break;
+				}else{
+					printf("\nEl jugador esta convocado en otra seleccion!");
+					break;
+				}
+			}
+		}
+	}
+
+	return retorno;
+}
+
+
 //-------------------------------------Setters y getters----------------------------------------------------||
 
 int jug_setId(Jugador* this,int id)
@@ -385,7 +629,7 @@ int jug_setIdSeleccion(Jugador* this,int idSeleccion)
 
 	return retorno;
 }
-int jug_getSIdSeleccion(Jugador* this,int* idSeleccion)
+int jug_getIdSeleccion(Jugador* this,int* idSeleccion)
 {
 	int retorno = -1;
 	if(this!=NULL && idSeleccion!=NULL)
