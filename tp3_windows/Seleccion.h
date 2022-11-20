@@ -31,4 +31,6 @@ int obtenerSeleccionxID(LinkedList* this,int idBusqueda,char* respuesta);
 
 int convocarJugadorAseleccion(LinkedList* listaSeleccion,Jugador* jugador);
 
+int obtenerIndiceSeleccion(LinkedList* listaSeleccion,int id);
+
 #endif // selec_H_INCLUDED

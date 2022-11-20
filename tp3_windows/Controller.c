@@ -238,16 +238,71 @@ int controller_cargarSeleccionesDesdeTexto(char* path , LinkedList* pArrayListSe
     return retorno;
 }
 
-/** \brief Modificar datos de empleado
- *
- * \param path char*
- * \param pArrayListSeleccion LinkedList*
- * \return int
- *
- */
-int controller_editarSeleccion(LinkedList* pArrayListSeleccion)
+/// @brief
+///
+/// @param pArrayListSeleccion
+/// @param pArrayListJugador
+/// @return
+int controller_editarSeleccion(LinkedList* pArrayListSeleccion,LinkedList* pArrayListJugador)
 {
-    return 1;
+	int retorno = -1;
+	int continuar=1;
+	int opcion;
+	Jugador* jugadorAux = NULL;
+
+	if(pArrayListSeleccion!=NULL && pArrayListJugador!=NULL)
+	{
+		do{
+			system("CLS");
+			printf("EDITAR SELECCIONES"
+					"\n1.Convocar Jugadores."
+					"\n2.Quitar Jugadores."
+					"\n3.Volver");
+
+			if(utn_pedirInt(&opcion,"\nIngrese una opcion: ","\n[!]Error, reintente.",1,3,3)==0)
+			{
+				switch(opcion)
+				{
+				case 1:
+					controller_listarJugadores(pArrayListJugador,pArrayListSeleccion);
+					printf("\n");
+					jugadorAux=convocarJugador(pArrayListJugador);
+					if(jugadorAux!=NULL)
+					{
+						listarSelecciones(pArrayListSeleccion,1);
+						if(convocarJugadorAseleccion(pArrayListSeleccion,jugadorAux)==0)
+						{
+							printf("\nJugador convocado correctamente!\n");
+							retorno=0;
+						}else{
+							printf("\nOcurrio un error al intentar convocar!\n");
+						}system("PAUSE");
+					}
+				break;
+				case 2:
+					listarJugadoresConvocados(pArrayListJugador,pArrayListSeleccion,1);
+					if(quitarJugadorDeSeleccion(pArrayListJugador,pArrayListSeleccion)==0)
+					{
+						printf("\nJugador quitado correctamente!\n");
+					}else{
+						printf("\nNo se pudo quitar al jugador!\n");
+					}system("PAUSE");
+					break;
+				case 3:
+					continuar =0;
+					break;
+
+				}
+
+			}
+
+		}while(continuar==1);
+
+
+	}
+
+
+    return retorno;
 }
 
 
@@ -294,6 +349,9 @@ int controller_guardarSeleccionesModoTexto(char* path , LinkedList* pArrayListSe
 {
     return 1;
 }
+
+
+
 
 //-------------------------PROPIAS-----------------------------------------------------
 
@@ -400,33 +458,6 @@ int menuListados(LinkedList* listaJugadores,LinkedList* listaSelecciones)
 	return retorno;
 }
 
-int convocarJugadores(LinkedList* listaJugadores,LinkedList* listaSelecciones)
-{
-	int retorno = -1;
-	Jugador* jugadorAux=NULL;
-
-
-	if(listaJugadores!=NULL && listaSelecciones!=NULL)
-	{
-		controller_listarJugadores(listaJugadores,listaSelecciones);
-		printf("\n");
-		jugadorAux=convocarJugador(listaJugadores);
-		if(jugadorAux!=NULL)
-		{
-			listarSelecciones(listaSelecciones,1);
-			if(convocarJugadorAseleccion(listaSelecciones,jugadorAux)==0)
-			{
-				printf("\nJugador convocado correctamente!\n");
-				retorno=0;
-			}else{
-				printf("\nOcurrio un error al intentar convocar!\n");
-			}system("PAUSE");
-		}
-
-	}
-
-	return retorno;
-}
 
 
 

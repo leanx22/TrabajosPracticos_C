@@ -15,7 +15,7 @@ int controller_ordenarJugadores(LinkedList* pArrayListJugador);
 int controller_guardarJugadoresModoTexto(char* path , LinkedList* pArrayListJugador);
 int controller_guardarJugadoresModoBinario(char* path , LinkedList* pArrayListJugador);
 int controller_cargarSeleccionesDesdeTexto(char* path , LinkedList* pArrayListSeleccion);
-int controller_editarSeleccion(LinkedList* pArrayListSeleccion);
+int controller_editarSeleccion(LinkedList* pArrayListSeleccion,LinkedList* pArrayListJugador);
 int controller_listarSelecciones(LinkedList* pArrayListSeleccion);
 int controller_ordenarSelecciones(LinkedList* pArrayListSeleccion);
 int controller_guardarSeleccionesModoTexto(char* path , LinkedList* pArrayListSeleccion);
@@ -42,9 +42,4 @@ int actualizarArchivoID(char* path,int newId);
 /// @return
 int menuListados(LinkedList* listaJugadores,LinkedList* listaSelecciones);
 
-/// @brief
-///
-/// @param listaJugadores
-/// @param listaSelecciones
-/// @return
-int convocarJugadores(LinkedList* listaJugadores,LinkedList* listaSelecciones);
+

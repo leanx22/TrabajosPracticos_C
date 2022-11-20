@@ -469,6 +469,71 @@ Jugador* convocarJugador(LinkedList*listaJugadores)
 	return retorno;
 }
 
+int quitarJugadorDeSeleccion(LinkedList*listaJugadores,LinkedList* listaSeleccion)
+{
+	int retorno = -1;
+
+	int idJugador;
+	int indiceJugador;
+	int idSeleccion;
+	int indiceSeleccion;
+	Jugador* auxJugador=NULL;
+	Seleccion* auxSeleccion=NULL;
+	int convocados;
+
+	if(listaJugadores!=NULL && listaSeleccion!=NULL &&
+		utn_pedirInt(&idJugador,"\n>Ingrese id del jugador: ","[!]Error, reintente.",1,999,3)==0)
+	{
+		indiceJugador = obtenerIndiceJugador(listaJugadores,idJugador);
+		if(indiceJugador!=-1)
+		{
+			auxJugador=ll_get(listaJugadores,indiceJugador);
+			jug_getIdSeleccion(auxJugador,&idSeleccion);
+			if(idSeleccion!=0)
+			{
+				indiceSeleccion=obtenerIndiceSeleccion(listaSeleccion,idSeleccion);
+				if(indiceSeleccion!=-1)
+				{
+					auxSeleccion=ll_get(listaSeleccion,indiceSeleccion);
+					selec_getConvocados(auxSeleccion,&convocados);
+					convocados-=1;
+					selec_setConvocados(auxSeleccion,convocados);
+					jug_setIdSeleccion(auxJugador,0);
+					retorno = 0;
+				}
+			}else{
+				printf("\nEste jugador no esta convocado aun.");
+			}
+		}
+
+	}
+
+	return retorno;
+}
+
+int obtenerIndiceJugador(LinkedList* listaJugadores,int id)
+{
+	int retorno = -1;
+	int tam;
+	Jugador* aux=NULL;
+	int idJugador;
+
+	if(listaJugadores!=NULL && id>0)
+	{
+		tam=ll_len(listaJugadores);
+		for(int i=0;i<tam;i++)
+		{
+			aux=ll_get(listaJugadores,i);
+			jug_getId(aux,&idJugador);
+			if(idJugador==id)
+			{
+				retorno=i;
+				break;
+			}
+		}
+	}
+	return retorno;
+}
 
 //-------------------------------------Setters y getters----------------------------------------------------||
 

@@ -81,7 +81,7 @@ int main(void)
     			  menuListados(listaJugadores,listaSelecciones);
     			  break;
     		  case 6:
-    			  convocarJugadores(listaJugadores,listaSelecciones);
+    			  controller_editarSeleccion(listaSelecciones,listaJugadores);
     			  break;
     		  case 11:
     			  continuar = 0;

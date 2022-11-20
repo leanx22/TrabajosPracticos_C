@@ -71,3 +71,8 @@ int listarJugadoresConvocados(LinkedList* lista,LinkedList* listaSelecciones,int
 int bajaJugador(LinkedList* lista,int idAeliminar);
 
 Jugador* convocarJugador(LinkedList*listaJugadores);
+
+int quitarJugadorDeSeleccion(LinkedList*listaJugadores,LinkedList* listaSeleccion);
+
+int obtenerIndiceJugador(LinkedList* listaJugadores,int id);
+

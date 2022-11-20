@@ -204,3 +204,26 @@ int convocarJugadorAseleccion(LinkedList* listaSeleccion,Jugador* jugador)
 	return retorno;
 }
 
+int obtenerIndiceSeleccion(LinkedList* listaSeleccion,int id)
+{
+	int retorno = -1;
+	int tam;
+	Seleccion* aux=NULL;
+	int idSeleccion;
+
+	if(listaSeleccion!=NULL && id>0)
+	{
+		tam=ll_len(listaSeleccion);
+		for(int i=0;i<tam;i++)
+		{
+			aux=ll_get(listaSeleccion,i);
+			selec_getId(aux,&idSeleccion);
+			if(idSeleccion==id)
+			{
+				retorno=i;
+				break;
+			}
+		}
+	}
+		return retorno;
+}
