@@ -1,7 +1,7 @@
 #include "Jugador.h"
 
 int controller_cargarJugadoresDesdeTexto(char* path , LinkedList* pArrayListJugador);
-int controller_cargarJugadoresDesdeBinario(char* path , LinkedList* pArrayListJugador);
+int controller_cargarJugadoresDesdeBinario(char* path , LinkedList* pArrayListJugador,LinkedList*listaSelecciones);
 //int controller_agregarJugador(LinkedList* pArrayListJugador);
 
 int controller_agregarJugador(LinkedList* pArrayListJugador,eNacionalidades listaNacionalidades[],
@@ -57,11 +57,3 @@ int ordenarYlistar(LinkedList* listaJugadores,LinkedList* listaSelecciones);
 /// @return retorna 0 si OK o -1 en caso de error.
 int obtenerConfederacion(int id,char* respuesta);
 
-/// @brief Funcion utlizada para leer jugadores desde un archivo binario y listarlos sin necesidad de
-/// guardarlos en una linkedList nueva.
-///
-/// @param path Nombre del archivo.
-/// @param listaJugadores
-/// @param listaSelecciones
-/// @return retorna 0 si OK o -1 en caso de error.
-int leerBinario(char* path,LinkedList* listaJugadores,LinkedList* listaSelecciones);

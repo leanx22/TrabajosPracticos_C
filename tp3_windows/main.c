@@ -129,7 +129,7 @@ int main(void)
     			  }
     			  break;
     		  case 9:
-    			  leerBinario("JugadoresFiltrados.bin",listaJugadores,listaSelecciones);
+    			  controller_cargarJugadoresDesdeBinario("JugadoresFiltrados.bin",listaJugadores,listaSelecciones);
     			  break;
     		  case 10:
     			  if(ll_isEmpty(listaJugadores)==0 &&

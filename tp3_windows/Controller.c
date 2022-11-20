@@ -42,9 +42,26 @@ int controller_cargarJugadoresDesdeTexto(char* path , LinkedList* pArrayListJuga
  * \return int
  *
  */
-int controller_cargarJugadoresDesdeBinario(char* path , LinkedList* pArrayListJugador)
+int controller_cargarJugadoresDesdeBinario(char* path , LinkedList* pArrayListJugador,LinkedList*listaSelecciones)
 {
-    return 1;
+	int retorno = -1;
+	FILE* archivo = NULL;
+
+	if(path!=NULL)
+	{
+		archivo=fopen(path,"rb");
+		if(archivo!=NULL)
+		{
+			parser_JugadorFromBinary(archivo,pArrayListJugador,listaSelecciones);
+			retorno = 0;
+			printf("\n");
+		}else{
+			printf("\nPrimero se debe generar el archivo!\n");
+		}system("PAUSE");
+
+	}
+
+	return retorno;
 }
 
 /** \brief Alta de jugadores
@@ -716,28 +733,6 @@ int obtenerConfederacion(int id,char* respuesta)
 			break;
 		}
 		retorno = 0;
-	}
-
-	return retorno;
-}
-
-int leerBinario(char* path,LinkedList* listaJugadores,LinkedList* listaSelecciones)
-{
-	int retorno = -1;
-	FILE* archivo = NULL;
-
-	if(path!=NULL)
-	{
-		archivo=fopen(path,"rb");
-		if(archivo!=NULL)
-		{
-			parser_JugadorFromBinary(archivo,listaJugadores,listaSelecciones);
-			retorno = 0;
-			printf("\n");
-		}else{
-			printf("\nPrimero se debe generar el archivo!\n");
-		}system("PAUSE");
-
 	}
 
 	return retorno;
