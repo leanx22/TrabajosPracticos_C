@@ -327,16 +327,17 @@ int controller_guardarJugadoresModoBinario(char* path , LinkedList* pArrayListJu
 					}
 				}
 
+				if(fclose(archivo)!=0){
+					printf("\nNo se pudo cerrar el archivo!.\n");
+				}
+
 				if(contador>0)
 				{
 					retorno=0;
 					printf("\nGuardado completo!\n");
 				}else{
 					printf("\nError, esta confederacion no tiene convocados!.\n");
-				}
-
-				if(fclose(archivo)!=0){
-					printf("\nNo se pudo cerrar el archivo!.\n");
+					remove(path);
 				}
 				system("PAUSE");
 			}

@@ -42,7 +42,6 @@ int selec_getId(Seleccion* this,int* id)
 		*id = this->id;
 		retorno = 0;
 	}
-
 	return retorno;
 }
 int selec_getPais(Seleccion* this,char* pais)
@@ -135,6 +134,7 @@ int obtenerSeleccionxID(LinkedList* this,int idBusqueda,char* respuesta)
 	int id;
 	char pais[30];
 	Seleccion* aux=NULL;
+	int idBuscado = idBusqueda;
 
 	if(this!=NULL && respuesta!=NULL)
 	{
@@ -143,18 +143,20 @@ int obtenerSeleccionxID(LinkedList* this,int idBusqueda,char* respuesta)
 		{
 			aux=ll_get(this,i);
 			selec_getId(aux,&id);
-			if(id == idBusqueda)
+
+			if(idBuscado == 0)
+			{
+				strcpy(respuesta,"No convocado");
+				retorno = 0;
+				break;
+			}
+			else if(id == idBuscado)
 			{
 				selec_getPais(aux,pais);
 				strcpy(respuesta,pais);
 				retorno =0;
 				break;
-			}else if(idBusqueda == 0){
-				strcpy(respuesta,"No convocado");
-				retorno = 0;
-				break;
 			}
-
 		}
 	}
 

@@ -315,6 +315,7 @@ int listarJugadores(LinkedList* lista,LinkedList* listaSelecciones,int cls)
 
 	Jugador* aux = NULL;
 
+
 	if(lista!=NULL)
 	{
 		if(cls==1){

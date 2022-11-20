@@ -90,20 +90,23 @@ int main(void)
     			  }
     			  break;
     		  case 5:
-    			  if(ll_isEmpty(listaJugadores)==0)
+    			  if(ll_isEmpty(listaJugadores)==0 && ll_isEmpty(listaSelecciones)==0)
     			  {
     				  menuListados(listaJugadores,listaSelecciones);
     			  }else{
-    				  printf("\nAun no se cargaron jugadores!\n");
+    				  printf("\nNo se puede usar esta funcion sin tener el archivo de selecciones cargado o sin jugadores dados de alta!\n");
     				  system("PAUSE");
     			  }
     			  break;
     		  case 6:
-    			  if(ll_isEmpty(listaJugadores)==0 && controller_editarSeleccion(listaSelecciones,listaJugadores)==0)
+    			  if(ll_isEmpty(listaJugadores)==0 && ll_isEmpty(listaSelecciones)==0)
     			  {
-    				 flagConvocado=1;
+    				  if(controller_editarSeleccion(listaSelecciones,listaJugadores)==0)
+    				  {
+    					  flagConvocado=1;
+    				  }
     			  }else{
-    				  printf("\nAun no hay jugadores cargados!\n");
+    				  printf("\nSe necesita cargar el archivo de selecciones y tener al menos un jugador cargado!\n");
     				  system("PAUSE");
     			  }
     			  break;
@@ -117,8 +120,13 @@ int main(void)
     			  }
     			  break;
     		  case 8:
-    			  //flag
-    			  controller_guardarJugadoresModoBinario("JugadoresFiltrados.bin",listaJugadores,listaSelecciones);
+    			  if(flagConvocado==1)
+    			  {
+    				  controller_guardarJugadoresModoBinario("JugadoresFiltrados.bin",listaJugadores,listaSelecciones);
+    			  }else{
+    				  printf("\nSe necesita convocar primero!.\n");
+    				  system("PAUSE");
+    			  }
     			  break;
     		  case 9:
     			  leerBinario("JugadoresFiltrados.bin",listaJugadores,listaSelecciones);
