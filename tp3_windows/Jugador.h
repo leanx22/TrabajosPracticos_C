@@ -68,11 +68,17 @@ int listarJugadores(LinkedList* lista,LinkedList* listaSelecciones,int cls);
 
 int listarJugadoresConvocados(LinkedList* lista,LinkedList* listaSelecciones,int cls);
 
-int bajaJugador(LinkedList* lista,int idAeliminar);
+int bajaJugador(LinkedList* lista, int idAeliminar,LinkedList* listaSeleccion);
 
 Jugador* convocarJugador(LinkedList*listaJugadores);
 
 int quitarJugadorDeSeleccion(LinkedList*listaJugadores,LinkedList* listaSeleccion);
 
 int obtenerIndiceJugador(LinkedList* listaJugadores,int id);
+
+int jug_ordenarPorNacionalidad(void* this, void* this2);
+
+int jug_ordenarPorNombre(void* this, void* this2);
+
+int jug_ordenarPorEdad(void* this, void* this2);
 

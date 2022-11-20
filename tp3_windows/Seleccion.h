@@ -33,4 +33,6 @@ int convocarJugadorAseleccion(LinkedList* listaSeleccion,Jugador* jugador);
 
 int obtenerIndiceSeleccion(LinkedList* listaSeleccion,int id);
 
+int selec_ordenarPorConfederacion(void* this,void* this2);
+
 #endif // selec_H_INCLUDED

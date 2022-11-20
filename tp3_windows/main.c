@@ -9,6 +9,7 @@
 #define CANT_POS 14
 #define ARCHIVO_ID "valor_id.utn"
 
+
 int main(void)
 {
 	setbuf(stdout,NULL);
@@ -16,8 +17,7 @@ int main(void)
 	int continuar = 1;
 	int opcion = 0;
 	int idAux; //EL PRIMERO DEBE SER 371!
-
-	//todo FLAGS!
+	int cConvocados=0;
 
     eNacionalidades listaNacionalidad[CANT_NACIONALIDADES];
     hardcodearNacionalidades(listaNacionalidad,CANT_NACIONALIDADES);
@@ -34,7 +34,7 @@ int main(void)
 
     do{
     	system("CLS");
-    	if(utn_pedirInt(&opcion,"\nMENU:\n1.Cargar archivo.\n2.Alta de jugador.\n3.Modificar jugador.\n4.Baja de jugador."
+    	if(utn_pedirInt(&opcion,"\nMENU:\n1.Cargar archivos.\n2.Alta de jugador.\n3.Modificar jugador.\n4.Baja de jugador."
     			"\n5.Listados\n6.Convocar jugadores.\n7.Ordenar y listar.\n8.Generar archivo binario.\n9.Cargar archivo binario."
     			"\n10.Guardar archivos .csv.\n11.SALIR\n\n>Ingrese una opcion: ","\nError, reintente.",1,11,99)==0)
     	{
@@ -61,27 +61,77 @@ int main(void)
     			  system("PAUSE");
     			  break;
     		  case 3:
-    			  if(controller_listarJugadores(listaJugadores,listaSelecciones)==0 &&
-    				 controller_editarJugador(listaJugadores,listaPosiciones,listaNacionalidad,
-    					  CANT_POS,CANT_NACIONALIDADES)!=0)
+    			  if(ll_isEmpty(listaJugadores)==0)
     			  {
-    				  printf("\nError en edicion.\n");
+    				  if(controller_listarJugadores(listaJugadores,listaSelecciones)==0 &&
+    						  controller_editarJugador(listaJugadores,listaPosiciones,listaNacionalidad,
+    								  CANT_POS,CANT_NACIONALIDADES)!=0)
+    				  {
+    					  printf("\nError en edicion.\n");
+    					  system("PAUSE");
+    				  }
+    			  }else{
+    				  printf("\nAun no hay jugadores para editar!\n");
     				  system("PAUSE");
     			  }
     			  break;
-    		  case 4: //todo modificar el contador de la seleccion.
-    			  if(controller_removerJugador(listaJugadores,listaSelecciones)==0)
+    		  case 4:
+    			  if(ll_isEmpty(listaJugadores)==0)
     			  {
-    				  printf("\nJugador eliminado correctamente!\n");
+    				  if(controller_removerJugador(listaJugadores,listaSelecciones)==0)
+    				  {
+    					  printf("\nJugador eliminado correctamente!\n");
+    				  }else{
+    					  printf("\n[!]No se encontro o no se pudo eliminar al jugador!\n");
+    				  }system("PAUSE");
     			  }else{
-    				  printf("\n[!]No se encontro o no se pudo eliminar al jugador!\n");
-    			  }system("PAUSE");
+    				  printf("\nPrimero debe cargarse al menos un jugador!\n");
+    				  system("PAUSE");
+    			  }
     			  break;
     		  case 5:
-    			  menuListados(listaJugadores,listaSelecciones);
+    			  if(ll_isEmpty(listaJugadores)==0)
+    			  {
+    				  menuListados(listaJugadores,listaSelecciones);
+    			  }else{
+    				  printf("\nAun no se cargaron jugadores!\n");
+    				  system("PAUSE");
+    			  }
     			  break;
     		  case 6:
-    			  controller_editarSeleccion(listaSelecciones,listaJugadores);
+    			  if(ll_isEmpty(listaJugadores)==0)
+    			  {
+    				  controller_editarSeleccion(listaSelecciones,listaJugadores);
+    			  }else{
+    				  printf("\nAun no hay jugadores cargados!\n");
+    				  system("PAUSE");
+    			  }
+    			  break;
+    		  case 7:
+    			  if(ll_isEmpty(listaJugadores)==0&&cConvocados>0)
+    			  {
+    				  ordenarYlistar(listaJugadores,listaSelecciones);
+    			  }else{
+    				  printf("\nError, aun no hay altas o no se convoco a ningun jugador!\n");
+    				  system("PAUSE");
+    			  }
+    			  break;
+    		  case 8:
+    			  //flag
+    			  controller_guardarJugadoresModoBinario("JugadoresFiltrados.bin",listaJugadores,listaSelecciones);
+    			  break;
+    		  case 9:
+    			  leerBinario("JugadoresFiltrados.bin",listaJugadores,listaSelecciones);
+    			  break;
+    		  case 10:
+    			  if(ll_isEmpty(listaJugadores)==0 &&
+    					controller_guardarJugadoresModoTexto("jugadores.csv",listaJugadores)==0 &&
+						controller_guardarSeleccionesModoTexto("selecciones.csv",listaSelecciones)==0)
+    			  {
+    				  printf("\nArchivos guardados!\n");
+    			  }else{
+    				  printf("\nOcurrio un error o aun no hay jugadores para guardar!\n");
+    			  }system("PAUSE");
     			  break;
     		  case 11:
     			  continuar = 0;
@@ -89,7 +139,6 @@ int main(void)
     		}
 
     	}
-
 
     }while(continuar == 1);
 

@@ -23,16 +23,6 @@ Jugador* jug_newParametros(int id,char* nombreCompletoStr,char* edadStr, char* p
 		jug_setPosicion(aux,posicionStr);
 		jug_setNacionalidad(aux,nacionalidadStr);
 		jug_setIdSeleccion(aux,atoi(idSeleccionStr));
-
-		/*(aux->id = atoi(idStr); //OK
-		strncpy(aux->nombreCompleto,nombreCompletoStr,100); //OK
-		aux->edad = atoi(edadStr); //OK
-		strncpy(aux->posicion,posicionStr,30); //OK
-		strncpy(aux->nacionalidad,nacionalidadStr,30); //OK
-		aux->idSeleccion = atoi(idSeleccionStr); //OK
-		*/
-		//todo Programar setters!
-
 	}
 	return aux;
 }
@@ -366,7 +356,7 @@ int listarJugadoresConvocados(LinkedList* lista,LinkedList* listaSelecciones,int
 	char nacionalidad[30];
 	int idSeleccion;
 	char seleccion[30];
-
+	int contador=0;
 	Jugador* aux = NULL;
 
 	if(lista!=NULL)
@@ -391,22 +381,33 @@ int listarJugadoresConvocados(LinkedList* lista,LinkedList* listaSelecciones,int
 				jug_getNacionalidad(aux,nacionalidad);
 				obtenerSeleccionxID(listaSelecciones,idSeleccion,seleccion);
 				printf("\n|%4d|%-25s|%6d|%-22s|%-16s|%-11s|",id,nombre,edad,posicion,nacionalidad,seleccion);
+				contador++;
 			}
 		}
+		if(contador==0)
+		{
+			system("CLS");
+			printf("\n-------------------------------------------------------------------------------------------");
+			printf("\n->Aun no hay jugadores convocados!");
+		}
+
 		retorno = 0;
 	}
 
 	return retorno;
 }
 
-int bajaJugador(LinkedList* lista, int idAeliminar)
+int bajaJugador(LinkedList* lista, int idAeliminar,LinkedList* listaSeleccion)
 {
 	int retorno = -1;
 	int tam;
 	Jugador* aux = NULL;
+	Seleccion* auxS=NULL;
 	int bufId;
 	char nombre[100];
 	int confirmar;
+	int idSeleccion;
+	int convocados;
 
 	if(lista!=NULL)
 	{
@@ -422,6 +423,11 @@ int bajaJugador(LinkedList* lista, int idAeliminar)
 				if(utn_pedirInt(&confirmar,"Ingrese (1)Para CONFIRMAR o (2)Para CANCELAR: ",
 					"\n[!]No es una opcion valida, reintente.",1,2,3)==0 && confirmar == 1)
 				{
+					jug_getIdSeleccion(aux,&idSeleccion);
+					auxS=ll_get(listaSeleccion,obtenerIndiceSeleccion(listaSeleccion,idSeleccion));
+					selec_getConvocados(auxS,&convocados);
+					convocados--;
+					selec_setConvocados(auxS,convocados);
 					retorno = ll_remove(lista,i);
 				}
 				break;
@@ -535,6 +541,88 @@ int obtenerIndiceJugador(LinkedList* listaJugadores,int id)
 	return retorno;
 }
 
+int jug_ordenarPorNacionalidad(void* this, void* this2)
+{
+	int retorno = 0;
+	Jugador* j1;
+	Jugador* j2;
+
+	char nacionalidad[30];
+	char nacionalidad2[30];
+
+	j1=(Jugador*)this;
+	j2=(Jugador*)this2;
+
+	jug_getNacionalidad(j1,nacionalidad);
+	jug_getNacionalidad(j2,nacionalidad2);
+
+	if(this!=NULL && this2!=NULL)
+	{
+		if(strcmp(nacionalidad,nacionalidad2)>0)
+		{
+			retorno = 1;
+		}else{
+			retorno = -1;
+		}
+	}
+	return retorno;
+}
+
+int jug_ordenarPorNombre(void* this, void* this2)
+{
+	int retorno = 0;
+	Jugador* j1;
+	Jugador* j2;
+
+	char nombre[30];
+	char nombre2[30];
+
+	j1=(Jugador*)this;
+	j2=(Jugador*)this2;
+
+	jug_getNombreCompleto(j1,nombre);
+	jug_getNombreCompleto(j2,nombre2);
+
+	if(this!=NULL && this2!=NULL)
+	{
+		if(strcmp(nombre,nombre2)>0)
+		{
+			retorno = 1;
+		}else{
+			retorno = -1;
+		}
+	}
+	return retorno;
+}
+
+int jug_ordenarPorEdad(void* this, void* this2)
+{
+	int retorno = 0;
+	Jugador* j1;
+	Jugador* j2;
+
+	int edad;
+	int edad2;
+
+	j1=(Jugador*)this;
+	j2=(Jugador*)this2;
+
+	jug_getEdad(j1,&edad);
+	jug_getEdad(j2,&edad2);
+
+	if(this!=NULL && this2!=NULL)
+	{
+		if(edad>edad2)
+		{
+			retorno = 1;
+		}else{
+			retorno = -1;
+		}
+	}
+	return retorno;
+}
+
+
 //-------------------------------------Setters y getters----------------------------------------------------||
 
 int jug_setId(Jugador* this,int id)
@@ -606,7 +694,7 @@ int jug_getNombreCompleto(Jugador* this,char* nombreCompleto)
 	return retorno;
 }
 
-int jug_setPosicion(Jugador* this,char* posicion)//todo posiciones!
+int jug_setPosicion(Jugador* this,char* posicion)
 {
 	int retorno = -1;
 	if(this!=NULL && posicion!=NULL)
@@ -687,7 +775,7 @@ int jug_setIdSeleccion(Jugador* this,int idSeleccion)
 {
 	int retorno = -1;
 
-	if(this!=NULL) //todo validar tambien el idSeleccion
+	if(this!=NULL)
 	{
 		this->idSeleccion = idSeleccion;
 	}

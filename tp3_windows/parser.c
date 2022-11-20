@@ -52,9 +52,53 @@ int parser_JugadorFromText(FILE* pFile , LinkedList* pArrayListJugador)
  * \return int
  *
  */
-int parser_JugadorFromBinary(FILE* pFile , LinkedList* pArrayListJugador)
+int parser_JugadorFromBinary(FILE* pFile , LinkedList* pArrayListJugador,LinkedList* listaSelecciones)
 {
-    return 1;
+	int retorno=-1;
+	Jugador* aux=NULL;
+	int id;
+	int idAux;
+	char nombre[100];
+	int edad;
+	char posicion[30];
+	char nacionalidad[30];
+	int idSeleccion;
+	char seleccion[30];
+
+	if(pFile!=NULL && pArrayListJugador!=NULL)
+	{
+		retorno=0;
+		aux = jug_new();
+		system("CLS");
+		printf("\n| ID |     NOMBRE COMPLETO     | EDAD |       POSICION       |  NACIONALIDAD  | SELECCION  |");
+		printf("\n-------------------------------------------------------------------------------------------");
+		do
+		{
+			if(aux!=NULL)
+			{
+				fread(aux,sizeof(Jugador),1,pFile);
+				jug_getId(aux,&id);
+				jug_getNombreCompleto(aux,nombre);
+				jug_getEdad(aux,&edad);
+				jug_getPosicion(aux,posicion);
+				jug_getNacionalidad(aux,nacionalidad);
+				jug_getIdSeleccion(aux,&idSeleccion);
+				obtenerSeleccionxID(listaSelecciones,idSeleccion,seleccion);
+				if(id!=idAux)
+				{
+					printf("\n|%4d|%-25s|%6d|%-22s|%-16s|%-11s|",id,nombre,edad,posicion,nacionalidad,seleccion);
+				}
+				idAux=id;
+			}
+		}while(!feof(pFile));
+		free(aux);
+		if(fclose(pFile)!=0){
+			printf("\nNo se pudo cerrar el archivo bin!");
+			retorno = -1;
+		}
+	}
+
+    return retorno;
 }
 
 

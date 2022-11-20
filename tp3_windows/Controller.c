@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "Controller.h"
 #include "Jugador.h"
 #include "Seleccion.h"
 #include "LinkedList.h"
@@ -23,6 +24,7 @@ int controller_cargarJugadoresDesdeTexto(char* path , LinkedList* pArrayListJuga
 	if(path!=NULL && pArrayListJugador!=NULL)
 	{
 		pArchivo = fopen(path,"r");
+		ll_clear(pArrayListJugador);
 		if(pArchivo!=NULL && parser_JugadorFromText(pArchivo,pArrayListJugador)==0)
 		{
 			retorno = 0;
@@ -144,7 +146,7 @@ int controller_removerJugador(LinkedList* pArrayListJugador,LinkedList* seleccio
 		listarJugadores(pArrayListJugador,selecciones,1);
 		if(utn_pedirInt(&idAeliminar,"\n>Ingrese el ID del jugador que desea eliminar: ",
 				"\n[!]Error, reintente.",1,999,3)==0 &&
-				bajaJugador(pArrayListJugador,idAeliminar)==0)
+				bajaJugador(pArrayListJugador,idAeliminar,selecciones)==0)
 		{
 			retorno = 0;
 		}
@@ -180,7 +182,48 @@ int controller_listarJugadores(LinkedList* pArrayListJugador,LinkedList* selecci
  */
 int controller_ordenarJugadores(LinkedList* pArrayListJugador)
 {
-    return 1;
+	int retorno = -1;
+	int opcion;
+	int continuar=1;
+
+	if(pArrayListJugador!=NULL)
+	{
+		do{
+			system("CLS");
+			printf("---ORDENAMIENTO DE JUGADORES---"
+					"\n1.Ordenar por nacionalidad."
+					"\n2.Ordenar por edad."
+					"\n3.ordenar por nombre."
+					"\n4.Cancelar.");
+			if(utn_pedirInt(&opcion,"\n>Ingrese la opcion: ","\n[!]Error, reintente.",1,4,3)==0)
+			{
+				switch(opcion)
+				{
+				case 1:
+					ll_sort(pArrayListJugador,jug_ordenarPorNacionalidad,1);
+					retorno = 0;
+					continuar = 0;
+					break;
+				case 2:
+					ll_sort(pArrayListJugador,jug_ordenarPorEdad,1);
+					retorno = 0;
+					continuar = 0;
+					break;
+				case 3:
+					ll_sort(pArrayListJugador,jug_ordenarPorNombre,1);
+					retorno = 0;
+					continuar = 0;
+					break;
+				case 4:
+					continuar=0;
+					break;
+				}
+			}
+		}while(continuar==1);
+
+	}
+
+    return retorno;
 }
 
 /** \brief Guarda los datos de los jugadores en el archivo jugadores.csv (modo texto).
@@ -192,7 +235,45 @@ int controller_ordenarJugadores(LinkedList* pArrayListJugador)
  */
 int controller_guardarJugadoresModoTexto(char* path , LinkedList* pArrayListJugador)
 {
-    return 1;
+	int retorno = -1;
+	int tam;
+	FILE* archivo=NULL;
+	Jugador* aux = NULL;
+
+	int id;
+	char nombre[100];
+	int edad;
+	char posicion[30];
+	char nacionalidad[30];
+	int idSeleccion;
+
+	if(pArrayListJugador!=NULL && path!=NULL)
+	{
+		archivo=fopen(path,"w");
+		if(archivo!=NULL)
+		{
+			tam=ll_len(pArrayListJugador);
+			fprintf(archivo,"id,nombreCompleto,edad,posicion,nacionalidad,idSeleccion\n");
+			for(int i=0;i<tam;i++)
+			{
+				aux=ll_get(pArrayListJugador,i);
+				if(aux!=NULL)
+				{
+					jug_getId(aux,&id);
+					jug_getNombreCompleto(aux,nombre);
+					jug_getEdad(aux,&edad);
+					jug_getPosicion(aux,posicion);
+					jug_getNacionalidad(aux,nacionalidad);
+					jug_getIdSeleccion(aux,&idSeleccion);
+					fprintf(archivo,"%d,%s,%d,%s,%s,%d\n",id,nombre,edad,posicion,nacionalidad,idSeleccion);
+				}
+			}
+			retorno=0;
+		}
+	}
+
+
+    return retorno;
 }
 
 /** \brief Guarda los datos de los jugadores en el archivo binario.
@@ -202,9 +283,68 @@ int controller_guardarJugadoresModoTexto(char* path , LinkedList* pArrayListJuga
  * \return int
  *
  */
-int controller_guardarJugadoresModoBinario(char* path , LinkedList* pArrayListJugador)
+int controller_guardarJugadoresModoBinario(char* path , LinkedList* pArrayListJugador,LinkedList* listaSeleccion)
 {
-    return 1;
+    int retorno = -1;
+    int idConfe;
+    char filtroConfederacion[30];
+    char bufferConfederacion[30];
+    int tamJugadores;
+    FILE* archivo=NULL;
+    Jugador* auxJug=NULL;
+    int idSeleccion;
+    Seleccion* auxSelec=NULL;
+    int contador=0;
+
+	if(pArrayListJugador!=NULL && listaSeleccion!=NULL &&path!=NULL)
+    {
+		system("CLS");
+		printf("\n-----EXPORTAR JUGADORES EN BINARIO (segun confederacion)-----"
+				"\n1.CONMEBOL"
+				"\n2.UEFA"
+				"\n3.AFC"
+				"\n4.CAF"
+				"\n5.CONCACAF"
+				"\n6.OFC");
+		if(utn_pedirInt(&idConfe,"\nSeleccione la confederacion de los jugadores que desea exportar: ","[!]Error,reintente.",1,6,3)==0)
+		{
+			obtenerConfederacion(idConfe,filtroConfederacion);
+
+			archivo=fopen(path,"wb");
+			if(archivo!=NULL)
+			{
+				tamJugadores=ll_len(pArrayListJugador);
+				for(int i=0;i<tamJugadores;i++)
+				{
+					auxJug=ll_get(pArrayListJugador,i);
+					jug_getIdSeleccion(auxJug,&idSeleccion);
+					auxSelec=ll_get(listaSeleccion,obtenerIndiceSeleccion(listaSeleccion,idSeleccion));
+					selec_getConfederacion(auxSelec,bufferConfederacion);
+
+					if(strcmp(bufferConfederacion,filtroConfederacion)==0 && idSeleccion!=0)
+					{
+						fwrite(auxJug,sizeof(Jugador),1,archivo);
+						contador++;
+					}
+				}
+
+				if(contador>0)
+				{
+					retorno=0;
+					printf("\nGuardado completo!\n");
+				}else{
+					printf("\nError, esta confederacion no tiene convocados!.\n");
+				}
+
+				if(fclose(archivo)!=0){
+					printf("\nNo se pudo cerrar el archivo!.\n");
+				}
+				system("PAUSE");
+			}
+		}
+    }
+
+	return retorno;
 }
 
 
@@ -225,6 +365,7 @@ int controller_cargarSeleccionesDesdeTexto(char* path , LinkedList* pArrayListSe
 
 	if(pArrayListSeleccion!=NULL)
 	{
+		ll_clear(pArrayListSeleccion);
 		pArchivo=fopen(path,"r");
 		if(pArchivo!=NULL && parser_SeleccionFromText(pArchivo,pArrayListSeleccion)==0)
 		{
@@ -335,7 +476,17 @@ int controller_listarSelecciones(LinkedList* pArrayListSeleccion)
  */
 int controller_ordenarSelecciones(LinkedList* pArrayListSeleccion)
 {
-    return 1;
+	int retorno = -1;
+
+	if(pArrayListSeleccion!=NULL)
+	{
+		ll_sort(pArrayListSeleccion,selec_ordenarPorConfederacion,1);
+		printf("\nOrdenando...");
+		controller_listarSelecciones(pArrayListSeleccion);
+		retorno = 0;
+	}
+
+    return retorno;
 }
 
 /** \brief Guarda los datos de los selecciones en el archivo selecciones.csv (modo texto).
@@ -347,7 +498,41 @@ int controller_ordenarSelecciones(LinkedList* pArrayListSeleccion)
  */
 int controller_guardarSeleccionesModoTexto(char* path , LinkedList* pArrayListSeleccion)
 {
-    return 1;
+	int retorno = -1;
+	int tam;
+	FILE* archivo=NULL;
+	Seleccion* aux = NULL;
+
+	int id;
+	char pais[30];
+	char confederacion[30];
+	int convocados;
+
+	if(pArrayListSeleccion!=NULL && path!=NULL)
+	{
+		archivo=fopen(path,"w");
+		if(archivo!=NULL)
+		{
+			tam=ll_len(pArrayListSeleccion);
+			fprintf(archivo,"id,pais,confederacion,convocados\n");
+			for(int i=0;i<tam;i++)
+			{
+				aux=ll_get(pArrayListSeleccion,i);
+				if(aux!=NULL)
+				{
+					selec_getId(aux,&id);
+					selec_getPais(aux,pais);
+					selec_getConfederacion(aux,confederacion);
+					selec_getConvocados(aux,&convocados);
+					fprintf(archivo,"%d,%s,%s,%d\n",id,pais,confederacion,convocados);
+				}
+			}
+			retorno=0;
+		}
+	}
+
+
+	    return retorno;
 }
 
 
@@ -458,7 +643,102 @@ int menuListados(LinkedList* listaJugadores,LinkedList* listaSelecciones)
 	return retorno;
 }
 
+int ordenarYlistar(LinkedList* listaJugadores,LinkedList* listaSelecciones)
+{
+	int retorno = -1;
+	int opcion;
+	int continuar=1;
 
+	if(listaJugadores!=NULL && listaSelecciones!=NULL)
+	{
+		do{
+			system("CLS");
+			printf("-----ORDENAR Y LISTAR-----"
+				"\n1.Ordenar jugadores[->+]."
+				"\n2.Ordenar selecciones por confederacion."
+				"\n3.Volver");
 
+			if(utn_pedirInt(&opcion,"\n>Ingrese el criterio deseado: ","\n[!]Error,reintente.",1,3,3)==0)
+			{
+				switch(opcion)
+				{
+				case 1:
+					if(controller_ordenarJugadores(listaJugadores)==0)
+					{
+						controller_listarJugadores(listaJugadores,listaSelecciones);
+						printf("\n");
+						system("PAUSE");
+					}
+					break;
+				case 2:
+					if(controller_ordenarSelecciones(listaSelecciones)==0)
+					{
+						printf("\n");
+					}else{
+						printf("\nOcurrio un error en el ordenamiento de selecciones!.\n");
+						system("PAUSE");
+					}
+					break;
+				case 3:
+					continuar=0;
+					break;
+				}
+			}
+		}while(continuar==1);
+		retorno =0;
+	}
+	return retorno;
+}
 
+int obtenerConfederacion(int id,char* respuesta)
+{
+	int retorno = -1;
+	if(respuesta!=NULL && id>0)
+	{
+		switch(id)
+		{
+		case 1:
+			strcpy(respuesta,"CONMEBOL");
+			break;
+		case 2:
+			strcpy(respuesta,"UEFA");
+			break;
+		case 3:
+			strcpy(respuesta,"AFC");
+			break;
+		case 4:
+			strcpy(respuesta,"CAF");
+			break;
+		case 5:
+			strcpy(respuesta,"CONCACAF");
+			break;
+		case 6:
+			strcpy(respuesta,"OFC");
+			break;
+		}
+		retorno = 0;
+	}
 
+	return retorno;
+}
+
+int leerBinario(char* path,LinkedList* listaJugadores,LinkedList* listaSelecciones)
+{
+	int retorno = -1;
+	FILE* archivo = NULL;
+
+	if(path!=NULL)
+	{
+		archivo=fopen(path,"rb");
+		if(archivo!=NULL)
+		{
+			parser_JugadorFromBinary(archivo,listaJugadores,listaSelecciones);
+			printf("\n");
+		}else{
+			printf("\nPrimero se debe generar el archivo!\n");
+		}system("PAUSE");
+
+	}
+
+	return retorno;
+}

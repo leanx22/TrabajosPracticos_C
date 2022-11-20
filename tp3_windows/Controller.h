@@ -13,7 +13,7 @@ int controller_removerJugador(LinkedList* pArrayListJugador,LinkedList* seleccio
 int controller_listarJugadores(LinkedList* pArrayListJugador,LinkedList* selecciones);
 int controller_ordenarJugadores(LinkedList* pArrayListJugador);
 int controller_guardarJugadoresModoTexto(char* path , LinkedList* pArrayListJugador);
-int controller_guardarJugadoresModoBinario(char* path , LinkedList* pArrayListJugador);
+int controller_guardarJugadoresModoBinario(char* path , LinkedList* pArrayListJugador,LinkedList* listaSeleccion);
 int controller_cargarSeleccionesDesdeTexto(char* path , LinkedList* pArrayListSeleccion);
 int controller_editarSeleccion(LinkedList* pArrayListSeleccion,LinkedList* pArrayListJugador);
 int controller_listarSelecciones(LinkedList* pArrayListSeleccion);
@@ -42,4 +42,24 @@ int actualizarArchivoID(char* path,int newId);
 /// @return
 int menuListados(LinkedList* listaJugadores,LinkedList* listaSelecciones);
 
+/// @brief
+///
+/// @param listaJugadores
+/// @param listaSelecciones
+/// @return
+int ordenarYlistar(LinkedList* listaJugadores,LinkedList* listaSelecciones);
 
+/// @brief
+///
+/// @param id
+/// @param respuesta
+/// @return
+int obtenerConfederacion(int id,char* respuesta);
+
+/// @brief
+///
+/// @param path
+/// @param listaJugadores
+/// @param listaSelecciones
+/// @return
+int leerBinario(char* path,LinkedList* listaJugadores,LinkedList* listaSelecciones);

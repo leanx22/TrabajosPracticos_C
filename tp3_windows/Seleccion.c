@@ -25,8 +25,7 @@ Seleccion* selec_newParametros(char* idStr,char* paisStr,char* confederacionStr,
 			strcpy(aux->pais,paisStr);
 			strcpy(aux->confederacion,confederacionStr);
 			aux->convocados = atoi(convocadosStr);
-
-			//todo LOS SETTERS!
+			//Queria usar setters pero no estan declarados en seleccion.h ???
 		}
 	}
 
@@ -76,7 +75,6 @@ int selec_setConvocados(Seleccion* this,int convocados)
 	int retorno = -1;
 	if(this!=NULL)
 	{
-		//todo ?
 		this->convocados=convocados;
 		retorno = 0;
 	}
@@ -226,4 +224,32 @@ int obtenerIndiceSeleccion(LinkedList* listaSeleccion,int id)
 		}
 	}
 		return retorno;
+}
+
+
+int selec_ordenarPorConfederacion(void* this,void* this2)
+{
+	int retorno = 0;
+	Seleccion* s1; //s de seleccion
+	Seleccion* s2;
+
+	char confederacion[30];
+	char confederacion2[30];
+
+	s1=(Seleccion*)this;
+	s2=(Seleccion*)this2;
+
+	selec_getConfederacion(s1,confederacion);
+	selec_getConfederacion(s2,confederacion2);
+
+	if(this!=NULL && this2!=NULL)
+	{
+		if(strcmp(confederacion,confederacion2)>0)
+		{
+			retorno = 1;
+		}else{
+			retorno = -1;
+		}
+	}
+	return retorno;
 }
