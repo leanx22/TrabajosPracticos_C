@@ -28,38 +28,40 @@ int controller_guardarSeleccionesModoTexto(char* path , LinkedList* pArrayListSe
 /// @return Retorna el valor ID guardado en el archivo o -1 en caso de error.
 int iniciarID(char* path);
 
-/// @brief
+/// @brief Funcion que actualiza el ID a asignar en el archivo.
 ///
 /// @param path
-/// @param newId
-/// @return
+/// @param newId Valor de id nuevo.
+/// @return retorna 0 si OK O -1 si hay error.
 int actualizarArchivoID(char* path,int newId);
 
-/// @brief
+/// @brief Funcion que imprime el menu de la opcion 5, y permite elegir que listar.
 ///
 /// @param listaJugadores
 /// @param listaSelecciones
-/// @return
+/// @return retorna 0 si OK O -1 si hay error.
 int menuListados(LinkedList* listaJugadores,LinkedList* listaSelecciones);
 
-/// @brief
+/// @brief Esta funcion ordena y lista a los jugadores o selecciones segun el criterio dado.
 ///
 /// @param listaJugadores
 /// @param listaSelecciones
-/// @return
+/// @return 0 si OK o -1 en caso de error.
 int ordenarYlistar(LinkedList* listaJugadores,LinkedList* listaSelecciones);
 
-/// @brief
+/// @brief Esta funcion sirve para obtener la descripcion de la confederacion por medio de un ID
+/// (utilizado en altas)
 ///
-/// @param id
-/// @param respuesta
-/// @return
+/// @param id Id de la confederacion de la cual se desea saber la descripcion.
+/// @param respuesta Variable donde se guardara la descripcion.
+/// @return retorna 0 si OK o -1 en caso de error.
 int obtenerConfederacion(int id,char* respuesta);
 
-/// @brief
+/// @brief Funcion utlizada para leer jugadores desde un archivo binario y listarlos sin necesidad de
+/// guardarlos en una linkedList nueva.
 ///
-/// @param path
+/// @param path Nombre del archivo.
 /// @param listaJugadores
 /// @param listaSelecciones
-/// @return
+/// @return retorna 0 si OK o -1 en caso de error.
 int leerBinario(char* path,LinkedList* listaJugadores,LinkedList* listaSelecciones);

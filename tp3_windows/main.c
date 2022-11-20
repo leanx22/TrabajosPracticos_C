@@ -17,7 +17,7 @@ int main(void)
 	int continuar = 1;
 	int opcion = 0;
 	int idAux; //EL PRIMERO DEBE SER 371!
-	int cConvocados=0;
+	int flagConvocado=0;
 
     eNacionalidades listaNacionalidad[CANT_NACIONALIDADES];
     hardcodearNacionalidades(listaNacionalidad,CANT_NACIONALIDADES);
@@ -99,16 +99,16 @@ int main(void)
     			  }
     			  break;
     		  case 6:
-    			  if(ll_isEmpty(listaJugadores)==0)
+    			  if(ll_isEmpty(listaJugadores)==0 && controller_editarSeleccion(listaSelecciones,listaJugadores)==0)
     			  {
-    				  controller_editarSeleccion(listaSelecciones,listaJugadores);
+    				 flagConvocado=1;
     			  }else{
     				  printf("\nAun no hay jugadores cargados!\n");
     				  system("PAUSE");
     			  }
     			  break;
     		  case 7:
-    			  if(ll_isEmpty(listaJugadores)==0&&cConvocados>0)
+    			  if(ll_isEmpty(listaJugadores)==0 && flagConvocado!=0)
     			  {
     				  ordenarYlistar(listaJugadores,listaSelecciones);
     			  }else{

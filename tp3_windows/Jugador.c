@@ -294,10 +294,7 @@ int editarJugador(Jugador* jugador,ePosicion listaPos[],eNacionalidades listaNac
 				}
 				retorno = 0;
 			}
-
-
 		}while(continuar == 1);
-
 	}
 
 	return retorno;
@@ -387,7 +384,6 @@ int listarJugadoresConvocados(LinkedList* lista,LinkedList* listaSelecciones,int
 		if(contador==0)
 		{
 			system("CLS");
-			printf("\n-------------------------------------------------------------------------------------------");
 			printf("\n->Aun no hay jugadores convocados!");
 		}
 

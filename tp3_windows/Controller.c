@@ -24,7 +24,6 @@ int controller_cargarJugadoresDesdeTexto(char* path , LinkedList* pArrayListJuga
 	if(path!=NULL && pArrayListJugador!=NULL)
 	{
 		pArchivo = fopen(path,"r");
-		ll_clear(pArrayListJugador);
 		if(pArchivo!=NULL && parser_JugadorFromText(pArchivo,pArrayListJugador)==0)
 		{
 			retorno = 0;
@@ -365,7 +364,6 @@ int controller_cargarSeleccionesDesdeTexto(char* path , LinkedList* pArrayListSe
 
 	if(pArrayListSeleccion!=NULL)
 	{
-		ll_clear(pArrayListSeleccion);
 		pArchivo=fopen(path,"r");
 		if(pArchivo!=NULL && parser_SeleccionFromText(pArchivo,pArrayListSeleccion)==0)
 		{
@@ -733,6 +731,7 @@ int leerBinario(char* path,LinkedList* listaJugadores,LinkedList* listaSeleccion
 		if(archivo!=NULL)
 		{
 			parser_JugadorFromBinary(archivo,listaJugadores,listaSelecciones);
+			retorno = 0;
 			printf("\n");
 		}else{
 			printf("\nPrimero se debe generar el archivo!\n");

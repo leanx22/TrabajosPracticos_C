@@ -174,7 +174,7 @@ int convocarJugadorAseleccion(LinkedList* listaSeleccion,Jugador* jugador)
 
 	if(listaSeleccion!=NULL && jugador!=NULL)
 	{
-		if(utn_pedirInt(&idSeleccion,"\n>Ingrese id de la seleccion a la quie agregar al jugador: ",
+		if(utn_pedirInt(&idSeleccion,"\n>Ingrese id de la seleccion a la que agregar al jugador: ",
 				"\n[!]Error, reintente.",1,32,3)==0)
 		{
 			tam = ll_len(listaSeleccion);
