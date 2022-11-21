@@ -96,7 +96,7 @@ int main ()
 					if(flagPrimera==1 && flagSegunda==1)
 					{
 
-						if(Porcentajes(UEFA,CONMEBOL,CONCACAF,AFC,OFC,CAF,
+						if(Promedios(UEFA,CONMEBOL,CONCACAF,AFC,OFC,CAF,
 								&promUEFA,&promCONMEBOL,&promCONCACAF,&promAFC,&promOFC,&promCAF)==0 &&
 							calcMantenimiento(&promUEFA,&promCONMEBOL,&promCONCACAF,&promAFC,&promOFC,&promCAF,
 								gastoHospedaje,gastoComida,gastoTransporte,&gastoMantenimiento,&costoActualizado,&costoExtra)==0)

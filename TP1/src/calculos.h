@@ -25,7 +25,7 @@
 int mostrarResultados(float* pUEFA,float* pCONMEBOL,float* pCONCACAF,float* pAFC,float* pOFC,float* pCAF,
 		float costoMantenimiento,float costoActualizado,float comision);
 
-/// @brief Funcion encargada de realizar los calculos correspondientes a los porcentajes de las confederaciones y
+/// @brief Funcion encargada de realizar los calculos correspondientes a los promedios de las confederaciones y
 /// guardarlas en los punteros.
 ///
 /// @param cUEFA variable contador de jugadores de la confederacion UEFA.
@@ -41,7 +41,7 @@ int mostrarResultados(float* pUEFA,float* pCONMEBOL,float* pCONCACAF,float* pAFC
 /// @param promOFC puntero a variable donde se guardara el promedio de la confederacion OFC.
 /// @param promCAF puntero a variable donde se guardara el promedio de la confederacion CAF.
 /// @return retorna 0 si salio OK o -1 en caso de puntero nulo.
-int Porcentajes(int cUEFA, int cCONMEBOL,int cCONCACAF,int cAFC,int cOFC,int cCAF,
+int Promedios(int cUEFA, int cCONMEBOL,int cCONCACAF,int cAFC,int cOFC,int cCAF,
 		float* promUEFA,float* promCONMEBOL,float* promCONCACAF,float* promAFC, float* promOFC,float* promCAF);
 
 
@@ -64,12 +64,12 @@ int Porcentajes(int cUEFA, int cCONMEBOL,int cCONCACAF,int cAFC,int cOFC,int cCA
 int calcMantenimiento(float* pUEFA,float* pCONMEBOL,float* pCONCACAF,float* pAFC,float* pOFC,float* pCAF,
 		float hospedaje,float comida,float transporte,float* costoOriginal,float* costoActualizado,float* comision);
 
-/// @brief Funcion encargada de sacar porcentaje entre una cantidad de jugadores de una confederacion y los totales.
+/// @brief Funcion encargada de sacar el promedio entre una cantidad de jugadores de una confederacion y los totales.
 ///
 /// @param cConfederacion cantidad de jugadores en X confederacion.
 /// @param totalJugadores TOTAL de jugadores sin importar su confederacion,
-/// @return retorna el porcentaje calculado o 0 en caso de que se quiera dividir por 0.
-float calcularPorcentaje(int cConfederacion,int totalJugadores);
+/// @return retorna el promedio calculado o 0 en caso de que se quiera dividir por 0.
+float calcularPromedio(int cConfederacion,int totalJugadores);
 
 
 

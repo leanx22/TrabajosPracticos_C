@@ -204,6 +204,9 @@ int cargaJugadores(int* cArqueros,int* cDefensores,int* cMedioc,int* cDelanteros
 								printf("\nOcurrio un problema al aniadir el jugador!\n");
 								system("PAUSE");
 							}
+						}else{
+							printf("\nYa se alcanzo la cantidad maxima de delanteros!\n");
+							system("PAUSE");
 						}
 						break;
 

@@ -40,7 +40,7 @@ int mostrarResultados(float* pUEFA,float* pCONMEBOL,float* pCONCACAF,float* pAFC
 	return retorno;
 }
 
-int Porcentajes(int cUEFA, int cCONMEBOL,int cCONCACAF,int cAFC,int cOFC,int cCAF,
+int Promedios(int cUEFA, int cCONMEBOL,int cCONCACAF,int cAFC,int cOFC,int cCAF,
 		float* promUEFA,float* promCONMEBOL,float* promCONCACAF,float* promAFC, float* promOFC,float* promCAF)
 {
 
@@ -54,12 +54,12 @@ int Porcentajes(int cUEFA, int cCONMEBOL,int cCONCACAF,int cAFC,int cOFC,int cCA
 		printf("\nREALIZANDO CALCULOS...");
 		jugadoresTotales=cUEFA+cCONMEBOL+cCONCACAF+cAFC+cOFC+cCAF;
 
-		*promUEFA=calcularPorcentaje(cUEFA,jugadoresTotales);
-		*promCONMEBOL=calcularPorcentaje(cCONMEBOL,jugadoresTotales);
-		*promCONCACAF=calcularPorcentaje(cCONCACAF,jugadoresTotales);
-		*promAFC=calcularPorcentaje(cAFC,jugadoresTotales);
-		*promOFC=calcularPorcentaje(cOFC,jugadoresTotales);
-		*promCAF=calcularPorcentaje(cCAF,jugadoresTotales);
+		*promUEFA=calcularPromedio(cUEFA,jugadoresTotales);
+		*promCONMEBOL=calcularPromedio(cCONMEBOL,jugadoresTotales);
+		*promCONCACAF=calcularPromedio(cCONCACAF,jugadoresTotales);
+		*promAFC=calcularPromedio(cAFC,jugadoresTotales);
+		*promOFC=calcularPromedio(cOFC,jugadoresTotales);
+		*promCAF=calcularPromedio(cCAF,jugadoresTotales);
 
 		retorno = 0;
 	}
@@ -101,12 +101,13 @@ int calcMantenimiento(float* pUEFA,float* pCONMEBOL,float* pCONCACAF,float* pAFC
 }
 
 
-float calcularPorcentaje(int cConfederacion,int totalJugadores){
+float calcularPromedio(int cConfederacion,int totalJugadores){
 	float retorno = 0;
 
 	if(cConfederacion!=0)
 	{
-		retorno = (cConfederacion*100)/totalJugadores;
+		//retorno = (cConfederacion*100)/totalJugadores;
+		retorno= (float)cConfederacion/totalJugadores;
 	}
 	return retorno;
 }
