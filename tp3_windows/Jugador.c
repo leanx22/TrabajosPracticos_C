@@ -5,6 +5,7 @@
 #include "Jugador.h"
 #include "utn.h"
 #include "Seleccion.h"
+#include <ctype.h>
 
 Jugador* jug_new()
 {
@@ -305,6 +306,7 @@ int listarJugadores(LinkedList* lista,LinkedList* listaSelecciones,int cls)
 	int retorno = -1;
 	int tam;
 
+	int auxid;
 	int id;
 	char nombre[100];
 	int edad;
@@ -334,7 +336,11 @@ int listarJugadores(LinkedList* lista,LinkedList* listaSelecciones,int cls)
 			jug_getNacionalidad(aux,nacionalidad);
 			jug_getIdSeleccion(aux,&idSeleccion);
 			obtenerSeleccionxID(listaSelecciones,idSeleccion,seleccion);
-			printf("\n|%4d|%-25s|%6d|%-22s|%-16s|%-11s|",id,nombre,edad,posicion,nacionalidad,seleccion);
+			if(auxid!=id && id!=0)
+			{
+				printf("\n|%4d|%-25s|%6d|%-22s|%-16s|%-11s|",id,nombre,edad,posicion,nacionalidad,seleccion);
+			}
+			auxid=id;
 		}
 		retorno = 0;
 	}
@@ -416,7 +422,13 @@ int bajaJugador(LinkedList* lista, int idAeliminar,LinkedList* listaSeleccion)
 			if(bufId==idAeliminar)
 			{
 				jug_getNombreCompleto(aux,nombre);
+				jug_getIdSeleccion(aux,&idSeleccion);
 				printf("\nSe va a eliminar a %s",nombre);
+
+				if(idSeleccion!=0){
+					printf("\nCUIDADO: este jugador se encuentra CONVOCADO, se restara este jugador al contador de la seleccion!");
+				}
+
 				if(utn_pedirInt(&confirmar,"Ingrese (1)Para CONFIRMAR o (2)Para CANCELAR: ",
 					"\n[!]No es una opcion valida, reintente.",1,2,3)==0 && confirmar == 1)
 				{
@@ -462,7 +474,8 @@ Jugador* convocarJugador(LinkedList*listaJugadores)
 					retorno = aux;
 					break;
 				}else{
-					printf("\nEl jugador esta convocado en otra seleccion!");
+					printf("\nError!, el jugador ya esta convocado!\n");
+					system("PAUSE");
 					break;
 				}
 			}
@@ -582,6 +595,9 @@ int jug_ordenarPorNombre(void* this, void* this2)
 
 	if(this!=NULL && this2!=NULL)
 	{
+		nombre[0]=tolower(nombre[0]);
+		nombre2[0]=tolower(nombre2[0]);
+
 		if(strcmp(nombre,nombre2)>0)
 		{
 			retorno = 1;

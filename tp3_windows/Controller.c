@@ -52,9 +52,15 @@ int controller_cargarJugadoresDesdeBinario(char* path , LinkedList* pArrayListJu
 		archivo=fopen(path,"rb");
 		if(archivo!=NULL)
 		{
+			ll_clear(pArrayListJugador);
+			//ll_clear(listaSelecciones);
+			if(ll_isEmpty(listaSelecciones)==1)
+			{
+				controller_cargarSeleccionesDesdeTexto("selecciones.csv",listaSelecciones);
+			}
 			parser_JugadorFromBinary(archivo,pArrayListJugador,listaSelecciones);
 			retorno = 0;
-			printf("\n");
+			printf("\nCargado OK!\n");
 		}else{
 			printf("\nPrimero se debe generar el archivo!\n");
 		}system("PAUSE");
@@ -312,6 +318,7 @@ int controller_guardarJugadoresModoBinario(char* path , LinkedList* pArrayListJu
     Seleccion* auxSelec=NULL;
     int contador=0;
 
+
 	if(pArrayListJugador!=NULL && listaSeleccion!=NULL &&path!=NULL)
     {
 		system("CLS");
@@ -413,7 +420,7 @@ int controller_editarSeleccion(LinkedList* pArrayListSeleccion,LinkedList* pArra
 			system("CLS");
 			printf("EDITAR SELECCIONES"
 					"\n1.Convocar Jugadores."
-					"\n2.Quitar Jugadores."
+					"\n2.Quitar Jugador de la seleccion."
 					"\n3.Volver");
 
 			if(utn_pedirInt(&opcion,"\nIngrese una opcion: ","\n[!]Error, reintente.",1,3,3)==0)

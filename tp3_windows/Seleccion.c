@@ -228,6 +228,33 @@ int obtenerIndiceSeleccion(LinkedList* listaSeleccion,int id)
 		return retorno;
 }
 
+int sumarJugadorAseleccion(LinkedList* listaSeleccion,Jugador* jugador)
+{
+	int retorno = -1;
+	Seleccion* aux=NULL;
+	int idSeleccion;
+	int indice;
+	int convocados;
+
+	if(listaSeleccion!=NULL && jugador!=NULL)
+	{
+		jug_getIdSeleccion(jugador,&idSeleccion);
+		indice=obtenerIndiceSeleccion(listaSeleccion,idSeleccion);
+		aux=ll_get(listaSeleccion,indice);
+		selec_getConvocados(aux,&convocados);
+		if(convocados<22){
+			convocados+=1;
+			selec_setConvocados(aux,convocados);
+			retorno=0;
+		}else{
+			printf("\nUno o mas jugadores no pudieron ser agregados a la seleccion porque esta llena!\n");
+			system("PAUSE");
+		}
+
+	}
+
+	return retorno;
+}
 
 int selec_ordenarPorConfederacion(void* this,void* this2)
 {

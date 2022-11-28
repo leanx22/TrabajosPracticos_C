@@ -18,6 +18,7 @@ int main(void)
 	int opcion = 0;
 	int idAux; //EL PRIMERO DEBE SER 371!
 	int flagConvocado=0;
+	int guardado = 0;
 
     eNacionalidades listaNacionalidad[CANT_NACIONALIDADES];
     hardcodearNacionalidades(listaNacionalidad,CANT_NACIONALIDADES);
@@ -41,12 +42,13 @@ int main(void)
     		switch(opcion)
     		{
     		  case 1:
-    			  if(controller_cargarJugadoresDesdeTexto("jugadores.csv",listaJugadores) ==0 &&
-    			  controller_cargarSeleccionesDesdeTexto("selecciones.csv",listaSelecciones)==0)
+    			  if(ll_isEmpty(listaJugadores) ==1 &&
+    				controller_cargarJugadoresDesdeTexto("jugadores.csv",listaJugadores) ==0 &&
+					controller_cargarSeleccionesDesdeTexto("selecciones.csv",listaSelecciones)==0)
     			  {
     				  printf("\nLos archivos se cargaron satisfactoriamente!.\n");
     			  }else{
-    				  printf("\nOcurrio un error al intentar abrir los archivos!.\n");
+    				  printf("\nOcurrio un error al intentar abrir los archivos o ya estan cargados!.\n");
     			  }
     			  system("PAUSE");
     		  break;
@@ -55,6 +57,7 @@ int main(void)
     					&idAux,listaPosiciones,CANT_POS)==0 && actualizarArchivoID(ARCHIVO_ID,idAux)==0)
     			  {
     				  printf("\n>Jugador agregado satisfactoriamente!\n");
+    				  guardado = 0;
     			  }else{
     				  printf("\nOcurrio un problema al aniadir al jugador.\n");
     			  }
@@ -69,6 +72,8 @@ int main(void)
     				  {
     					  printf("\nError en edicion.\n");
     					  system("PAUSE");
+    				  }else{
+    					  guardado = 0;
     				  }
     			  }else{
     				  printf("\nAun no hay jugadores para editar!\n");
@@ -81,6 +86,7 @@ int main(void)
     				  if(controller_removerJugador(listaJugadores,listaSelecciones)==0)
     				  {
     					  printf("\nJugador eliminado correctamente!\n");
+    					  guardado = 0;
     				  }else{
     					  printf("\n[!]No se encontro o no se pudo eliminar al jugador!\n");
     				  }system("PAUSE");
@@ -104,6 +110,7 @@ int main(void)
     				  if(controller_editarSeleccion(listaSelecciones,listaJugadores)==0)
     				  {
     					  flagConvocado=1;
+    					  guardado = 0;
     				  }
     			  }else{
     				  printf("\nSe necesita cargar el archivo de selecciones y tener al menos un jugador cargado!\n");
@@ -136,13 +143,22 @@ int main(void)
     					controller_guardarJugadoresModoTexto("jugadores.csv",listaJugadores)==0 &&
 						controller_guardarSeleccionesModoTexto("selecciones.csv",listaSelecciones)==0)
     			  {
+    				  guardado = 1;
     				  printf("\nArchivos guardados!\n");
     			  }else{
     				  printf("\nOcurrio un error o aun no hay jugadores para guardar!\n");
     			  }system("PAUSE");
     			  break;
     		  case 11:
-    			  continuar = 0;
+    			 if(guardado!=1){
+    				 printf("\nPuede que tenga cambios sin guardar (opcion 10), salir de todas formas?\n1.Si\n2.Volver");
+    				 utn_pedirInt(&opcion,"\nIngrese una opcion: ","\nError, reintente.",1,2,99);
+    				 if(opcion==1){
+    					 continuar=0;
+    				 }
+    			 }else{
+    				 continuar = 0;
+    			 }
     			 break;
     		}
 

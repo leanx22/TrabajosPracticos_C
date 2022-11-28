@@ -287,7 +287,7 @@ int utn_esNombre(char* cadena,int tamMax)
 
 	int i=0;
 
-	if(cadena!=NULL && strlen(cadena)>tamMax)
+	if(cadena!=NULL && strlen(cadena)<tamMax)
 	{
 		if(cadena[strlen(cadena)-1]=='\n')
 		{
@@ -301,6 +301,7 @@ int utn_esNombre(char* cadena,int tamMax)
 				retorno = -1;
 				break;
 			}
+			i++;
 		}
 
 	}

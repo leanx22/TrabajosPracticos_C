@@ -3,6 +3,7 @@
 #include "LinkedList.h"
 #include "Jugador.h"
 #include "Seleccion.h"
+#include "utn.h"
 
 /** \brief Parsea los datos de los jugadores desde el archivo jugadores.csv (modo texto).
  *
@@ -13,6 +14,7 @@
 int parser_JugadorFromText(FILE* pFile , LinkedList* pArrayListJugador)
 {
 	int retorno = -1;
+
 
 	char bufId[4];
 	char bufNombre[100];
@@ -29,7 +31,6 @@ int parser_JugadorFromText(FILE* pFile , LinkedList* pArrayListJugador)
 		do{
 			if(fscanf(pFile,"%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n",bufId,bufNombre,bufEdad,bufPos,nacionalidad,idSeleccion)==6)
 			{
-
 				aux = jug_newParametros(atoi(bufId),bufNombre,bufEdad,bufPos,nacionalidad,idSeleccion);
 				retorno = ll_add(pArrayListJugador,aux);
 			}
@@ -54,51 +55,37 @@ int parser_JugadorFromText(FILE* pFile , LinkedList* pArrayListJugador)
  */
 int parser_JugadorFromBinary(FILE* pFile , LinkedList* pArrayListJugador,LinkedList* listaSelecciones)
 {
-	int retorno=-1;
-	Jugador* aux=NULL;
-	int id;
-	int idAux;
+	int retorno = -1;
+	Jugador* aux = NULL;
 	char nombre[100];
-	int edad;
-	char posicion[30];
-	char nacionalidad[30];
-	int idSeleccion;
-	char seleccion[30];
 
 	if(pFile!=NULL && pArrayListJugador!=NULL)
 	{
-		retorno=0;
-		aux = jug_new();
-		system("CLS");
-		printf("\n| ID |     NOMBRE COMPLETO     | EDAD |       POSICION       |  NACIONALIDAD  | SELECCION  |");
-		printf("\n-------------------------------------------------------------------------------------------");
-		do
-		{
+		retorno = 0;
+		do{
+			aux=jug_new();
 			if(aux!=NULL)
 			{
 				fread(aux,sizeof(Jugador),1,pFile);
-				jug_getId(aux,&id);
 				jug_getNombreCompleto(aux,nombre);
-				jug_getEdad(aux,&edad);
-				jug_getPosicion(aux,posicion);
-				jug_getNacionalidad(aux,nacionalidad);
-				jug_getIdSeleccion(aux,&idSeleccion);
-				obtenerSeleccionxID(listaSelecciones,idSeleccion,seleccion);
-				if(id!=idAux)
+				if(utn_esNombre(nombre,100)==0)
 				{
-					printf("\n|%4d|%-25s|%6d|%-22s|%-16s|%-11s|",id,nombre,edad,posicion,nacionalidad,seleccion);
+					ll_add(pArrayListJugador,aux);
+					//sumarJugadorAseleccion(listaSelecciones,aux);
 				}
-				idAux=id;
+
 			}
 		}while(!feof(pFile));
-		free(aux);
-		if(fclose(pFile)!=0){
-			printf("\nNo se pudo cerrar el archivo bin!");
+
+		if(fclose(pFile)!=0)
+		{
+			printf("\nHubo un error al intentar cerrar el archivo!");
 			retorno = -1;
 		}
+
 	}
 
-    return retorno;
+	return retorno;
 }
 
 

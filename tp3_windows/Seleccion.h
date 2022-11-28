@@ -55,6 +55,13 @@ int convocarJugadorAseleccion(LinkedList* listaSeleccion,Jugador* jugador);
 /// @return retorna el indice de la seleccion o -1 en caso de que no exista.
 int obtenerIndiceSeleccion(LinkedList* listaSeleccion,int id);
 
+/// @brief todo
+///
+/// @param listaSeleccion
+/// @param jugador
+/// @return
+int sumarJugadorAseleccion(LinkedList* listaSeleccion,Jugador* jugador);
+
 /// @brief Funcion criterio de ordenamiento para usarse con ll_sort();
 ///
 /// @param this
