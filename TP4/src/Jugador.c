@@ -6,6 +6,7 @@
 #include "utn.h"
 #include "Seleccion.h"
 #include <ctype.h>
+#include "LinkedList.h"
 
 Jugador* jug_new()
 {
@@ -362,18 +363,21 @@ int listarJugadoresConvocados(LinkedList* lista,LinkedList* listaSelecciones,int
 	char seleccion[30];
 	int contador=0;
 	Jugador* aux = NULL;
+//	LinkedList* listaAux=NULL;
 
 	if(lista!=NULL)
 	{
+		//listaAux = ll_newLinkedList();
+		LinkedList* listaAux = ll_filter(lista,jug_filtrarConvocados);
 		if(cls==1){
 			system("CLS");
 		}
 		printf("\n| ID |     NOMBRE COMPLETO     | EDAD |       POSICION       |  NACIONALIDAD  | SELECCION  |");
 		printf("\n-------------------------------------------------------------------------------------------");
-		tam = ll_len(lista);
+		tam = ll_len(listaAux);
 		for(int i=0;i<tam;i++)
 		{
-			aux=ll_get(lista,i);
+			aux=ll_get(listaAux,i);
 			jug_getIdSeleccion(aux,&idSeleccion);
 			if(idSeleccion!=0)
 			{
@@ -807,5 +811,21 @@ int jug_getIdSeleccion(Jugador* this,int* idSeleccion)
 	return retorno;
 }
 
+int jug_filtrarConvocados(void* pElement){
+	int retorno=-1;
+	if(pElement!=NULL){
+		retorno = 0;
+		if(((Jugador*)pElement)->idSeleccion!=0){
+			retorno = 1;
+		}
+	}
 
+	return retorno;
+}
 
+void todosJovenes(void* pElement)
+{
+
+	((Jugador*)pElement)->edad=18;
+
+}

@@ -40,7 +40,7 @@ int main(void)
     	if(utn_pedirInt(&opcion,"\nMENU:\n1.Cargar archivos.\n2.Alta de jugador.\n3.Modificar jugador.\n4.Baja de jugador."
     			"\n5.Listados\n6.Convocar jugadores.\n7.Ordenar y listar.\n8.Generar archivo binario.\n9.Cargar archivo binario."
     			"\n10.Guardar archivos .csv.\n11.Clonar lista.\n12.Eliminar lista clonada.\n13.Comparar listas.\n14.MAP.\n15.Salir\n\n>Ingrese una opcion: ",
-				"\nError, reintente.",1,14,99)==0)
+				"\nError, reintente.",1,15,99)==0)
     	{
     		switch(opcion)
     		{
@@ -188,9 +188,10 @@ int main(void)
     			  }system("PAUSE");
     			  break;
     		  case 14:
+    			  ll_map(listaJugadores,todosJovenes);
     			  break;
     		  case 15:
-    			  ll_map();
+
     			 if(guardado!=1)
     			 {
     				 printf("\nPuede que tenga cambios sin guardar (opcion 10), salir de todas formas?\n1.Si\n2.Volver");

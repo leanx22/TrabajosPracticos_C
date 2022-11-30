@@ -149,8 +149,9 @@ int quitarJugadorDeSeleccion(LinkedList*listaJugadores,LinkedList* listaSeleccio
 /// @return Retorna el indice encontrado o -1 en caso de inexistencia.
 int obtenerIndiceJugador(LinkedList* listaJugadores,int id);
 
+int jug_filtrarConvocados(void* pElement);
 
-int mapear();
+void todosJovenes(void* pElement);
 
 //FUNCIONES PARAMETRO PARA LL_SORT()
 int jug_ordenarPorNacionalidad(void* this, void* this2);

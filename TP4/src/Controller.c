@@ -669,7 +669,7 @@ int menuListados(LinkedList* listaJugadores,LinkedList* listaSelecciones,LinkedL
 		printf("Que desea mostrar?:"
 				"\n1.Todos los jugadores."
 				"\n2.Todas las selecciones."
-				"\n3.Solo jugadores convocados."
+				"\n3.Solo jugadores convocados.(ll_filter)"
 				"\n4.Listar lista de jugadores clonada."
 				"\n5.Salir.");
 		if(utn_pedirInt(&opcion,"\n>Ingrese opcion: ","\n[!]Error, reingrese.",1,5,3)==0)
